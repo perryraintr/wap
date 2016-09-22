@@ -1,0 +1,60 @@
+.round {
+	padding:2px;
+	border: 1px solid #f7528c;
+	-moz-border-radius: 2px;      /* Gecko browsers */
+	-webkit-border-radius: 2px;   /* Webkit browsers */
+	border-radius:2px;            /* W3C syntax */
+}
+
+.swiper-slide {
+    text-align: center;
+    font-size: 18px;
+    background: #fff;
+
+    /* Center slide text vertically */
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+}
+
+.menu-wrapper {
+	position: absolute;
+	top: 37px;
+	left: 0;
+	right: 0;
+	z-index: 999;
+	text-align: center;
+	
+	width: 100%;
+}
+.mui-table-view-inverted {
+    color:white;
+    background: #d1a224;
+}
+.menu-wrapper.hidden {
+	-webkit-transform: translate3d(0, -100%, 0);
+	transform: translate3d(0, -100%, 0);
+	z-index: -1;
+}
+.mui-table-view-cell1 {
+    /* position: relative; */
+    overflow: hidden;
+    padding: 11px 15px;
+    -webkit-touch-callout: none;
+}
+.mui-table-view1 {
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-left: 0;
+    list-style: none;
+    background-color: #fff;
+}

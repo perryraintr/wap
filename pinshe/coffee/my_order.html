@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html ng-app="coffee" ng-controller="my_order">
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="height=device-height,width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0" />
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<meta name="format-detection" content="telephone=no">
+		<link rel="shortcut icon" href="">
+		<link href="css/default.css" rel="stylesheet" type="text/css" />
+		<link rel="stylesheet" href="css/mui.min.css" />
+		<script type="text/javascript" src="js/helper.js"></script>
+		<script type="text/javascript" src="js/angular.min.js"></script>
+		<script type="text/javascript" src="js/jquery-3.0.0.min.js"></script>
+		<script type="text/javascript" src="js/underscore-min.js"></script>
+		<meta name="description" content="最有温度的品质生活社区。" />
+		<title></title>
+		<link href="my_order.css" rel="stylesheet" type="text/css" />
+	</head>
+
+	<body>
+		<div ng-show="myOrderList.length == 0 && isFinished" style="text-align: center; padding-top: 20px;">
+			啊哦，没有订单啦～
+		</div>
+
+		<div ng-repeat="row in myOrderList">
+			<div style="height: 10px;"></div>
+			<div style="background-color: white;">
+				<div style="padding: 2%;">
+					<div>
+						<div style="float: left">
+							<span style="font-size: 14px; color: #404040;">店铺：品社咖啡</span>
+						</div>
+						<div style="float: right; padding-top: 5px;">
+							<span style="font-size: 14px; color: #d1a224;" ng-bind="row.status_str"></span>
+						</div>
+						<div style="clear: both;"></div>
+					</div>
+					<div>
+						<span style="font-size: 12px; color: #909090;">订单编号：</span><span style="font-size: 12px; color: #909090;" ng-bind="row.order_no"></span>
+					</div>
+				</div>
+			</div>
+			<div style="background-color: #fafafa;" ng-repeat="detail in row.details">
+				<a href="product_detail.html?id={{detail.commodity_guid}}" ng-show="!row.isMemberOrder && detail.commodity_guid > 0">
+					<div style="padding: 2%;">
+						<div style="float: left;">
+							<img ng-src="{{detail.commodity_image}}" width="124px" height="90px" />
+						</div>
+						<div style="padding-left: 134px;">
+							<div style="float: left; width: 100%;">
+								<span style="font-size: 13px; color: #404040; margin-top: -5px;" ng-bind="detail.commodity_name"></span>
+								<div style="float: right; font-size: 10px; color: #909090;">
+									<span> X </span><span ng-bind="detail.count"></span>
+								</div>
+								<div>
+									<span style="font-size: 13px; color: #404040; margin-top: -5px;" ng-bind="detail.commodity_description"></span>
+								</div>
+							</div>
+							<div style="clear: both;"></div>
+						</div>
+					</div>
+				</a>
+				<a href="nearby_cafedetail.html?id={{detail.store_guid}}" ng-show="!row.isMemberOrder && detail.store_guid > 0">
+					<div style="padding: 2%;">
+						<div style="float: left;">
+							<img ng-src="{{detail.store_image}}" width="124px" height="90px" />
+						</div>
+						<div style="padding-left: 134px;">
+							<div style="float: left; width: 100%;">
+								<span style="font-size: 13px; color: #404040; margin-top: -5px;" ng-bind="detail.store_name"></span>
+							</div>
+							<div style="clear: both;"></div>
+						</div>
+					</div>
+				</a>
+				<div style="padding: 2%;" ng-show="row.isMemberOrder">
+					<div style="float: left;">
+						<img ng-src="{{detail.commodity_image}}" width="124px" height="90px" />
+					</div>
+					<div style="padding-left: 134px;">
+						<div style="float: left; width: 100%;">
+							<span style="font-size: 13px; color: #404040; margin-top: -5px;" ng-bind="detail.commodity_name"></span>
+							<div style="float: right; font-size: 10px; color: #909090;">
+								<span> X </span><span ng-bind="detail.count"></span>
+							</div>
+							<div>
+								<span style="font-size: 13px; color: #404040; margin-top: -5px;" ng-bind="detail.commodity_description"></span>
+							</div>
+						</div>
+						<div style="clear: both;"></div>
+					</div>
+				</div>
+			</div>
+			<div style="background-color: white;">
+				<div style="padding: 2%; float: left;">
+					<span style="font-size: 14px;">合计：<span style="color: #d1a224;">￥{{row.amount}}</span></span>
+				</div>
+				<div style="padding: 2% 2% 2% 0px; float: right;" ng-show="row.status == 0">
+					<input ng-show="row.isMemberOrder" type="button" value="取消订单" width="103px" height="30px" style="margin-left: 10px;" ng-click="modifyOrder(row)" />
+					<input ng-show="!row.isMemberOrder && row.details[0].commodity_guid > 0" type="button" value="取消订单" width="103px" height="30px" style="margin-left: 10px;" ng-click="modifyOrder(row)" />
+					<input ng-show="!row.isMemberOrder && row.details[0].store_guid > 0" type="button" value="取消订单" width="103px" height="30px" style="margin-left: 10px;" ng-click="storemodifyOrder(row)" />
+					<a ng-show="row.isMemberOrder" href="product_ordertotal.html?id={{row.guid}}"><input type="button" value="去支付" width="103px" height="30px" style="background-color: #00a651; color: white;" /></a>
+					<a ng-show="!row.isMemberOrder && row.details[0].commodity_guid > 0" href="product_ordertotal.html?id={{row.guid}}"><input type="button" value="去支付" width="103px" height="30px" style="background-color: #00a651; color: white;" /></a>
+					<a ng-show="!row.isMemberOrder && row.details[0].store_guid > 0" href="nearby_ordertotal.html?id={{row.guid}}"><input type="button" value="去支付" width="103px" height="30px" style="background-color: #00a651; color: white;" /></a>
+				</div>
+				<div style="clear: both;"></div>
+			</div>
+		</div>
+
+	</body>
+	<script type="text/javascript" src="js/mui.min.js"></script>
+	<script type="text/javascript" src="js/global.js"></script>
+	<script type="text/javascript" src="my_order.js"></script>
+
+</html>

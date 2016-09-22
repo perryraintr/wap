@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html ng-app="coffee" ng-controller="coupon_detail">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="height=device-height,width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0" />
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta name="format-detection" content="telephone=no">
+	<link rel="shortcut icon" href="">
+	<!--<link href="css/mui.min.css" rel="stylesheet" type="text/css" />-->
+	<link href="css/default.css" rel="stylesheet" type="text/css" />
+	<script type="text/javascript" src="js/helper.js"></script>
+	<script type="text/javascript" src="js/angular.min.js"></script>
+	<script type="text/javascript" src="js/jquery-3.0.0.min.js"></script>
+	<script type="text/javascript" src="js/underscore-min.js"></script>
+	<script type="text/javascript" src="js/layer.js"></script>
+	<meta name="description" content="最有温度的品质生活社区。" />
+	<link href="css/swiper-3.3.1.min.css" rel="stylesheet" type="text/css" />
+	<link href="coupon_detail.css" rel="stylesheet" type="text/css" />
+	<title>品社咖啡红包</title>
+</head>
+<body style="width: 100%; background-image: url(img/couponbg.png); background-repeat:no-repeat;">
+	<div style= "display:none;"><img src="img/redicon.png" width="0px" height="0px" /></div>
+	<div style="min-height: 480px;">
+		<div style="text-align: center;">
+			<img src="img/coupontop.png" style="width: 100%;" />
+			<img ng-src="{{coupon.member_avatar}}" style="width: 60px; height: 60px; z-index: 2; margin-top: -30px; border-radius: 100%;" />
+		</div>
+		<div style="font-size: 14px; text-align: center; color: #404040;">{{coupon.member_name}}</div>
+		<div style="font-size: 13px; text-align: center; color: #909090;">扔给你一个品社红包</div>
+		
+		<div ng-show="isOverdue" style="margin-left: 10%; margin-top: 20px; padding-top: 15px; text-align: center; background-color: white; width: 80%; border-radius: 10px; height: 50px;">
+			<span style="color: #CCCCCC; font-size: 15px;">— 红包已过期 —</span>
+		</div>
+		
+		<div ng-show="coupon.status == 1" style="text-align: center; padding-top: 20px;">
+			<img src="img/coupon1.png" style="width: 85%;" />
+		</div>
+		
+		<div ng-show="coupon.status == 2 && !isMemberRed" style="text-align: center; padding-top: 20px;">
+			<img src="img/coupon2.png" style="width: 85%;" />
+		</div>
+		
+		<div style="width: 85%; padding-left: 7.5%; color: #909090; font-size: 12px;" ng-show="isMemberRed"> 
+			<div style="padding-top: 20px">会员红包须知:</div>
+ 			<div>- 小伙伴们每人可领取一个￥20 会员红包</div>
+			<div>- 小伙伴们每成功领取一个会员红包，你都将自动获得一个￥20 会员红包</div>
+		</div>
+		
+		<div style="text-align: center; padding-top: 5px; font-size: 14px; color: #999999;" ng-show="!isMemberRed">
+			到期时间：{{coupon.expire_time}}
+		</div>
+		
+		<div ng-show="tel.length == 0" style="margin-left: 10%; margin-top: 20px; padding-top: 5px; background-color: white; width: 80%; border-radius: 5px; height: 50px;">
+			<div style="clear: both;"></div>
+			<div style="float: left; padding-top: 12px; padding-left: 12px; padding-right: -10px;"><img src="img/coupontel.png" width="20px" height="20px" align="absmiddle" style="z-index: 2;"/></div>
+			<input type="text" id="tel" name="tel" placeholder="请输入11位中国手机号" style="color: #909090; float: left; font-size: 15px; padding-top: 12px; padding-left: 3px; height: 20px; border-style: none;" />
+		</div>
+		
+		<div ng-show="tel.length > 0 && isGet" style="text-align: center; padding-top: 20px;">
+			<div style="clear: both;"></div>
+			<span style="color: red; font-size: 14px;">红包已存入账号：</span><span style="color: red; font-size: 14px;">{{tel}}</span>
+		</div>
+		
+		<div ng-show="tel.length == 0" style="text-align: center; padding-top: 25px; padding-bottom: 50px;">
+			<a href="" ng-click="loginMember()"><img src="img/couponget.png" style="width: 70%;" /></a>
+		</div>
+		
+		<div ng-show="tel.length > 0" style="text-align: center; padding-top: 25px; padding-bottom: 50px;">
+			<a href="product_highgrade.html?wcid={{wcid}}"><img src="img/coupongo.png" style="width: 80%;" /></a>
+		</div>
+	</div>
+</body>
+	<script type="text/javascript" src="js/mui.min.js"></script>
+	<script type="text/javascript" src="js/swiper-3.3.1.min.js"></script>
+	<script type="text/javascript" src="js/global.js" ></script>
+	<script type="text/javascript" src="coupon_detail.js"></script>
+</html>

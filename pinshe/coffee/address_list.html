@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html ng-app="coffee" ng-controller="address_list">
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="height=device-height,width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0" />
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<meta name="format-detection" content="telephone=no">
+		<link rel="shortcut icon" href="">
+		<link href="css/default.css" rel="stylesheet" type="text/css" />
+		<script type="text/javascript" src="js/helper.js"></script>
+		<script type="text/javascript" src="js/angular.min.js"></script>
+		<script type="text/javascript" src="js/jquery-3.0.0.min.js"></script>
+		<script type="text/javascript" src="js/layer.js"></script>
+		<script type="text/javascript" src="js/underscore-min.js"></script>
+		<meta name="description" content="最有温度的品质生活社区。" />
+		<title>选择收货地址</title>
+		<link href="address_list.css" rel="stylesheet" type="text/css" />
+	</head>
+
+	<body>
+		<div style="padding-left: 2%;">
+			<a href="address_login.html?oid={{orderId}}">
+				<div style="float: right;">
+					<img src="img/arrow.png" width="20px" height="20px" style="padding: 25px 20px 10px 0px;" />
+				</div>
+				<div style="padding: 16px 10px 16px 43px; line-height: 40px; background-color: white; font-size: 14px; color: #606060; background-image: url(img/tel.png); background-repeat: no-repeat; background-size: 20px 20px; background-position: 13px center;">
+					<span ng-show="!hasTel">请输入11位中国手机号</span>
+					<span ng-show="hasTel">{{tel}}</span>
+				</div>
+			</a>
+			<div style="clear: both;"></div>
+			<div style="height: 1px; background-color: #d5d5d5;"></div>
+		</div>
+
+		<div style="padding: 2%; padding-bottom: 0px;" ng-repeat="row in consigneeList">
+			<div style="float: left; padding: 15px 15px 0px 13px;">
+				<img ng-show="row.status == 0" src="img/select.png" style="width: 20px; height: 20px; z-index: 2; position: absolute;" ng-click="addChoose(row)" />
+				<img ng-show="row.status == 1" src="img/selected.png" style="width: 20px; height: 20px; z-index: 2; position: absolute;" ng-click="addChoose(row)" />
+			</div>
+			<div style="float: right; padding: 10px 20px 0px 5px;">
+				<a href="address_modify.html?wcid={{wcid}}&id={{row.guid}}&oid={{orderId}}"><img src="img/edit_address.png" width="12px" height="12px" /></a>
+			</div>
+			<div style="padding:9px 5px 20px 43px">
+				<div style="text-align: left; font-size: 13px; color: #606060;">
+					<span>{{row.name}}</span>&nbsp;&nbsp;
+					<span>{{row.phone}}</span>
+				</div>
+				<div style="text-align: left; padding-top: 8px;">
+					<div style="float: right; padding: 0px 13px 0px 5px;">
+						<a href="" ng-click="deleteClicked(row, $index)"><img src="img/del.png" width="18px" height="18px" /></a>
+					</div>
+					<span style="font-size: 13px; color: #999999;">收货地址：{{row.address}}</span>
+				</div>
+			</div>
+
+			<div style="clear: both;"></div>
+			<div style="height: 1px; background-color: #d5d5d5;"></div>
+		</div>
+
+		<div style="padding-left: 2%;">
+			<a href="address_add.html?wcid={{wcid}}&oid={{orderId}}">
+				<div style="float: right;">
+					<img src="img/arrow.png" width="20px" height="20px" style="padding: 25px 20px 10px 0px;" />
+				</div>
+				<div style="padding: 16px 10px 16px 43px; line-height: 40px; background-color: white; font-size: 14px; color: #606060; background-image: url(img/add.png); background-repeat: no-repeat; background-size: 20px 20px; background-position: 13px center;">
+					新增收获地址
+				</div>
+			</a>
+			<div style="clear: both;"></div>
+			<div style="height: 1px; background-color: #d5d5d5;"></div>
+		</div>
+
+		<div style="padding: 10px;" ng-click="sureAction()">
+			<div style="width: 100%; background-color: #06bf04; line-height: 48px;  text-align: center; color: white; border-radius: 4px; font-size: 16px;">
+				<span>确认</span>
+			</div>
+		</div>
+
+	</body>
+	<script type="text/javascript" src="js/global.js"></script>
+	<script type="text/javascript" src="address_list.js"></script>
+</html>

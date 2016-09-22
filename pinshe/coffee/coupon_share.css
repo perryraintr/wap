@@ -1,0 +1,183 @@
+a{text-decoration:none}
+
+.swiper-slide {
+    text-align: center;
+    font-size: 18px;
+    background: #fff;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+}
+
+.menu-wrapper {
+	position: absolute;
+	top: 37px;
+	left: 0;
+	right: 0;
+	z-index: 999;
+	text-align: center;
+	
+	width: 100%;
+}
+.mui-table-view-inverted {
+    color:white;
+    background: #d1a224;
+}
+.menu-wrapper.hidden {
+	-webkit-transform: translate3d(0, -100%, 0);
+	transform: translate3d(0, -100%, 0);
+	z-index: -1;
+}
+.mui-table-view-cell1 {
+    /* position: relative; */
+    overflow: hidden;
+    padding: 11px 15px;
+    -webkit-touch-callout: none;
+}
+.mui-table-view1 {
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-left: 0;
+    list-style: none;
+    background-color: #fff;
+}
+.mui-table-view-cell::after {
+    background-color: #c8c7cc;
+    bottom: 0;
+    content: "";
+    height: 1px;
+    left: 0;
+    right: 0;
+    transform: scaleY(0.5);
+}
+.swiper-pagination-bullet-active {
+    background: black none repeat scroll 0 0;
+    opacity: 1;
+}
+
+/*有赞richtext*/
+
+.custom-richtext {
+	padding: 0 10px;
+	padding-top: 10px;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	font-size: 16px;
+	color: #333;
+	line-height: 1.5;
+	overflow: hidden;
+	text-align: left;
+	word-wrap: break-word;
+	position: relative
+}
+
+.custom-richtext img+br {
+	display: block;
+	padding: 4px 0;
+	content: ' '
+}
+
+/*.custom-richtext p {
+	margin: 0 0 1em 0
+}*/
+
+/*.custom-richtext a {
+	color: #07d
+}*/
+
+.custom-richtext img {
+	background: none;
+	max-width: 100% !important;
+	min-height: 1px;
+	width: auto !important;
+	vertical-align: middle
+}
+
+/*.custom-richtext ul,
+.custom-richtext ol {
+	list-style-position: inside;
+	padding-left: 0
+}
+
+.custom-richtext ol {
+	width: auto !important
+}
+
+.custom-richtext blockquote {
+	padding: 0 0 0 15px;
+	margin: 0 0 18px;
+	border-left: 5px solid #EEE
+}
+
+.custom-richtext em,
+.custom-richtext i {
+	font-style: italic
+}
+
+.custom-richtext strong,
+.custom-richtext b {
+	font-weight: bold
+}
+
+.custom-richtext .selectTdClass {
+	background-color: #edf5fa !important
+}
+
+.custom-richtext table.noBorderTable td,
+.custom-richtext table.noBorderTable th,
+.custom-richtext table.noBorderTable caption {
+	border: 1px dashed #ddd !important
+}
+
+.custom-richtext table {
+	margin-bottom: 10px;
+	border-collapse: collapse;
+	display: table;
+	width: auto !important
+}
+
+.custom-richtext td,
+.custom-richtext th {
+	padding: 5px 10px;
+	border: 1px solid #ddd
+}
+
+.custom-richtext caption {
+	border: 1px dashed #ddd;
+	border-bottom: 0;
+	padding: 3px;
+	text-align: center
+}
+
+.custom-richtext th {
+	border-top: 2px solid #bbb;
+	background: #f7f7f7
+}
+
+.custom-richtext .ue-table-interlace-color-single {
+	background-color: #fcfcfc
+}
+
+.custom-richtext .ue-table-interlace-color-double {
+	background-color: #f7faff
+}
+
+.custom-richtext td p {
+	margin: 0;
+	padding: 0
+}
+
+.custom-richtext-fullscreen {
+	padding: 0;
+	margin-top: 0
+}*/

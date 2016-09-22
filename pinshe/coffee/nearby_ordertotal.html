@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html ng-app="coffee" ng-controller="nearby_ordertotal">
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="height=device-height,width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0" />
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<meta name="format-detection" content="telephone=no">
+		<link rel="shortcut icon" href="">
+		<link href="css/default.css" rel="stylesheet" type="text/css" />
+		<link href="css/mui.min.css" rel="stylesheet" type="text/css" />
+		<script type="text/javascript" src="js/helper.js"></script>
+		<script type="text/javascript" src="js/angular.min.js"></script>
+		<script type="text/javascript" src="js/jquery-3.0.0.min.js"></script>
+		<script type="text/javascript" src="js/layer.js"></script>
+		<script type="text/javascript" src="js/underscore-min.js"></script>
+		<meta name="description" content="最有温度的品质生活社区。" />
+		<title>订单总结</title>
+		<link href="nearby_ordertotal.css" rel="stylesheet" type="text/css" />
+	</head>
+
+	<body>
+		<div style="background-color: #1b1b1f; color: white; position: fixed; height: 38px; width: 100%; z-index: 999;">
+			<a href="product_highgrade.html"><img width="24" height="24" src="img/icon.png" style="margin: 7px 0px 0px 5px;"></a>
+			<span ng-show="isMember" style="font-size: 13px; vertical-align: top; line-height: 38px;" ng-cloak>品社会员</span>
+			<span ng-show="!isMember" style="font-size: 13px; vertical-align: top; line-height: 38px;" ng-cloak>品社咖啡</span>
+			<span ng-show="isMember" style="float: right; font-size: 13px; vertical-align: top; line-height: 38px; padding-right: 8px;" ng-cloak>余额：{{member.current}}元</span>
+			<div style="clear: both;"></div>
+		</div>
+
+		<div style="background-color: white; color: #606060; font-size: 14px; padding:50px 10px 10px 0px">
+			<table width="100%">
+				<tbody ng-repeat="row in orderDetail.details">
+					<td style="padding: 1% 2% 1% 10px; max-width: 150px;">
+						<span ng-cloak>{{row.store_name}}</span>
+					</td>
+					<td style="padding: 1%; text-align: right;"><span ng-cloak>¥{{row.amount}}</span></td>
+				</tbody>
+			</table>
+		</div>
+
+		<div ng-show="!hasTel">
+			<div style="height: 1px; background-color: #E0E0E0;"></div>
+			<a href="address_login.html?oid={{guid}}&form=3">
+				<div style="float: right;">
+					<img src="img/arrow.png" width="20px" height="20px" align="absmiddle" style="margin-top: 15px;" />
+				</div>
+				<div style="padding: 5px 10px 5px 35px; line-height: 40px; background-color: white; font-size: 14px; color: #606060; background-image: url(img/tel.png); background-repeat: no-repeat; background-size: 20px 20px; background-position: 8px center;">
+					<span>输入手机号获取更多优惠</span>
+				</div>
+				<div style="clear: both;"></div>
+			</a>
+		</div>
+
+		<div ng-show="isShoudan" style="background-color: white; padding-bottom: 3%;" ng-cloak>
+			<div style="height: 1px; background-color: #E0E0E0;"></div>
+			<div style="padding-top: 3%; padding-left: 10px; color: #606060; font-size: 14px; float: left;">首单立减</div>
+			<div style="padding-top: 3%; padding-right: 10px; color: #606060; font-size: 14px; float: right;">-¥10</div>
+			<div style="clear: both;"></div>
+		</div>
+
+		<div>
+			<div style="padding: 1% 0 1% 3%; background-color: white;" ng-repeat="row in couponList">
+				<div style="height: 1px; margin-bottom: 3%; background-color: #E0E0E0;"></div>
+				<div style="float: left; padding: 5px 0px 0px 5px;">
+					<img src="img/choose.png" style="width: 20px; height: 20px; z-index: 1; position: absolute;" ng-click="addRedpacket(row)" />
+					<img src="img/chooseSel.png" style="width: 20px; height: 20px; z-index: 2; position: absolute;" ng-show="row.isChoose" ng-click="removeRedpacket(row)" />
+				</div>
+				<div style="padding-top: 5px; padding-left: 45px;">
+					<img src="img/redenvelope.png" width="20px" height="20px" />
+					<span style="font-size: 14px; vertical-align: top; line-height: 20px;" ng-cloak>{{row.couponType}}</span>
+					<span style="font-size: 14px; float: right; vertical-align: top; line-height: 20px; padding-right: 3%;" ng-cloak>-¥{{row.coupon_amount}}</span>
+				</div>
+				<div style="padding-left: 45px;"><span style="font-size: 11px; vertical-align: top; line-height: 20px; color: #909090;" ng-cloak>过期时间：{{row.coupon_expire_time}}</span></div>
+				<div style="clear: both;"></div>
+			</div>
+		</div>
+
+		<div style="padding-left: 10px; background-color: white;">
+			<div style="height: 1px; background-color: #E0E0E0;"></div>
+		</div>
+
+		<div style="font-size: 15px; height: 145px;">
+			<div style="background-color: white; padding: 10px 10px 10px 10px; height: 45px;" ng-cloak>
+				<span style="color: #909090;">总计¥{{orderDetail.amount}}</span>
+				<span style="color: #909090; padding-left: 15px;">优惠¥{{useCoupon.amount}}</span>
+				<span style="float: right; color: #909090">实付<span style="color: #9e0039; margin-left: 5px;">¥{{orderDetail.payamount}}</span></span>
+				<div style="clear: both;"></div>
+			</div>
+		</div>
+
+		<div style="position: fixed; bottom: 0px; width: 100%; height: 55px; background-color: white; z-index: 5;">
+			<div style="float: left; padding: 5px 0px 0px 10px">
+				<div style="font-size: 14px; color: #909090">实付：</div>
+				<div style="font-size: 14px; color: #9e0039;" ng-cloak>{{orderDetail.payamount}}元</div>
+			</div>
+			<div style="text-align: right">
+				<div style="padding: 15px 10px 0px 0px;" ng-show="isFinished" ng-cloak>
+					<span style="z-index: 2;">订单已完成</span>
+				</div>
+				<div style="padding: 10px 10px 0px 0px;" ng-show="!isFinished" ng-cloak>
+					<img src="img/wxpay.png" width="115px" height="32px" style="z-index: 2; float: right; margin-left: 8px;" ng-click="wxpay()" />
+					<img ng-show="isMember && !isMemberOrder" src="img/memberpay.png" width="115px" height="32px" style="z-index: 2; float: right; " ng-click="memberpay()" />
+					<img ng-show="!isMember && !isMemberOrder" src="img/memberpay.png" width="115px" height="32px" style="z-index: 2; float: right; " ng-click="addMember()" />
+				</div>
+			</div>
+			<div style="clear: both;"></div>
+		</div>
+
+		<div id="memberPayId" style="background-color: white; border-radius: 10px; text-align: center; display: none;">
+			<div style="padding: 3%;">
+				<div style="font-size: 16px; padding-top: 15px;">确定使用会员支付<span style="color: #ce1736;" ng-cloak> ¥{{orderDetail.payamount}}</span>？</div>
+				<div ng-show="orderDetail.payamount > 20 && isNeibu" style="font-size: 13px; padding-top: 5px;">注：使用微信支付，可参加寻咖活动，咖啡馆首次消费获取奖金30元！</div>
+			</div>
+			<div style="height: 1px; background-color: #d5d5d5; margin-top: 10px;"></div>
+			<div style="width: 100%; text-align: center;">
+				<div style="float: left; width: 49.75%; height: 41px; padding-top: 10px;" ng-click="makeSure()">确定</div>
+				<div style="float: left; width: 1px; height: 41px; background-color: #d5d5d5;"></div>
+				<div style="float: right; width: 49.75%; height: 41px; padding-top: 10px;" ng-click="cancel()">取消</div>
+				<div style="clear: both;"></div>
+			</div>
+		</div>
+
+		<div id="addmemberId" style="background-color: white; border-radius: 10px; text-align: center; display: none;">
+			<div style="padding: 3%;">
+				<div style="font-size: 16px; padding-top: 15px;">成为会员，充值立得￥400，并享受完整品社咖啡体验</div>
+				<div ng-show="orderDetail.payamount > 20 && isNeibu" style="font-size: 13px; padding-top: 5px;">注：使用微信支付，可参加寻咖活动，咖啡馆首次消费获取奖金30元！</div>
+			</div>
+			<div style="height: 1px; background-color: #d5d5d5; margin-top: 10px;"></div>
+			<div style="width: 100%; text-align: center;">
+				<div style="float: left; width: 49.75%; height: 41px; padding-top: 10px;" ng-click="addMemberMakeSure()">确定</div>
+				<div style="float: left; width: 1px; height: 41px; background-color: #d5d5d5;"></div>
+				<div style="float: right; width: 49.75%; height: 41px; padding-top: 10px;" ng-click="addMemberCancel()">取消</div>
+				<div style="clear: both;"></div>
+			</div>
+		</div>
+
+	</body>
+	<script type="text/javascript" src="js/mui.min.js"></script>
+	<script type="text/javascript" src="js/global.js"></script>
+	<script type="text/javascript" src="nearby_ordertotal.js"></script>
+
+</html>

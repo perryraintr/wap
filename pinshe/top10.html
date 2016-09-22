@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html ng-app="pinshe" ng-controller="top10">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="height=device-height,width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0" />
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<meta name="format-detection" content="telephone=no">
+		<link href="css/mui.min.css" rel="stylesheet" type="text/css" />
+		<link href="css/default.css" rel="stylesheet" type="text/css" />
+		<script type="text/javascript" src="js/angular.min.js"></script>
+		<script type="text/javascript" src="js/helper.js"></script>
+		<meta name="description" content="最有温度的品质生活社区。" />
+		<title>{{paramsTitle}} - 排行榜 - 品社</title>
+		<link href="top10.css" rel="stylesheet" type="text/css" />
+	</head>
+	<body>
+		<div id="scroll" class="mui-content mui-scroll-wrapper">
+			<div class="mui-scroll">
+				<div style="background-color:#d1a224;color:white;padding:2%;text-align: center;">
+					<span style="float:left;"><a class="mui-action-back"><img src="img/1.png" width="11px" height="18px"/></a></span>
+					<span>{{paramsTitle}}</span>
+					<span style="float:right;"><img id="menu-btn" src="img/home.png" width="21px" height="21px"/></span>
+					<div style="clear: both;"></div>
+					
+					<div id="menu" class="mui-table-view1" style="background-color:#d1a224;margin-left: 11px;margin-right: 21px;display: none;">
+						<li class="mui-table-view-cell">
+							<a href="vote.html">品选</a>
+						</li>
+						<li class="mui-table-view-cell">
+							<a href="list_good.html">列表</a>
+						</li>
+					</div>
+				</div>
+				
+				<div style="padding: 10px 2px 10px 2px;">
+					<span style="margin:-10px -2px -2px -2px;background-color:#d1a224;">&nbsp;</span>
+					<span style="color:#606060;padding: 2px;">{{paramsTitle}}TOP10商品</span>
+				</div>
+				<div ng-repeat="topProductModel in topProductModelList">
+					<a href="product_detail.html?pid={{topProductModel.product_guid}}" style="color:#606060;">
+						<table style="margin-bottom: 1px;">
+							<tbody>
+								<tr style="background-color: #ffffff;">
+									<th style="width: 120px">
+										<img style="z-index: 1; position: absolute; width: 134px; height: 24px; padding-left: 108px;" ng-src="img1/topgoods{{$index + 1}}.png" />
+										<img style="width: 120px; height: 120px; padding-left: 10px; padding-top: 10px; padding-bottom: 10px;" ng-src="{{topProductModel.product_image}}" />
+									</th>
+									<th style="width: 100%; padding-left: 24px; text-align: left;">
+										<div>
+											<!-- overflow: hidden; text-overflow:ellipsis; white-space: nowrap;-->
+											<div style=" font-size: 12px; padding-top: 10px;">
+												{{topProductModel.product_name}}
+											</div>
+											<div style="color: #909090; padding: 0px 10px 10px 10px; font-size: 12px; padding-left: 0px; height: 42px;">
+												<div ng-show="{{topProductModel.user_count}} == 1">
+													<img style="width: 22px; height: 22px; border-radius: 100%;" align="absmiddle" ng-src="{{topProductModel.user1_avatar}}" /> 推荐&nbsp; |&nbsp; {{topProductModel.product_favorite}} <img style="width: 19px; height: 15px; margin-top: -2px;" align="absmiddle"
+														src="img1/supportsel.png" />
+		
+												</div>
+												<div ng-show="{{topProductModel.user_count}} == 2">
+													<img style="width: 22px; height: 22px; border-radius: 100%;" align="absmiddle" ng-src="{{topProductModel.user1_avatar}}" />
+													<img style="width: 22px; height: 22px; border-radius: 100%;" align="absmiddle" ng-show="user2Show" ng-src="{{topProductModel.user2_avatar}}" src="img/3.png" /> 推荐&nbsp; |&nbsp; {{topProductModel.product_favorite}} <img style="width: 19px; height: 15px; margin-top: -2px;"
+														align="absmiddle" src="img1/supportsel.png" />
+		
+												</div>
+												<div ng-show="{{topProductModel.user_count}} >= 3">
+													<img style="width: 22px; height: 22px; border-radius: 100%;" align="absmiddle" ng-src="{{topProductModel.user1_avatar}}" />
+													<img style="width: 22px; height: 22px; border-radius: 100%;" align="absmiddle" ng-show="user2Show" ng-src="{{topProductModel.user2_avatar}}" src="img/3.png" />
+													<img style="width: 22px; height: 22px; border-radius: 100%;" align="absmiddle" ng-show="user3Show" ng-src="{{topProductModel.user3_avatar}}" src="img/3.png" /> 等{{topProductModel.user_count}}位推荐&nbsp; |&nbsp; {{topProductModel.product_favorite}}
+													<img style="width: 19px; height: 15px; margin-top: -2px;" align="absmiddle" src="img1/supportsel.png" />
+												</div>
+											</div>
+											
+											<div style="color: #404040;padding:2px;">
+												<span style="font-size: 16px;" ng-if="topProductModel.product_price > 0">￥</span><span style="font-size: 16px;" ng-if="topProductModel.product_price > 0">{{topProductModel.product_price}}</span>
+												<img style="width: 89px; height: 34px; float: right; padding-right: 10px; padding-bottom: 10px;" src="img1/showdetail.png" />
+											</div>
+											
+										</div>
+									</th>
+								</tr>
+							</tbody>
+						</table>
+					</a>
+				</div>
+				<div style="clear: both;"></div>
+				<div style="padding: 10px 2px 10px 2px;">
+					<span style="margin:-10px -2px -2px -2px;background-color:#d1a224;">&nbsp;</span>
+					<span style="color:#606060;padding: 2px;">大家都在看</span>
+					<div style="padding:10px 2px 2px 2px;">
+						<div style="float:left;width:50%;">
+							<a href="list_good_detail.html?pid={{row.post_guid}}" ng-repeat="row in post1">
+								<div style="width:100%;padding:3px;">
+									<img ng-src="{{row.post_image}}" style="vertical-align:top;" width="100%" height="100%" />
+									<div style="background-color: white;">
+										<div style="float: left;color:#606060; font-size: 12px;width:75%;padding: 5px;">{{row.post_name}}</div>
+										<div style="float: right;padding: 5px;font-size: 12px;text-align: center;"><img src="img/5.png" align="absmiddle" width="24px" height="19px" />
+											<div style="margin:-3px 0px 0px 0px;color:#f7528c;">{{row.post_favorite}}</div>
+										</div>
+										<div style="clear: both;"></div>
+									</div>
+									<div style="margin: 1px 0px 0px 0px; background-color: white;">
+										<div style="float:left;padding:10px 10px 5px 10px;color:#606060;font-size: 12px;"><img ng-src="{{row.user_avatar}}" style="border-radius:100%;" align="absmiddle" width="26px" height="26px" /> {{row.user_name}}</div>
+										<div style="clear: both;"></div>
+										<div style="color:#909090;font-size: 12px;padding: 0px 5px 0px 10px;overflow: hidden;">{{row.post_description}}</div>
+										<div>
+											<span style="float: left;color:#bbbbbb;font-size: 9px;padding: 5px;">{{row.post_modify_time}}</span>
+											<span style="float: right;color:#bbbbbb;font-size: 9px;padding: 5px;"><img src="img/6.png" align="absmiddle" width="14px" height="13px"/> {{row.post_view}} <img src="img/7.png" align="absmiddle" width="14px" height="10px"/>{{row.post_comment}}</span>
+											<div style="clear: both;"></div>
+										</div>
+									</div>
+								</div>
+							</a>
+						</div>
+						<div style="float:left;width:50%;">
+							<a href="list_good_detail.html?pid={{row.post_guid}}" ng-repeat="row in post2">
+								<div style="width:100%;padding:3px;">
+									<img ng-src="{{row.post_image}}" style="vertical-align:top;" width="100%" height="100%" />
+									<div style="background-color: white;">
+										<div style="float: left;color:#606060; font-size: 12px;width:75%;padding: 5px;">{{row.post_name}}</div>
+										<div style="float: right;padding: 5px;font-size: 12px;text-align: center;"><img src="img/5.png" align="absmiddle" width="24px" height="19px" />
+											<div style="margin:-3px 0px 0px 0px;color:#f7528c;">{{row.post_favorite}}</div>
+										</div>
+										<div style="clear: both;"></div>
+									</div>
+									<div style="margin: 1px 0px 0px 0px; background-color: white;">
+										<div style="float:left;padding:10px 10px 5px 10px;color:#606060;font-size: 12px;"><img ng-src="{{row.user_avatar}}" style="border-radius:100%;" align="absmiddle" width="26px" height="26px" /> {{row.user_name}}</div>
+										<div style="clear: both;"></div>
+										<div style="color:#909090;font-size: 12px;padding: 0px 5px 0px 10px;overflow: hidden;">{{row.post_description}}</div>
+										<div>
+											<span style="float: left;color:#bbbbbb;font-size: 9px;padding: 5px;">{{row.post_modify_time}}</span>
+											<span style="float: right;color:#bbbbbb;font-size: 9px;padding: 5px;"><img src="img/6.png" align="absmiddle" width="14px" height="13px"/> {{row.post_view}} <img src="img/7.png" align="absmiddle" width="14px" height="10px"/>{{row.post_comment}}</span>
+											<div style="clear: both;"></div>
+										</div>
+									</div>
+								</div>
+							</a>
+						</div>
+					</div>
+				</div>
+				<div style="position:fixed;bottom:0px;">
+				</div>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript" src="js/mui.min.js"></script>
+	<script type="text/javascript" src="top10.js"></script>
+</html>

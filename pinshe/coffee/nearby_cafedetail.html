@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html ng-app="coffee" ng-controller="nearby_cafedetail">
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="height=device-height,width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0" />
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<meta name="format-detection" content="telephone=no">
+		<link rel="shortcut icon" href="">
+		<link href="css/mui.min.css" rel="stylesheet" type="text/css" />
+		<link href="css/default.css" rel="stylesheet" type="text/css" />
+		<script type="text/javascript" src="js/helper.js"></script>
+		<script type="text/javascript" src="js/angular.min.js"></script>
+		<script type="text/javascript" src="js/jquery-3.0.0.min.js"></script>
+		<script type="text/javascript" src="js/underscore-min.js"></script>
+		<script type="text/javascript" src="js/layer.js"></script>
+		<meta name="description" content="最有温度的品质生活社区。" />
+		<link href="css/swiper-3.3.1.min.css" rel="stylesheet" type="text/css" />
+		<link href="nearby_cafedetail.css" rel="stylesheet" type="text/css" />
+		<script type="text/javascript" src="js/media/mediaelement-and-player.min.js"></script>
+		<link rel="stylesheet" href="js/media/mediaelementplayer.min.css" />
+		<title ng-bind="store.slogan"></title>
+		<script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+		<script type="text/javascript" src="https://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+	</head>
+
+	<body style="font-family: helvetica;">
+		<div style="background-color: #1b1b1f; color: white; position: fixed; height: 38px; width: 100%; z-index: 999;">
+			<a href="product_highgrade.html"><img width="24" height="24" src="img/icon.png" style="margin: 7px 0px 0px 5px;"></a>
+			<span ng-show="isMember" style="font-size: 13px; vertical-align: top; line-height: 38px;" ng-cloak>品社会员</span>
+			<span ng-show="!isMember" style="font-size: 13px; vertical-align: top; line-height: 38px;" ng-cloak>品社咖啡</span>
+			<span ng-show="isMember" style="float: right; font-size: 13px; vertical-align: top; line-height: 38px; padding-right: 8px;" ng-cloak>余额：{{member.current}}元</span>
+			<div style="clear: both;"></div>
+		</div>
+
+		<div style="background-color: white; padding-top: 38px;">
+			<div class="swiper-container swiper-container-horizontal">
+				<div id="swiperwrapper" class="swiper-wrapper">
+					<li class="swiper-slide">
+					</li>
+				</div>
+				<div style="text-align:center" class="swiper-pagination"></div>
+			</div>
+		</div>
+
+		<div style="background-color: white; padding: 4% 4% 0 4%;">
+
+			<div style="padding-top: 10px; color: #404040; font-size: 20px;" ng-cloak>{{store.name}}</div>
+			<div style="color: #909090; padding-top: 10px; font-size: 20px;" ng-cloak>{{store.slogan}}</div>
+			<div style="color: #909090; padding-top: 10px;">
+				<div style="float: left; padding-left: 1px; margin-top: -2px;" ng-repeat="s in store.starList">
+					<img src="img1/n2sel.png" width="16.7" height="16" align="absmiddle" />
+				</div>
+				<span style="padding-left:10px; color: #909090; font-size: 14px;" ng-cloak>{{store.comment}} · {{store.feature3}}</span>
+				<div style="clear: both;"></div>
+			</div>
+			<div style="margin-top: 6%; height: 1px; background-color: #e0e0e0;"></div>
+			<div style="width: 100%; padding-left: 5%; padding-right: 5%; padding-top: 5%;">
+				<div ng-repeat="row in resultFeature2">
+					<div ng-repeat="number in row">
+						<div ng-show="row.length == 1" style="text-align: center;" ng-cloak>
+							<img ng-src="img1/nf2{{number}}.png" width="25%" />
+						</div>
+						<div ng-show="row.length == 2" style="float: left; width: 50%; text-align: center;" ng-cloak>
+							<img ng-src="img1/nf2{{number}}.png" width="50%" />
+						</div>
+						<div ng-show="row.length == 3" style="float: left; width: 32%; text-align: center;" ng-cloak>
+							<img ng-src="img1/nf2{{number}}.png" width="78.125%" />
+						</div>
+						<div ng-show="row.length == 4" style="float: left; width: 25%; text-align: center;" ng-cloak>
+							<img ng-src="img1/nf2{{number}}.png" width="100%" />
+						</div>
+					</div>
+				</div>
+				<div style="clear: both;"></div>
+			</div>
+			<div style="margin-top: 5%; height: 1px; background-color: #e0e0e0;"></div>
+			<div style="padding-top: 4%;">
+				<div style="float: left;">
+					<div style="color: #909090; font-size: 16px;">创始人</div>
+					<div style="color: #fd6e7f; font-size: 16px; padding-top: 4px;" ng-cloak>{{store.owner}}</div>
+				</div>
+				<div style="float: right;">
+					<a href="avatar.html?url={{store.avatar}}" target="_blank"><img ng-src="{{store.avatar}}" width="50px" height="50px" style="border-radius: 100%;" /></a>
+				</div>
+				<div style="clear: both;"></div>
+			</div>
+
+			<div id="videoId" style="display: none;">
+				<video width="100%" height="250px" src="{{store.video}}" type="video/mp4" id="player1" poster="{{store.posterUrl}}" controls="controls" webkit-playsinline preload="none"></video>
+			</div>
+			
+			<div style="padding-top: 4%; padding-left: 4%; padding-right: 4%;">
+				<div id="descriptionId" style="color: #606060; font-size: 16px; line-height: 150%; text-align: justify;" ></div>
+			</div>
+			<div ng-show="!isExpand" style="text-align: right; padding-right: 4%; padding-top: 10px;">
+				<a href="" style="color: #fd6e7f; font-size: 16px; padding-right: 0px;" ng-click="readDescription()">阅读全文</a>
+			</div>
+
+			<div style="margin-top: 4%; height: 1px; background-color: #e0e0e0;"></div>
+			<a href="nearby_cafedetailmap.html?longitude={{store.longitude}}&latitude={{store.latitude}}">
+				<div style="padding: 4% 0 0 4%; color: #606060; font-size: 14px;">
+					<div style="float: right;">
+						<img style="margin-top: -3px" src="img/arrow.png" align="absmiddle" width="32px" height="32px" />
+					</div>
+					<img style="float: left;" src="img1/n12.png" width="20px" height="20px" align="absmiddle" />
+					<div style="padding-left: 30px;">
+						<span style="font-size: 16px;" ng-cloak>{{store.address}}</span>
+					</div>
+					<div style="clear: both;"></div>
+				</div>
+			</a>
+			<div style="padding: 3% 0 0 4%; color: #606060; font-size: 12px;">
+				<img style="float: left;" src="img1/n13.png" width="20px" height="20px" align="absmiddle" />
+				<div style="padding-left: 30px;">
+					<span id="dateId" style="font-size: 16px;"></span>
+				</div>
+				<div style="clear: both;"></div>
+			</div>
+			<div style="padding: 3% 0 0 4%; color: #606060; font-size: 12px;">
+				<img style="float: left;" src="img1/n14.png" width="20px" height="20px" align="absmiddle" />
+				<div style="padding-left: 30px; padding-right: 40px;">
+					<a href="tel:{{store.phone}}"><span id="phoneId" style="font-size: 16px; color: #606060;"></span></a>
+				</div>
+				<div style="clear: both;"></div>
+			</div>
+			<div style="margin-top: 4%; height: 1px; background-color: #e0e0e0;"></div>
+
+			<div style="padding: 3% 0 0 4%;" ng-show="store.recommends.length > 0">
+				<div><span style="color: #fd6e7f; font-size: 16px;" ng-bind="store.owner"></span><span style="color: #909090; font-size: 16px;">推荐的好咖啡</span></div>
+				<div style="padding-top: 16px;" ng-repeat="recommed in store.recommends">
+					<a href="product_detail.html?id={{recommed.commodity_guid}}"><div>
+						<div style="float: right;">
+							<img style="margin-top: -5px" src="img/arrow.png" align="absmiddle" width="32px" height="32px" />
+						</div>
+						<span style="color: #fd6e7f; font-size: 16px;" ng-bind="recommed.commodity_name"></span><span style="color: #fd6e7f; font-size: 16px;"> | </span><span style="color: #fd6e7f; font-size: 16px;" ng-bind="recommed.commodity_description"></span>
+						<div style="clear: both;"></div>
+						<div style="font-size: 16px; color: #606060;" ng-bind="recommed.message"></div>
+					</div></a>
+				</div>
+				
+				<div style="margin-top: 4%; height: 1px; background-color: #e0e0e0;"></div>		
+			</div>
+		
+			<div style="width: 100%; padding: 5%">
+				<div ng-repeat="row in resultFeature1">
+					<div ng-repeat="number in row">
+						<div ng-show="row.length == 1" style="text-align: center; padding-top: 10px;" ng-cloak>
+							<img ng-src="img1/nf1{{number}}.png" width="20%" />
+						</div>
+						<div ng-show="row.length == 2" style="float: left; width: 50%; text-align: center; padding-top: 10px;" ng-cloak>
+							<img ng-src="img1/nf1{{number}}.png" width="40%" />
+						</div>
+						<div ng-show="row.length == 3" style="float: left; width: 32%; text-align: center; padding-top: 10px;" ng-cloak>
+							<img ng-src="img1/nf1{{number}}.png" width="62.5%" />
+						</div>
+						<div ng-show="row.length == 4" style="float: left; width: 25%; text-align: center; padding-top: 10px;" ng-cloak>
+							<img ng-src="img1/nf1{{number}}.png" width="80%" />
+						</div>
+					</div>
+				</div>
+				<div style="clear: both;"></div>
+			</div>
+
+			<div style="height: 1px; background-color: #e0e0e0;"></div>
+
+			<div style="padding-top: 6%; margin-bottom: 65px;">
+				<div style="color: #606060; font-size: 16px;">
+					<div style="float: left; padding-right: 10px;" ng-cloak>{{store.comment}}个品友点评</div>
+					<div style="float: left; padding-left: 1px; margin-top: -2px;" ng-repeat="s in store.starList">
+						<img src="img1/n2sel.png" width="16.7" height="16" align="absmiddle" />
+					</div>
+					<div style="clear: both;"></div>
+				</div>
+
+				<div style="padding-top: 6%;" ng-repeat="row in commentList">
+					<div style="float: left"><img ng-src="{{row.avatar}}" width="40px" height="40px" align="absmiddle" style="border-radius: 100%;" /> </div>
+					<div style="padding-left: 50px; color: #909090;">
+						<div style="font-size: 16px;" ng-cloak>{{row.name}}</div>
+						<div style="font-size: 14px;" ng-cloak>{{row.create_time1}}</div>
+					</div>
+					<div style="clear: both;"></div>
+					<div style="padding: 2% 0 2% 0; font-size: 16px; color: #909090;" ng-cloak>{{row.message}}</div>
+
+					<div style="margin-top: 4%; height: 1px; background-color: #e0e0e0;"></div>
+
+				</div>
+				<div style="text-align: right; padding-top: 10px; padding-bottom: 10px;">
+					<a href="" style="color: #fd6e7f; font-size: 16px; padding-right: 0px;" ng-click="moreCommend()">查看更多</a>
+				</div>
+			</div>
+
+		</div>
+
+		<div style="text-align: center; position: fixed; bottom: 0; left: 0; right: 0;">
+			<a href="nearby_cafepay.html?id={{id}}"><img src="img1/n8.png" width="100%" align="absbottom" /></a>
+		</div>
+	</body>
+	<script type="text/template" id="templateSwiper">
+		<li class="swiper-slide">
+			<img class="picture" style="vertical-align:top;" src="<%=obj%>" width="100%" />
+		</li>
+	</script>
+	<script>
+		$('audio,video').mediaelementplayer({
+			//mode: 'shim',
+			success: function(player, node) {
+				$('#' + node.id + '-mode').html('mode: ' + player.pluginType);
+			}
+		});
+	</script>
+
+	<script type="text/javascript" src="js/mui.min.js"></script>
+	<script type="text/javascript" src="js/swiper-3.3.1.min.js"></script>
+	<script type="text/javascript" src="js/global.js"></script>
+	<script type="text/javascript" src="nearby_cafedetail.js"></script>
+
+</html>

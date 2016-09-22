@@ -1,0 +1,34 @@
+li{list-style-type: none;}
+
+.menu-wrapper {
+	position: absolute;
+	top: 37px;
+	left: 0;
+	right: 0;
+	z-index: 999;
+	text-align: center;
+	
+	width: 100%;
+}
+.mui-table-view-inverted {
+    color:white;
+    background: #d1a224;
+}
+.menu-wrapper.hidden {
+	-webkit-transform: translate3d(0, -100%, 0);
+	transform: translate3d(0, -100%, 0);
+	z-index: -1;
+}
+.mui-table-view-cell1 {
+    /* position: relative; */
+    overflow: hidden;
+    padding: 11px 15px;
+    -webkit-touch-callout: none;
+}
+.mui-table-view1 {
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-left: 0;
+    list-style: none;
+    background-color: #fff;
+}

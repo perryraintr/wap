@@ -1,0 +1,60 @@
+.round {
+		padding:2px;
+	    border: 1px solid #f7528c;
+	    -moz-border-radius: 2px;      /* Gecko browsers */
+	    -webkit-border-radius: 2px;   /* Webkit browsers */
+	    border-radius:2px;            /* W3C syntax */
+	}
+	
+.background-overlay {
+	width: 100%;
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	z-index: 1;
+	background: transparent;
+	opacity: 0.6;
+	display: block;
+}
+.line-left, .line-right {
+    position: absolute;
+    display: none;
+    bottom: 0;
+    right: 20px;
+    width: 0px;
+/*    background: rgba(245, 245, 245, 0.9);*/
+    z-index: 101;
+}
+
+.menu-wrapper {
+	position: absolute;
+	top: 37px;
+	left: 0;
+	right: 0;
+	z-index: 999;
+	text-align: center;
+	
+	width: 100%;
+}
+.mui-table-view-inverted {
+    color:white;
+    background: #d1a224;
+}
+.menu-wrapper.hidden {
+	-webkit-transform: translate3d(0, -100%, 0);
+	transform: translate3d(0, -100%, 0);
+	z-index: -1;
+}
+.mui-table-view-cell1 {
+    /* position: relative; */
+    overflow: hidden;
+    padding: 11px 15px;
+    -webkit-touch-callout: none;
+}
+.mui-table-view1 {
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-left: 0;
+    list-style: none;
+    background-color: #fff;
+}

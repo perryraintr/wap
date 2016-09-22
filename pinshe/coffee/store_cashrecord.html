@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html ng-app="coffee" ng-controller="store_cashrecord">
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="height=device-height,width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0" />
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<meta name="format-detection" content="telephone=no">
+		<link rel="shortcut icon" href="">
+		<link href="css/default.css" rel="stylesheet" type="text/css" />
+		<script type="text/javascript" src="js/helper.js"></script>
+		<script type="text/javascript" src="js/angular.min.js"></script>
+		<script type="text/javascript" src="js/jquery-3.0.0.min.js"></script>
+		<script type="text/javascript" src="js/layer.js"></script>
+		<script type="text/javascript" src="js/underscore-min.js"></script>
+		<meta name="description" content="最有温度的品质生活社区。" />
+		<title>商家系统</title>
+		<link href="store_cashrecord.css" rel="stylesheet" type="text/css" />
+	</head>
+
+	<body>
+
+		<div ng-show="!hasStore && hasStoreFinished" style="position: absolute; top: 48%; bottom: 0; left: 3%; right: 3%; text-align: center; font-size: 18px;">
+			请等待品社审核，请稍后联系客服，查询审核进度...
+			<div style="padding-top: 30%;">
+				<a href="" style="color: #606060;" ng-click="loginOut()">退出登录</a>
+			</div>
+		</div>
+
+		<div ng-show="hasStore">
+			<div style="padding: 3%; font-size: 16px;">
+				<a href="" style="float: right; color: #606060;" ng-click="loginOut()">退出登录</a>
+				<!--<a ng-show="cashList.length > 0 && isFinished" style="float: right; color: #606060;" href="store_orderrecord.html?sid={{cashList[0].store_guid}}">查看订单明细</a>-->
+				<span>余额：</span><span ng-bind="member.current"></span><span>元</span>
+				<div style="clear: both;"></div>
+			</div>
+			<div style="background-color: #E0E0E0; padding-top: 10px; padding-bottom: 10px; font-size: 16px;">
+				<span style="padding-left: 3%;">账单明细</span>
+			</div>
+			<div style="padding-top: 3%; padding-bottom: 58px; font-size: 16px; color: #909090;">
+
+				<div ng-show="cashList.length == 0 && isFinished" style="text-align: center;">
+					啊哦，目前没有账单哦～
+				</div>
+
+				<div ng-show="cashList.length > 0 && isFinished">
+					<div ng-repeat="row in cashList">
+						<div ng-show="row.type == 1" style="padding: 20px 3% 10px 3%; font-size: 14px; color: #909090;" >
+							<span>订单编号：</span><span ng-bind="row.order_order_no"></span>
+						</div>
+						<div ng-show="row.type == 1" style="background-color: #fafafa; padding-left: 3%; padding-right: 3%; padding-top: 10px; padding-bottom: 10px;">
+							<div>
+								<div style="float: right;">
+									<span ng-bind="row.member_name"></span><span>支付成功</span>
+								</div>
+								<span>+</span><span ng-bind="row.amount"></span>
+								<div style="clear: both;"></div>
+							</div>
+							<div style="padding-top: 5px;">
+								<!--<img ng-click="removeCash(row, $index)" src="img/del.png" width="18px" height="18px" style="float: right;" />-->
+								<span ng-bind="row.create_time"></span>
+								<!--<div style="clear: both;"></div>-->
+							</div>
+						</div>
+						<div ng-show="row.type == -1" style="background-color: #fafafa; padding-left: 3%; padding-right: 3%; padding-top: 10px; padding-bottom: 10px;">
+							<div>
+								<div style="float: right;">
+									<span ng-bind="row.status_str"></span>
+								</div>
+								<span>-</span><span ng-bind="row.amount"></span>
+							</div>
+							<div style="padding-top: 5px;">
+								<span ng-bind="row.create_time"></span>
+							</div>
+						</div>
+						<div style="width: 100%; height: 10px; background-color: #E0E0E0;"></div>
+					</div>
+				</div>
+			</div>
+
+			<a href="store_cashadd.html?mid={{member.guid}}&sid={{cashList[0].store_guid}}">
+				<div style="position: fixed; bottom: 0px; width: 100%; background-color: #06bf04; line-height: 48px; text-align: center; color: white; font-size: 16px;">
+					<span>提现</span>
+				</div>
+			</a>
+		</div>
+	</body>
+	<script type="text/javascript" src="js/mui.min.js"></script>
+	<script type="text/javascript" src="js/global.js"></script>
+	<script type="text/javascript" src="store_cashrecord.js"></script>
+
+</html>

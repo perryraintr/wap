@@ -1,0 +1,127 @@
+.round {
+		padding:2px;
+	    border: 1px solid #f7528c;
+	    -moz-border-radius: 2px;      /* Gecko browsers */
+	    -webkit-border-radius: 2px;   /* Webkit browsers */
+	    border-radius:2px;            /* W3C syntax */
+}
+.line-center {
+  display: block;
+  width: 6px;
+  margin: 0 auto; 
+}
+.line-left{
+  position: absolute;
+  display: none;
+  left: 25%;
+  bottom: 0px;
+  width: 6px;
+  background: rgba(245, 245, 245, 0.9);
+  z-index: 101;
+}
+
+.line-right {
+  position: absolute;
+  display: none;
+  right: 25%;
+  bottom: 0px;
+  width: 6px;
+  background: rgba(245, 245, 245, 0.9);
+  z-index: 101;
+}
+
+.line-right div, .line-left div {
+  position: relative;
+  top: -21px;
+  left: -11px;
+  color: azure;
+  font-family: 'Helvetica Neue', 'Helvetica', sans-serif;
+  font-size: 15px;
+  letter-spacing: 0px;
+  word-spacing: 0px;
+  white-space: nowrap; 
+}
+.line-right img, .line-left img {
+  position: relative;
+  top: -80px;
+  left: -6px;
+  color: azure;
+  font-family: 'Helvetica Neue', 'Helvetica', sans-serif;
+  font-size: 15px;
+  letter-spacing: 0px;
+  word-spacing: 0px;
+  white-space: nowrap; 
+}
+.background-overlay {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 1;
+  background: #000;
+  opacity: 0.6;
+  display: block; 
+}
+
+
+.shareit {
+ position: absolute;
+ width: 100%;
+ height: 100%;
+ background: #000000 none repeat scroll 0 0;
+ opacity: 0.9;
+ text-align: center;
+ top: 0;
+ bottom: 0;
+ left: 0;
+ right: 0;
+ z-index: 105;
+}
+.shareit img {
+ max-width: 100%;
+}
+.arrow {
+ position: absolute;
+ right: 10%;
+ top: 5%;
+}	
+.share1 {
+ position: relative;
+ text-align: center;
+ padding:20%;
+ z-index: 105;
+}
+
+.menu-wrapper {
+	position: absolute;
+	top: 37px;
+	left: 0;
+	right: 0;
+	z-index: 999;
+	text-align: center;
+	
+	width: 100%;
+}
+.mui-table-view-inverted {
+    color:white;
+    background: #d1a224;
+}
+.menu-wrapper.hidden {
+	-webkit-transform: translate3d(0, -100%, 0);
+	transform: translate3d(0, -100%, 0);
+	z-index: -1;
+}
+.mui-table-view-cell1 {
+    /* position: relative; */
+    overflow: hidden;
+    padding: 11px 15px;
+    -webkit-touch-callout: none;
+}
+.mui-table-view1 {
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-left: 0;
+    list-style: none;
+    background-color: #fff;
+}

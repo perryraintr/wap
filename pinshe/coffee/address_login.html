@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html ng-app="coffee" ng-controller="address_login">
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="height=device-height,width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0" />
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<meta name="format-detection" content="telephone=no">
+		<link rel="shortcut icon" href="">
+		<link href="css/default.css" rel="stylesheet" type="text/css" />
+		<script type="text/javascript" src="js/helper.js"></script>
+		<script type="text/javascript" src="js/angular.min.js"></script>
+		<script type="text/javascript" src="js/jquery-3.0.0.min.js"></script>
+		<script type="text/javascript" src="js/layer.js"></script>
+		<script type="text/javascript" src="js/underscore-min.js"></script>
+		<meta name="description" content="最有温度的品质生活社区。" />
+		<title>确认手机号</title>
+		<link href="address_login.css" rel="stylesheet" type="text/css" />
+	</head>
+
+	<body>
+		<div style="padding: 10px 10px 0px 10px; font-size: 16px;">
+			<label style="width: 90px; line-height: 28px; padding: 10px 0px;">手机号</label>
+			<input style="border: none; line-height: 28px; padding: 5px 0px 10px 32px; outline: none; font-size: 16px;" type="text" name="tel" id="tel" placeholder="请输入11位中国手机号" value="{{normolPhone}}" />
+			<div style="height: 1px; background-color: #d5d5d5;"></div>
+		</div>
+		
+		<div style="padding: 20px;" ng-click="loginMember()">
+			<div style="width: 100%; background-color: #06bf04; line-height: 48px;  text-align: center; color: white; border-radius: 4px; font-size: 16px;">
+				<span>确定</span>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript" src="js/mui.min.js"></script>
+	<script type="text/javascript" src="js/global.js"></script>
+	<script type="text/javascript" src="address_login.js"></script>
+
+</html>

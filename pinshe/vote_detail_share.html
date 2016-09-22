@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html ng-app="pinshe" ng-controller="vote_detail">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="height=device-height,width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0" />
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<meta name="format-detection" content="telephone=no">
+		<link href="css/mui.min.css" rel="stylesheet" type="text/css"/>
+		<link href="css/default.css" rel="stylesheet" type="text/css"/>
+		<script type="text/javascript" src="js/helper.js"></script>
+		<script type="text/javascript" src="js/angular.min.js"></script>
+		<meta name="description" content="最有温度的品质生活社区。"/>
+		<title>{{json.body.vote_name}} - 品选详细页 - 品社</title>
+		<link href="vote_detail_share.css" rel="stylesheet" type="text/css"/>
+	</head>
+	<body>
+		<div id="scroll" class="mui-content mui-scroll-wrapper">
+			<div class="mui-scroll">					
+					<div style="background-color:#d1a224;color:white;padding:2%;text-align: center;">
+						<span style="float:left;"><a class="mui-action-back"><img src="img/1.png" width="11px" height="18px"/></a></span>
+						<span>分享品选详情</span>
+						<span style="float:right;"><img id="menu-btn" src="img/home.png" width="21px" height="21px"/></span>
+						<div style="clear: both;"></div>
+						
+						<div id="menu" class="mui-table-view1" style="background-color:#d1a224;margin-left: 11px;margin-right: 21px;display: none;">
+							<li class="mui-table-view-cell">
+								<a href="vote.html">品选</a>
+							</li>
+							<li class="mui-table-view-cell">
+								<a href="list_good.html">列表</a>
+							</li>
+						</div>
+					</div>
+					
+					<div style="background-color:white;color:#909090;padding:2%;min-height:30px;">
+						<span style="float:left;"><img ng-src="{{json.body.vote_user_avatar}}" style="border-radius:100%;" align="absmiddle" width="30px" height="30px"/> {{json.body.vote_user_name}}</span>
+						<span style="float:right;color:#f7528c;margin:0 5px" class="round">品选</span>
+						<div style="clear: both;"></div>
+					</div>
+					
+					<div style="font-size: 14px; color:#606060;text-align: center;padding-top: 17%;padding-bottom: 15%;">{{json.body.vote_name}}</div>
+					<div style="float: right; color: #909090; padding: 2px;font-size: 12px;">发布于{{json.body.vote_modify_time}}</div>
+					<div style="clear: both;"></div>
+					
+					<div style="float: left;width: 50%;">
+						<div style="position:relative;">
+							<div class="line-left" style="display: block;padding: 5px;" ng-if="json.body.product_a_guid > 0"><a href="product_detail.html?pid={{json.body.product_a_guid}}"><img src="img/i.png" align="absmiddle" width="20px" height="20px"/></a></div>
+							<img ng-src="{{json.body.product_a_image}}" ng-if="json.body.product_a_guid > 0" style="vertical-align:top;" width="100%" height="150px" />
+							<div class="line-left" style="display: block;padding: 5px;" ng-if="json.body.product_a_guid == 0 && json.body.producta_guid > 0"><a href="product_detail.html?pid={{json.body.producta_guid}}"><img src="img/i.png" align="absmiddle" width="20px" height="20px"/></a></div>
+							<img ng-src="{{json.body.posta_image}}" ng-if="json.body.product_a_guid == 0" style="vertical-align:top;" width="100%" height="150px" />
+						</div>
+					</div>
+					<div style="float: right;width: 50%;">
+						<div style="position:relative;">
+							<div class="line-right" style="display: block;padding: 5px;" ng-if="json.body.product_b_guid > 0"><a href="product_detail.html?pid={{json.body.product_b_guid}}"><img src="img/i.png" align="absmiddle" width="20px" height="20px"/></a></div>
+							<img ng-src="{{json.body.product_b_image}}" ng-if="json.body.product_b_guid > 0" style="vertical-align:top;" width="100%" height="150px"/>
+							<div class="line-right" style="display: block;padding: 5px;" ng-if="json.body.product_b_guid == 0 && json.body.productb_guid > 0"><a href="product_detail.html?pid={{json.body.productb_guid}}"><img src="img/i.png" align="absmiddle" width="20px" height="20px"/></a></div>
+							<img ng-src="{{json.body.postb_image}}" ng-if="json.body.product_b_guid == 0" style="vertical-align:top;" width="100%" height="150px"/>
+						</div>
+					</div>
+					<div style="clear: both;"></div>
+					
+				
+					<div ng-switch="counta >= countb">
+						<div ng-switch-when="true">
+							<div style="float: left;width: 50%;color:#f7528c;background-color: white;text-align: center;font-size:20px;padding: 20px;">{{counta}}%</div>
+							<div style="float: right;width: 50%;color:#404040;background-color: white;text-align: center;font-size:20px;padding: 20px;">{{countb}}%</div>
+							<div style="clear: both;"></div>
+						</div>
+						<div ng-switch-when="false">
+							<div style="float: left;width: 50%;color:#404040;background-color: white;text-align: center;font-size:20px;padding: 20px;">{{counta}}%</div>
+							<div style="float: right;width: 50%;color:#f7528c;background-color: white;text-align: center;font-size:20px;padding: 20px;">{{countb}}%</div>
+							<div style="clear: both;"></div>
+						</div>
+					</div>
+					
+					
+					<!--<div style="background-color: white;padding:10px 2px 2px 2px;">
+						<div style="color:#404040;padding: 4px;">{{json.body.vote_name}}</div>
+						<div style="float: right; color: #606060; padding: 2px;font-size: 12px;">发布于 {{json.body.vote_modify_time}}</div>
+						<div style="clear: both;"></div>
+					</div>-->
+
+
+
+
+					<div style="padding: 10px 2px 2px 2px;background-color:#e0e0e0;">
+						<span style="margin:-10px -2px -2px -2px;background-color:#d1a224;">&nbsp;</span>
+						<span style="color:#d1a224;padding: 2px;">品友留言</span>
+						<div id="commont" style="padding:10px 2px 2px 21px;font-size: 12px;"></div>
+						<div><br/><br/><br/><br/><br/><br/><br/><br/><br/></div>
+					</div>
+					
+					<div style="position:fixed;bottom:0px;">
+					</div>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript" src="js/mui.min.js"></script>
+	<script type="text/javascript" src="vote_detail_share.js"></script>
+</html>

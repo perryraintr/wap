@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html ng-app="coffee" ng-controller="store_orderrecord">
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="height=device-height,width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0" />
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<meta name="format-detection" content="telephone=no">
+		<link rel="shortcut icon" href="">
+		<link href="css/default.css" rel="stylesheet" type="text/css" />
+		<script type="text/javascript" src="js/helper.js"></script>
+		<script type="text/javascript" src="js/angular.min.js"></script>
+		<script type="text/javascript" src="js/jquery-3.0.0.min.js"></script>
+		<script type="text/javascript" src="js/layer.js"></script>
+		<script type="text/javascript" src="js/underscore-min.js"></script>
+		<meta name="description" content="最有温度的品质生活社区。" />
+		<title>确认手机号</title>
+		<link href="store_orderrecord.css" rel="stylesheet" type="text/css" />
+	</head>
+
+	<body style="background-color: #fafafa;">
+		<div ng-repeat="row in orderList">
+			<div style="background-color: #fafafa;" ng-repeat="detail in row.details">
+				<div style="height: 10px;"></div>
+				<div style="background-color: white;">
+					<div style="padding: 2%;">
+						<div>
+							<span style="font-size: 12px; color: #909090;">订单编号：</span><span style="font-size: 12px; color: #909090;" ng-bind="row.order_no"></span>
+						</div>
+					</div>
+				</div>
+				<a href="nearby_cafedetail.html?id={{detail.store_guid}}">
+					<div style="padding: 2%;">
+						<div style="float: left;">
+							<img ng-src="{{detail.store_image}}" width="124px" height="90px" />
+						</div>
+						<div style="padding-left: 134px;">
+							<div style="float: left; width: 100%;">
+								<span style="font-size: 14px; color: #404040; margin-top: -5px;" ng-bind="detail.store_name"></span>
+							</div>
+							<div style="float: left; width: 100%; padding-top: 48px;">
+								<span style="font-size: 14px; color: #d1a224;" ng-bind="row.status_str"></span>
+							</div>
+							<div style="clear: both;"></div>
+						</div>
+					</div>
+				</a>
+			</div>
+			<div style="background-color: white;">
+				<div style="padding: 2%; float: left;">
+					<span style="font-size: 14px;">合计：<span style="color: #d1a224;">￥{{row.amount}}</span></span>
+				</div>
+				<div style="clear: both;"></div>
+			</div>
+		</div>
+
+	</body>
+	<script type="text/javascript" src="js/mui.min.js"></script>
+	<script type="text/javascript" src="js/global.js"></script>
+	<script type="text/javascript" src="store_orderrecord.js"></script>
+
+</html>

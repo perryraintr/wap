@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html ng-app="pinshe" ng-controller="list_good_detail_share">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="height=device-height,width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0" />
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<meta name="format-detection" content="telephone=no">
+		<link href="css/mui.min.css" rel="stylesheet" type="text/css"/>
+		<link href="css/default.css" rel="stylesheet" type="text/css"/>
+		<script type="text/javascript" src="js/helper.js"></script>
+		<script type="text/javascript" src="js/angular.min.js"></script>
+		<script type="text/javascript" src="js/angular-sanitize.min.js"></script>
+		<meta name="description" content="最有温度的品质生活社区。"/>
+		<title>{{json.body.post_name}} - 推荐详细页 - 品社</title>
+		<link href="css/swiper-3.3.1.min.css" rel="stylesheet" type="text/css"/>
+		<link href="list_good_detail_share.css" rel="stylesheet" type="text/css"/>
+	</head>
+	<body>
+		<div id="scroll" class="mui-content mui-scroll-wrapper">
+			<div class="mui-scroll">				
+					<div style="background-color:#d1a224;color:white;padding:2%;text-align: center;">
+						<span style="float:left;"><a class="mui-action-back"><img src="img/1.png" width="11px" height="18px"/></a></span>
+						<span>推荐详情</span>
+						<span style="float:right;"><img id="menu-btn" src="img/home.png" width="21px" height="21px"/></span>
+						<div style="clear: both;"></div>
+						
+						<div id="menu" class="mui-table-view1" style="background-color:#d1a224;margin-left: 11px;margin-right: 21px;display: none;">
+							<li class="mui-table-view-cell">
+								<a href="vote.html">品选</a>
+							</li>
+							<li class="mui-table-view-cell">
+								<a href="list_good.html">列表</a>
+							</li>
+						</div>
+					</div>
+					
+					<div style="background-color:white;color:#606060;padding:2%;min-height:30px;">
+						<span style="float:left;"><img ng-src="{{json.body.user_avatar}}" style="border-radius:100%;" align="absmiddle" width="30px" height="30px"/> {{json.body.user_name}}</span>
+						<span style="float:right;color:#f7528c;margin:0 5px" class="round" ng-repeat="row in json.body.tag_t2">{{row}}</span>
+						<div style="clear: both;"></div>
+					</div>
+					
+					<div id="images" class="swiper-container"></div>
+<!--					<img ng-src="{{json.body.post_image}}" style="vertical-align:top;" width="100%" />
+-->					
+					<div style="background-color: white;padding:10px 2px 2px 2px;">
+						<span style="margin:-10px -2px -2px -2px;background-color:#d1a224;">&nbsp;</span>
+						<span style="color:#d1a224;padding: 2px;">{{json.body.post_name}}</span>
+						<div style="color:#404040;padding: 4px;" ng-bind-html="json.body.post_description"></div>
+						<div style="float: right; color: #606060; padding: 2px;font-size: 12px;">发布于 {{json.body.post_modify_time}}</div>
+						<div style="clear: both;"></div>
+					</div>
+					
+					<div style="padding: 10px 2px 2px 2px;background-color:#e0e0e0;">
+						<span style="margin:-10px -2px -2px -2px;background-color:#d1a224;">&nbsp;</span>
+						<span style="color:#d1a224;padding: 2px;">品友留言</span>
+						<div id="commont" style="padding:10px 2px 2px 21px;"></div>
+						<div><br/><br/><br/><br/><br/><br/><br/><br/><br/></div>
+					</div>
+					<div style="position:fixed;bottom:0px;">
+					</div>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript" src="js/mui.min.js"></script>
+	<script type="text/javascript" src="js/swiper-3.3.1.min.js"></script>
+	<script type="text/javascript" src="list_good_detail_share.js"></script>
+</html>

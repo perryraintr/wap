@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html ng-app="chat" ng-controller="group">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width,maximum-scale=1.3,user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<meta name="format-detection" content="telephone=no">
+		<link href="css/default.css" rel="stylesheet" type="text/css"/>
+		<link href="css/swiper-3.3.1.min.css" rel="stylesheet" type="text/css"/>
+		<link href="css/leanmodel.css" rel="stylesheet" type="text/css"/>
+		<link href="group/group.css" rel="stylesheet" type="text/css" />
+		<script type="text/javascript" src="js/helper.js"></script>
+		<script type="text/javascript" src="js/underscore-min.js"></script>
+		<script type="text/javascript" src="js/backbone.js"></script>
+		<script type="text/javascript" src="js/strophe.js" ></script>
+		<script type="text/javascript" src="js/easemob.im-1.1.js"></script>
+		<script type="text/javascript" src="js/easemob.im-1.1.shim.js"></script>
+		<script type="text/javascript" src="js/angular.min.js"></script>
+		<script type="text/javascript" src="js/jquery-3.0.0.min.js"></script>
+		<script type="text/javascript" src="js/swiper-3.3.1.min.js"></script>
+		<script type="text/javascript" src="js/iscroll-infinite.js"></script>
+		<script type="text/javascript" src="js/jquery.leanModal.min.js" ></script>
+	</head>
+	<body>
+		<div style="background-color:#404040;position:absolute;z-index:2;width: 100%;">
+			<div style="color:white;text-align:center;padding:8px 4px 4px 4px;">
+				<span style="float:left;">夜话中{{group.member_count}}</span>
+				<span style="font-size:14px;">{{group.name}}</span>
+				<span style="float:right;"><img id="menu-btn" src="img/1.png" width="24px" height="21px"/></span>
+				<div style="clear: both;"></div>
+			</div>
+		
+			<div id="posts">
+				<div style="padding:2px;"> 
+					<img ng-repeat="row in member" align="absmiddle" ng-src="{{row.avatar}}" width="20px" height="20px" style="border-radius:100%;padding-left:2px;float:left;" />
+					<span style="float:right;font-size:12px;color:white;text-decoration:none;margin-top:6px;">大家分享的帖子({{group.post_count}})</span>
+					<div style="clear: both;"></div>
+				</div>
+				
+				<div class="swiper-container" style="padding:2px;">
+					<div id="swiperwrapper" class="swiper-wrapper"></div>
+				</div>
+			</div>
+			
+			<div style="text-align:center;margin:0px 5px 5px 5px;">
+				<img src="img/8.png" width="32px" height="8px" onclick="showDetail()">
+			</div>
+		</div>
+		
+		<div id="wrapper" style="position:absolute;z-index:2;top:237px;bottom:37px;left:0px;width:100%;overflow:hidden;">
+			<div id="scroller">
+				<div id="pullDown" style="text-align:center;position:absolute;left:0px;width:100%;top:-40px;">
+					<img id="pullDownImage" src="img/down.png" width="20px" height="20px" />
+				</div>
+				
+				<div id="messagebody"></div>
+				
+				<div id="pullUp" style="text-align:center;position:absolute;left:0px;width:100%;bottom:-48px;">
+					<img id="pullUpImage" src="img/down.png" width="20px" height="20px" />
+				</div>
+			</div>
+		</div>
+		
+		<div id="footer" style="position:absolute;left:0px;bottom:0px;z-index:2;background-color:white;width:100%;">
+			<div style="color:white;text-align:center;padding:8px 4px 0px 4px;">
+				<div style="float:left;width:70%;">
+					<textarea id="name" name="name" rows="1" style="overflow:hidden;background-color:#e0e0e0;border:0;border-radius: 15px; resize : none;outline:none;width: 100%;"></textarea>
+				</div>
+				<div style="float:right;">
+					<span><img src="img/2.png" ng-click="sendTxt()" width="26px" height="25px"/></span>
+					<span style="padding-left:4px;"><a href="#templateSendPost" id="modaltrigger"><img src="img/3.png" width="25px" height="25px"/></a></span>
+				</div>
+				<div style="clear: both;"></div>
+			</div>
+		</div>
+		
+		 
+		
+		<div id="swiperSlide" style="display: none;">
+			<div class="swiper-slide">
+				<div style="width:100%;background-color: white;">
+					<img src="#1#" align="top" width="100%" height="90px" />
+					<div style="position:relative;z-index: 3;margin-top:-10px;padding:2px;">
+						<img style="border-radius:100%;float: left;" src="#2#" width="20px" height="20px" />
+						<div onclick="angular.element(document.querySelector('[ng-controller=group]')).scope().addfavorite(this, #3#)"><img style="float: right;" src="img/5.png" width="21px" height="17px" /></div>
+						<div style="color:#f7528c;float: right;"><span style="font-size: 9px;">#4#</span></div>
+						<div style="clear: both;"></div>
+					</div>
+					<div style="color:#606060; font-size: 12px;padding:2px;height:35px;">#5#</div>
+				</div>
+			</div>
+		</div>
+		
+		<div id="templateTxt" style="display: none;">
+			<li style="list-style:none;">
+		   		<div class="#1#">
+			   		<div class="chat-avatar"><img src="#2#"></div>
+					<div class="chat-content">
+						<div class="chat-triangle"></div>
+						<span>#3#</span>
+					</div>
+				</div>
+				<div style="clear: both;"></div>
+			</li>
+		</div>
+		
+		<div id="templatePost" style="display: none;">
+			<li style="list-style:none;">
+		   		<div class="#0#">
+			   		<div class="chat-avatar"><img src="#1#"></div>
+					<div class="chat-content">
+						<div class="chat-triangle"></div>
+						<div style="width:100px;background-color: white;">
+							<img src="#2#" align="top" width="100%" height="90px" />
+							<div style="position:relative;z-index: 3;margin-top:-10px;padding:2px;">
+								<img style="border-radius:100%;float: left;width: 20px; height: 20px;" src="#3#"/>
+								<a href="#" ng-click="favorite(#6#)"><img style="float: right;width: 21px;height:17px;" src="img/5.png" /></a>
+								<div style="color:#f7528c;float: right;"><span id="postFavarite" style="font-size: 9px;">#4#</span></div>
+								<div style="clear: both;"></div>
+							</div>
+							<div style="color:#606060; font-size: 12px;padding:2px;height:35px;">#5#</div>
+						</div>
+					</div>
+				</div> 
+			</li>
+		</div>
+		
+		<div id="templateSendPost" style="display:none;">
+			<form id="form_add" method="post" enctype="multipart/form-data">
+				<textarea id="uid" name="uid" style="display: none;">12</textarea>
+				<textarea id="t1" name="t1" style="display: none;">1</textarea>		
+				<textarea id="t2" name="t2" style="display: none;">1</textarea>
+				<input id="name" name="name" type="text" style="border: none; width: 100%; height: 30px; font-size: 12px;" placeholder="商品名称(如：Muji壁挂式CD播放器)" />
+				<div style="height: 1px; width: 100%; background-color: #909090;"></div>
+				<textarea id="description" name="description" style="width: 100%; height: 80px; margin-top: 10px; font-size: 12px; border: none;" placeholder = "分享你的体验..."></textarea>
+				<!-- <input type="button" value="add" onclick="AddImage();"/>
+				<input type="button" value="remove" onclick="RemoveImage();"/> -->
+				<div id="images">
+					<p><img width="100px" height="100px" /><input type="file" id="file" name="file" onchange="GetImage(this);"/></p>
+					<button ng-click="sendPost()">发布帖子</button>
+				</div>		
+			</form>
+		</div>
+		
+	</body>
+	<script type="text/javascript" src="group/global.js"></script>
+	<script type="text/javascript" src="group/group.js"></script>
+	<script type="text/javascript" src="group/easemob.js"></script>
+	<script type="text/javascript" src="group/scroll.js"></script>
+	<script type="text/javascript" src="group/controller.js"></script>
+</html>

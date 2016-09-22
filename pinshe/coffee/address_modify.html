@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html ng-app="coffee" ng-controller="address_modify">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="height=device-height,width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0" />
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<meta name="format-detection" content="telephone=no">
+		<link rel="shortcut icon" href="">
+		<link href="css/default.css" rel="stylesheet" type="text/css"/>
+		<script type="text/javascript" src="js/helper.js"></script>
+		<script type="text/javascript" src="js/angular.min.js"></script>
+		<meta name="description" content="最有温度的品质生活社区。"/>
+		<title>修改收货地址</title>
+		<link href="address_modify.css" rel="stylesheet" type="text/css" />
+		<script type="text/javascript" src="js/global.js" ></script>
+	</head>
+	<body>
+		<form id="address" method="post" enctype="multipart/form-data">
+			<div style="padding: 0px 10px 0px 10px; font-size: 15px; background-color: white;">
+				<div style="display: none;">
+					<label style="width: 90px; line-height: 28px; padding: 10px 0px;">当前用户</label>
+					<input style="width: 70%; border: none; line-height: 28px; padding: 5px 0px 10px 20px; outline: none; font-size: 15px;" type="text" name="mid" id="mid" placeholder="id" value="{{member.guid}}" />
+					<div style="height: 1px; background-color: #d5d5d5;"></div>
+				</div>
+				<div style="display: none;">
+					<label style="width: 90px; line-height: 28px; padding: 10px 0px;">地址id</label>
+					<input style="width: 70%; border: none; line-height: 28px; padding: 5px 0px 10px 32px; outline: none; font-size: 15px;" type="text" name="id" id="id" placeholder="id" value="{{consignee.guid}}" />
+					<div style="height: 1px; background-color: #d5d5d5;"></div>
+				</div>
+				<div style="display: none;">
+					<label style="width: 90px; line-height: 28px; padding: 10px 0px;">状态id</label>
+					<input style="width: 70%; border: none; line-height: 28px; padding: 5px 0px 10px 32px; outline: none; font-size: 15px;" type="text" name="status" id="status" placeholder="id" value="1" />
+					<div style="height: 1px; background-color: #d5d5d5;"></div>
+				</div>
+				<div style="padding-top: 20px;">
+					<label style="width: 90px; line-height: 28px; padding: 10px 0px;">收货人</label>
+					<input style="width: 70%; border: none; line-height: 28px; padding: 5px 0px 10px 32px; outline: none; font-size: 15px;" type="text" name="name" id="name" placeholder="名字" value="{{consignee.name}}" />
+					<div style="height: 1px; background-color: #d5d5d5;"></div>
+				</div>
+				<div style="padding-top: 20px;">
+					<label style="width: 90px; line-height: 28px; padding: 10px 0px;">联系电话</label>
+					<input style="width: 70%; border: none; line-height: 28px; padding: 5px 0px 10px 20px; outline: none; font-size: 15px;" type="text" name="phone" id="phone" placeholder="手机或固定电话" value="{{consignee.phone}}" />
+					<div style="height: 1px; background-color: #d5d5d5;"></div>
+				</div>
+				<div style="padding-top: 20px;">
+					<label style="width: 90px; line-height: 28px; padding: 10px 0px;">详细地址</label>
+					<input style="width: 70%; width: 60%; border: none; line-height: 28px; padding: 5px 0px 10px 20px; outline: none; font-size: 15px;" type="text" name="address" id="address" placeholder="填写详细地址" value="{{consignee.address}}"/>
+					<div style="height: 1px; background-color: #d5d5d5;"></div>
+				</div>
+				<div style="padding-top: 20px;">
+					<label style="width: 90px; line-height: 28px; padding: 10px 0px;">邮政编码</label>
+					<input style="width: 70%; border: none; line-height: 28px; padding: 5px 0px 10px 20px; outline: none; font-size: 15px;" type="text" name="zip" id="zip" placeholder="邮政编码" value="{{consignee.zip}}" />
+				</div>
+			</div>
+			<div style="height: 1px; background-color: #d5d5d5;"></div>
+			<div style="padding: 20px;" ng-click="modifyAddress()">
+				<div style="width: 100%; background-color: #06bf04; line-height: 48px;  text-align: center; color: white; border-radius: 4px; font-size: 16px;">
+					<span>保存</span>
+				</div>
+			</div>
+		</form>
+	</body>
+	<script type="text/javascript" src="js/mui.min.js" ></script>
+	<script type="text/javascript" src="address_modify.js" ></script>
+</html>

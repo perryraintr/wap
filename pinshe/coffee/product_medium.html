@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html ng-app="coffee" ng-controller="product_medium">
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="height=device-height,width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0" />
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<meta name="format-detection" content="telephone=no">
+		<link rel="shortcut icon" href="">
+		<link href="css/mui.min.css" rel="stylesheet" type="text/css" />
+		<link href="css/default.css" rel="stylesheet" type="text/css" />
+		<script type="text/javascript" src="js/helper.js"></script>
+		<script type="text/javascript" src="js/angular.min.js"></script>
+		<script type="text/javascript" src="js/jquery-3.0.0.min.js"></script>
+		<script type="text/javascript" src="js/underscore-min.js"></script>
+		<script type="text/javascript" src="js/layer.js"></script>
+		<meta name="description" content="最有温度的品质生活社区。" />
+		<title>品社精选</title>
+		<link href="css/swiper-3.3.1.min.css" rel="stylesheet" type="text/css" />
+		<link href="product_medium.css" rel="stylesheet" type="text/css" />
+		<script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+		<script type="text/javascript" src="https://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+	</head>
+
+	<body>
+
+		<div style="background-color: #1b1b1f; color: white; position: fixed; height: 38px; width: 100%; z-index: 999;">
+			<a href="product_highgrade.html"><img width="24" height="24" src="img/icon.png" style="margin: 7px 0px 0px 5px;"></a>
+			<span ng-show="isMember" style="font-size: 13px; vertical-align: top; line-height: 38px;" ng-cloak>品社会员</span>
+			<span ng-show="!isMember" style="font-size: 13px; vertical-align: top; line-height: 38px;" ng-cloak>品社咖啡</span>
+			<span ng-show="isMember" style="float: right; font-size: 13px; vertical-align: top; line-height: 38px; padding-right: 8px;" ng-cloak>余额：{{member.current}}元</span>
+			<div style="clear: both;"></div>
+		</div>
+
+		<div style="padding-top: 38px;" id="swiperAd" class="swiper-container swiper-container-ad swiper-container-horizontal">
+			<div class="swiper-wrapper">
+				<li class="swiper-slide">
+					<a href="product_hotsale.html"><img class="picture" style="vertical-align:top;" src="banner/banner2.png" width="100%"></a>
+				</li>
+				<li class="swiper-slide">
+					<img class="picture" style="vertical-align:top;" src="banner/banner4.jpg" width="100%">
+				</li>
+			</div>
+			<div style="text-align:center" class="swiper-pagination"></div>
+		</div>
+
+		<div style="height:10px; background-color: #E0E0E0;"></div>
+
+		<div style="width: 100%; background-color: white;">
+			<div style="padding: 1%"></div>
+			<a href="product_instant.html"><img src="img/type1.png" style="width: 23%; height: 23vm; margin-left: 1%;" /></a>
+			<a><img src="img/typeSel2.png" style="width: 23%; height: 23vm" /></a>
+			<a href="product_highgrade.html"><img src="img/type3.png" style="width: 23%; height: 23vm" /></a>
+			<a href="nearby_cafehouse.html"><img src="img/type4.png" style="width: 23%; height: 23vm" /></a>
+		</div>
+		<div style="height:10px; background-color: #E0E0E0;"></div>
+
+		<div ng-show="newItems.length > 0" style="background-color:white;">
+			<div style="text-align: center;padding:20px;font-size:18px;"><b>不容错过的新品</b></div>
+			<div class="swiper-container swiper-container-new swiper-container-horizontal">
+				<div id="swiperwrapper" class="swiper-wrapper">
+				</div>
+			</div>
+		</div>
+
+		<div ng-show="bestsellerItems.length > 0" style="background-color:white;padding-top: 5px;">
+			<div style="height: 10px; background-color: #E0E0E0;"></div>
+			<div style="text-align: center;padding:20px;font-size:18px;"><b>品社老饕们的最爱</b></div>
+			<div ng-repeat="row in bestsellerItems">
+				<div style="padding: 0px 5px 20px 5px;">
+					<a href="product_detail.html?id={{row.guid}}">
+						<div style="position:relative;">
+							<div style="position:relative;">
+								<div ng-show="row.count == 0" class='background-overlay'></div>
+								<div ng-show="row.count == 0" style="position: absolute; z-index: 101; text-align: center; top: 72%; left: 10%; right: 10%;">
+									<font style="background-color: brown; padding: 5px 20px 5px 20px; color:white; font-size: 20px; line-height: 150%; border-radius: 4px;">已售罄</font>
+								</div>
+								<div style="width: 100%;"><img ng-src="{{row.image}}" style="vertical-align:top;" width="100%" /></div>
+							</div>
+							<div style="padding-top:10px;">
+								<div style="float:left;width:42px;">
+									<img align="absmiddle" ng-src="img/star{{row.t3}}.png" width="42px" height="42px" />
+								</div>
+								<div style="text-align:left;">
+									<div style="margin:-2px 0px 0px 50px;">
+										<span style="font-size: 16px;color:black;">
+										<b ng-cloak>{{row.name}}</b>
+										<img ng-src="img/{{row.t4_str}}.png" style="float: right;" align="absmiddle" width="53px" height="18px" />
+									</span>
+									</div>
+									<div style="color:#909090;font-size:16px;padding:4px 0px 0px 50px;" ng-cloak>{{row.description}}</div>
+
+									<div style="padding:5px 0px 0px 50px;">
+										<div style="background-color: #909090;color: white; font-size:11px; width:80px;text-align: center;" ng-cloak>
+											{{row.t2_str}}
+										</div>
+										<div style="padding-top:15px;">
+											<div style="float:left;">
+												<span style="font-size: 16px; color: red;" ng-cloak>{{row.price}}元</span>&nbsp;&nbsp;<span style="font-size: 12px; color: red;" ng-cloak>({{row.t5_str}})</span>
+											</div>
+											<div style="clear: both;"></div>
+										</div>
+									</div>
+								</div>
+								<div style="clear: both;"></div>
+							</div>
+						</div>
+					</a>
+				</div>
+				<div style="width:90%;height:1px;margin:0px auto;padding:0px;background-color:#D5D5D5;overflow:hidden;" ng-show="$index != bestsellerItems.length - 1"></div>
+				<div style="padding: 5px 0px 0px 0px;"></div>
+			</div>
+		</div>
+
+		<div ng-show="otherItems.length > 0" style="background-color:white;padding-top: 5px;">
+			<div ng-repeat="row in otherItems">
+				<div style="height: 10px; background-color: #E0E0E0;"></div>
+				<div style="padding: 0px 5px 20px 5px;">
+					<a href="product_detail.html?id={{row.guid}}">
+						<div style="position:relative;">
+							<div style="position:relative;">
+								<div ng-show="row.count == 0" class='background-overlay'></div>
+								<div ng-show="row.count == 0" style="position: absolute; z-index: 101; text-align: center; top: 72%; left: 10%; right: 10%;">
+									<font style="background-color: brown; padding: 5px 20px 5px 20px; color:white; font-size: 20px; line-height: 150%; border-radius: 4px;">已售罄</font>
+								</div>
+								<div style="width: 100%;"><img ng-src="{{row.image}}" style="vertical-align:top;" width="100%" /></div>
+							</div>
+							<div style="padding-top:10px;">
+								<div style="float:left;width:42px;">
+									<img align="absmiddle" ng-src="img/star{{row.t3}}.png" width="42px" height="42px" />
+								</div>
+								<div style="text-align:left;">
+									<div style="margin:-2px 0px 0px 50px;">
+										<span style="font-size: 16px;color:black;">
+										<b ng-cloak>{{row.name}}</b>
+										<img ng-src="img/{{row.t4_str}}.png" style="float: right;" align="absmiddle" width="53px" height="18px" />
+									</span>
+									</div>
+									<div style="color:#909090;font-size:16px;padding:4px 0px 0px 50px;" ng-cloak>{{row.description}}</div>
+
+									<div style="padding:5px 0px 0px 50px;">
+										<div style="background-color: #909090;color: white; font-size:11px; width:80px;text-align: center;" ng-cloak>
+											{{row.t2_str}}
+										</div>
+										<div style="padding-top:15px;">
+											<div style="float:left;">
+												<span style="font-size: 16px; color: red;" ng-cloak>{{row.price}}元</span>&nbsp;&nbsp;<span style="font-size: 12px; color: red;" ng-cloak>({{row.t5_str}})</span>
+											</div>
+											<div style="clear: both;"></div>
+										</div>
+									</div>
+								</div>
+								<div style="clear: both;"></div>
+							</div>
+						</div>
+					</a>
+				</div>
+				<div style="padding: 5px 0px 0px 0px;"></div>
+			</div>
+		</div>
+
+	</body>
+	<script type="text/template" id="templateSwiper">
+		<li class="swiper-slide">
+			<div style="padding: 0px 0px 5px 5px;">
+				<a href="product_detail.html?id=<%=guid%>">
+					<div style="position:relative;">
+						<%if(count == 0){%>
+						<div class='background-overlay'></div>
+						<div style="position: absolute; z-index: 101; text-align: center; top: 72%; left: 10%; right: 10%;">
+							<font style="background-color: brown; padding: 5px 20px 5px 20px; color:white; font-size: 20px; line-height: 150%; border-radius: 4px;">已售罄</font>
+						</div>
+						<%}%>
+						<div style="width: 100%;"><img class="picture" src="<%=image%>" style="vertical-align:top;" width="100%" /></div>
+					</div>
+					<div style="padding-top:5px;">
+						<div style="float:left;width:32px;">
+							<img align="absmiddle" src="img/star<%=t3%>.png" width="30px" height="30px" />
+						</div>
+						<div style="text-align:left;">
+							<div style="margin:-4px 0px 0px 38px;">
+								<span style="font-size: 12px;color:black;"><b><%=name%></b></span>
+								<%if(t4 > 0){%>
+								<img src="img/<%=t4_str%>.png" style="float: right;" align="absmiddle" width="41px" height="14px" />
+								<%}%>
+							</div>
+							<div style="color:#909090;font-size:12px;margin:-4px 0px 0px 38px;">
+								<%=description%>
+							</div>
+
+							<div style="padding:0px 0px 0px 34px;">
+								<div style="background-color: #909090; color: white; font-size:9px;text-align: center;display: none;">
+									<%=t2_str%>
+								</div>
+								<div>
+									<div style="float:left;margin: 6px 0px 0px 4px;">
+										<span style="font-size: 16px; color: red;"><%=price%></span><span style="font-size: 12px; color: red;">元&nbsp;&nbsp;(<%=t5_str%>)</span>
+									</div>
+									<div style="clear: both;"></div>
+								</div>
+							</div>
+						</div>
+						<div style="clear: both;"></div>
+					</div>
+				</a>
+			</div>
+		</li>
+	</script>
+	<script type="text/javascript" src="js/mui.min.js"></script>
+	<script type="text/javascript" src="js/swiper-3.3.1.min.js"></script>
+	<script type="text/javascript" src="js/global.js" ></script>
+	<script type="text/javascript" src="product_medium.js"></script>
+
+</html>

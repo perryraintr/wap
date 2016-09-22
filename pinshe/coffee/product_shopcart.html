@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html ng-app="coffee" ng-controller="product_shopcart">
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="height=device-height,width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0" />
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<meta name="format-detection" content="telephone=no">
+		<link rel="shortcut icon" href="">
+		<link href="css/default.css" rel="stylesheet" type="text/css" />
+		<link rel="stylesheet" href="css/mui.min.css" />
+		<script type="text/javascript" src="js/helper.js"></script>
+		<script type="text/javascript" src="js/angular.min.js"></script>
+		<script type="text/javascript" src="js/jquery-3.0.0.min.js"></script>
+		<script type="text/javascript" src="js/underscore-min.js"></script>
+		<script type="text/javascript" src="js/layer.js" ></script>
+		<meta name="description" content="最有温度的品质生活社区。" />
+		<title>购物车</title>
+		<link href="product_shopcart.css" rel="stylesheet" type="text/css" />
+	</head>
+
+	<body>
+		<div style="background-color: #1b1b1f; color: white; position: fixed; height: 38px; width: 100%; z-index: 999;">
+			<a href="product_highgrade.html"><img width="24" height="24" src="img/icon.png" style="margin: 7px 0px 0px 5px;"></a>
+			<span ng-show="isMember" style="font-size: 13px; vertical-align: top; line-height: 38px;">品社会员</span>
+			<span ng-show="!isMember" style="font-size: 13px; vertical-align: top; line-height: 38px;">品社咖啡</span>
+			<span ng-show="isMember" style="float: right; font-size: 13px; vertical-align: top; line-height: 38px; padding-right: 8px;">余额：{{member.current}}元</span>
+			<div style="clear: both;"></div>
+		</div>
+		
+		<div style="padding-bottom: 60px; padding-top: 38px;">
+			<div ng-repeat="row in cartList ">
+				<div style="background-color: white;">
+					<div style="float: left; padding: 40px 10px 0px 10px;">
+						<img src="img/choose.png" style="width: 20px; height: 20px; z-index: 1; position: absolute;" ng-click="addChoose(row)" />
+						<img src="img/chooseSel.png" style="width: 20px; height: 20px; z-index: 2; position: absolute;" ng-show="row.isChoose" ng-click="removeChoose(row)" />
+					</div>
+					<div style="padding: 2%;">
+						<div style="float: left; padding-left: 20px;">
+							<a href="product_detail.html?wcid={{wcid}}&id={{row.commodity_guid}}"><img ng-src="{{row.image}}" width="90px" height="90px" /></a>
+						</div>
+						<div style="padding-left: 130px;">
+							<div style="text-align: left">
+								<span style="font-size: 13px; color: #404040; margin-top: -5px;" ng-cloak>{{row.commodity_name}} | {{row.commodity_description}}</span>
+							</div>
+							<div style="text-align: left;">
+								<span style="font-size: 14px; color: #fe5e00;" ng-cloak>¥{{row.commodity_price}}</span>
+							</div>
+							<div style="padding-top: 5px;">
+								<img src="img/minus.png" width="18px" align="absmiddle" height="18px" style="float: left;" ng-click="minus(row)" />
+								<div style="float: left; font-size: 14px; color: #404040; margin-top: -3px; padding-left: 5px; padding-right: 5px;" ng-cloak>{{row.cart_count}}</div>
+								<img src="img/plus.png" width="18px" align="absmiddle" height="18px" style="float: left;" ng-click="plus(row)" />
+								<img src="img/del.png" width="18px" align="absmiddle" height="18px" style="float: right;" ng-click="removeCart(row, $index)" />
+							</div>
+						</div>
+						<div style="clear: both;"></div>
+					</div>
+					<div style="height: 1px; background-color: #E0E0E0;" ng-show="$index != myOrderList.length - 1"></div>
+				</div>
+			</div>
+		</div>
+
+		<div style="position: fixed; bottom: 0px; width: 100%; height: 56px; background-color: white; z-index: 100;">
+			<div style="height: 1px; background-color: #d5d5d5;"></div>
+			<div style="float: left; padding: 15px 10px 0px 10px;">
+				<img src="img/choose.png" style="width: 20px; height: 20px; z-index: 1; margin-top: 1px; position: absolute;" ng-click="addAllChoose()" />
+				<img src="img/chooseSel.png" style="width: 20px; height: 20px; z-index: 2; margin-top: 1px; position: absolute;" ng-show="isAllChoose" ng-click="removeAllChoose()" />
+				<span style="padding: 12px 0px 0px 30px; font-size: 14px; color: #9e0039">全选</span>
+			</div>
+			<div style="float: right; text-align: right; padding: 16px 10px 0px 0px;">
+				<span style="color: #606060; font-size: 14px; vertical-align: top; padding-right: 5px;" ng-cloak>合计:{{allMoney}}元</span>
+				<a href="#" ng-click="totalButton()"><img src="img/total.png" width="82px" height="36px" style="z-index: 2; margin-top: -7px;" /></a>
+			</div>
+			<div style="clear: both;"></div>
+		</div>
+
+	</body>
+	<script type="text/javascript" src="js/mui.min.js"></script>
+	<script type="text/javascript" src="js/global.js" ></script>
+	<script type="text/javascript" src="product_shopcart.js"></script>
+
+</html>

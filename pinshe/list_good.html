@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html ng-app="pinshe" ng-controller="list_good">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="height=device-height,width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0" />
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<meta name="format-detection" content="telephone=no">
+		<link href="css/mui.min.css" rel="stylesheet" type="text/css" />
+		<link href="css/default.css" rel="stylesheet" type="text/css"/>
+		<script type="text/javascript" src="js/angular.min.js"></script>
+		<script type="text/javascript" src="js/helper.js"></script>
+		<meta name="description" content="最有温度的品质生活社区。" />
+		<title>推荐 - 品社</title>
+		<link href="list_good.css" rel="stylesheet" type="text/css" />
+	</head>
+
+	<body>
+		<div id="scroll" class="mui-content mui-scroll-wrapper">
+			<div class="mui-scroll">		
+				<div style="background-color:#d1a224;color:white;padding:2%;text-align: center;">
+					<span style="float:left;"><a class="mui-action-back"><img src="img/1.png" width="11px" height="18px"/></a></span>
+					<span style="padding-right: 20px;">推荐</span>
+					<span><a href="list_bad.html" style="color: #dddddd; text-decoration: none;">吐槽</a></span>
+					<span style="float:right;"><img id="menu-btn" src="img/home.png" width="21px" height="21px"/></span>
+					<div style="clear: both;"></div>
+					
+					<div id="menu" class="mui-table-view1" style="background-color:#d1a224;margin-left: 11px;margin-right: 21px;display: none;">
+						<li class="mui-table-view-cell">
+							<a href="vote.html">品选</a>
+						</li>
+						<li class="mui-table-view-cell">
+							<a href="list_good.html">列表</a>
+						</li>
+					</div>
+				</div>
+				
+				<a href="top10.html?t2={{tagmodel.tag_t2}}" ng-repeat="tagmodel in tag">
+					<table ng-if="$index % 4 == 0" style="background-color: #e1d8c3; width: 100%;">
+						<tbody>
+							<tr>
+								<th style="width: 33.3%; padding-left: 5px;">
+									<img class="paihang" src="img1/small1.png" />
+									<img class="tagImage" ng-src="{{tagmodel.tag_product1_image}}" />
+								</th>
+								<th style="width: 33.3%;">
+									<img class="paihang" src="img1/small2.png" />
+									<img class="tagImage" ng-src="{{tagmodel.tag_product2_image}}" />
+								</th>
+								<th>
+									<img class="paihang" src="img1/small3.png" />
+									<img class="tagImage" ng-src="{{tagmodel.tag_product3_image}}" />
+								</th>
+							</tr>
+							<tr>
+								<td style="padding-left: 15px; padding-top: 10px;" colspan="3">
+									<p style="font-size: 16px; color: #404040;">{{tagmodel.tag_name}}</p>
+									<p style="font-size: 14px; color: #404040;">{{tagmodel.tag_description}}</p>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+					
+					<table ng-if="$index % 4 == 1" style="background-color: #e8e8e8; width: 100%;">
+						<tbody>
+							<tr>
+								<th style="width: 33.3%; padding-left: 5px;">
+									<img class="paihang" src="img1/small1.png" />
+									<img class="tagImage" ng-src="{{tagmodel.tag_product1_image}}" />
+								</th>
+								<th style="width: 33.3%;">
+									<img class="paihang" src="img1/small2.png" />
+									<img class="tagImage" ng-src="{{tagmodel.tag_product2_image}}" />
+								</th>
+								<th>
+									<img class="paihang" src="img1/small3.png" />
+									<img class="tagImage" ng-src="{{tagmodel.tag_product3_image}}" />
+								</th>
+							</tr>
+							<tr>
+								<td style="padding-left: 15px; padding-top: 10px;" colspan="3">
+									<p style="font-size: 16px; color: #404040;">{{tagmodel.tag_name}}</p>
+									<p style="font-size: 14px; color: #404040;">{{tagmodel.tag_description}}</p>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+					
+					<table ng-if="$index % 4 == 2" style="background-color: #396873; width: 100%;">
+						<tbody>
+							<tr>
+								<th style="width: 33.3%; padding-left: 5px;">
+									<img class="paihang" src="img1/small1.png" />
+									<img class="tagImage" ng-src="{{tagmodel.tag_product1_image}}" />
+								</th>
+								<th style="width: 33.3%;">
+									<img class="paihang" src="img1/small2.png" />
+									<img class="tagImage" ng-src="{{tagmodel.tag_product2_image}}" />
+								</th>
+								<th>
+									<img class="paihang" src="img1/small3.png" />
+									<img class="tagImage" ng-src="{{tagmodel.tag_product3_image}}" />
+								</th>
+							</tr>
+							<tr>
+								<td style="padding-left: 15px; padding-top: 10px;" colspan="3">
+									<p style="font-size: 16px; color: #FFFFFF;">{{tagmodel.tag_name}}</p>
+									<p style="font-size: 14px; color: #FFFFFF;">{{tagmodel.tag_description}}</p>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+					
+					<table ng-if="$index % 4 == 3" style="background-color: #645e56; width: 100%;">
+						<tbody>
+							<tr>
+								<th style="width: 33.3%; padding-left: 5px;">
+									<img class="paihang" src="img1/small1.png" />
+									<img class="tagImage" ng-src="{{tagmodel.tag_product1_image}}" />
+								</th>
+								<th style="width: 33.3%;">
+									<img class="paihang" src="img1/small2.png" />
+									<img class="tagImage" ng-src="{{tagmodel.tag_product2_image}}" />
+								</th>
+								<th>
+									<img class="paihang" src="img1/small3.png" />
+									<img class="tagImage" ng-src="{{tagmodel.tag_product3_image}}" />
+								</th>
+							</tr>
+							<tr>
+								<td style="padding-left: 15px; padding-top: 10px;" colspan="3">
+									<p style="font-size: 16px; color: #FFFFFF;">{{tagmodel.tag_name}}</p>
+									<p style="font-size: 14px; color: #FFFFFF;">{{tagmodel.tag_description}}</p>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</a>
+				<div style="position:fixed;bottom:0px;">
+				</div>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript" src="js/mui.min.js"></script>
+	<script type="text/javascript" src="list_good.js"></script>
+</html>
