@@ -81,14 +81,14 @@ app.controller("my_subscription", function($scope, $http) {
 	
 	$scope.sendWxMessage = function() {
 		if($scope.wcid == "o1D_JwHikK5LBt_Y__Ukr9p4tKsY" || $scope.wcid == "o1D_JwGKMNWZmBYLxghYYw0GIlUg") {
-			$http.get("http://interface.pinshe.org/v1/wechat_send.a?wcid=o1D_JwHikK5LBt_Y__Ukr9p4tKsY&m=" + $scope.member.name + "开始订享").success(function(response) {});
-			$http.get("http://interface.pinshe.org/v1/wechat_send.a?wcid=o1D_JwGKMNWZmBYLxghYYw0GIlUg&m=" + $scope.member.name + "开始订享").success(function(response) {});
+			$http.get(getHeadUrl() + "wechat_send.a?wcid=o1D_JwHikK5LBt_Y__Ukr9p4tKsY&m=" + $scope.member.name + "开始订享").success(function(response) {});
+			$http.get(getHeadUrl() + "wechat_send.a?wcid=o1D_JwGKMNWZmBYLxghYYw0GIlUg&m=" + $scope.member.name + "开始订享").success(function(response) {});
 			return;
 		}
-		$http.get("http://interface.pinshe.org/v1/wechat_send.a?wcid=o1D_JwHikK5LBt_Y__Ukr9p4tKsY&m=" + $scope.member.name + "开始订享").success(function(response) {});
-		$http.get("http://interface.pinshe.org/v1/wechat_send.a?wcid=o1D_JwGKMNWZmBYLxghYYw0GIlUg&m=" + $scope.member.name + "开始订享").success(function(response) {});
-		$http.get("http://interface.pinshe.org/v1/wechat_send.a?wcid=o1D_JwFbCrjU1rPJdO6-ljRQC5qE&m=" + $scope.member.name + "开始订享").success(function(response) {});
-		$http.get("http://interface.pinshe.org/v1/wechat_send.a?wcid=o1D_JwGTL0ZN81hpxJSxflvtXQj8&m=" + $scope.member.name + "开始订享").success(function(response) {});
+		$http.get(getHeadUrl() + "wechat_send.a?wcid=o1D_JwHikK5LBt_Y__Ukr9p4tKsY&m=" + $scope.member.name + "开始订享").success(function(response) {});
+		$http.get(getHeadUrl() + "wechat_send.a?wcid=o1D_JwGKMNWZmBYLxghYYw0GIlUg&m=" + $scope.member.name + "开始订享").success(function(response) {});
+		$http.get(getHeadUrl() + "wechat_send.a?wcid=o1D_JwFbCrjU1rPJdO6-ljRQC5qE&m=" + $scope.member.name + "开始订享").success(function(response) {});
+		$http.get(getHeadUrl() + "wechat_send.a?wcid=o1D_JwGTL0ZN81hpxJSxflvtXQj8&m=" + $scope.member.name + "开始订享").success(function(response) {});
 	}
 
 	

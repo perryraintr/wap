@@ -1,7 +1,7 @@
 var app = angular.module("coffee", []);
 app.controller("address_list", function($scope, $http) {
 	$scope.wcid = getwcid();
-	$scope.wcid = "o1D_JwHikK5LBt_Y__Ukr9p4tKsY";
+//	$scope.wcid = "o1D_JwHikK5LBt_Y__Ukr9p4tKsY";
 //	$scope.wcid = "o1D_JwFbCrjU1rPJdO6-ljRQC5qE";
 
 	$scope.orderId = GetQueryString("oid");

@@ -29,6 +29,7 @@ app.controller("product_instant", function($scope, $http) {
 	$http.get(getHeadUrl() + "member.a?wcid=" + $scope.wcid).success(function(response) {
 		$scope.member = response.body;
 		$scope.isMember = $scope.member.amount > 0;
+		$scope.requestEnd = true;
 		$scope.getList();
 	});
 

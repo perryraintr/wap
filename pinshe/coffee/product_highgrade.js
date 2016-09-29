@@ -25,15 +25,16 @@ app.controller("product_highgrade", function($scope, $http) {
 	$scope.imports = [];
 	$scope.otherItems = [];
 
-	$http.get("http://interface.pinshe.org/v1/member.a?wcid=" + $scope.wcid).success(function(response) {
+	$http.get(getHeadUrl() + "member.a?wcid=" + $scope.wcid).success(function(response) {
 		$scope.member = response.body;
 		$scope.isMember = $scope.member.amount > 0;
+		$scope.requestEnd = true;
 		$scope.getList();
 	});
 
 	//(1:品社X系列 2:至臻精选 3:名庄限量)
 	$scope.getList = function() {
-		$http.get("http://interface.pinshe.org/v1/commodity.a?t0=3").success(function(response) {
+		$http.get(getHeadUrl() + "commodity.a?t0=3").success(function(response) {
 
 			$("#swiperwrapper").html("");
 			for(var i = 0; i < response.body.array.length; i++) {
@@ -73,7 +74,7 @@ app.controller("product_highgrade", function($scope, $http) {
 	}
 	
 	$scope.initWx = function() {
-		$http.get("http://interface.pinshe.org/v1/wechat_sign.a?url=" + encodeURIComponent(location.href)).success(function(response) {
+		$http.get(getHeadUrl() + "wechat_sign.a?url=" + encodeURIComponent(location.href)).success(function(response) {
 			$scope.wecharSign = response;
 			wx.config({
 				debug: false,

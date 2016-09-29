@@ -21,33 +21,29 @@
 	</head>
 
 	<body>
-
-		<div ng-show="!hasStore && hasStoreFinished" style="position: absolute; top: 48%; bottom: 0; left: 3%; right: 3%; text-align: center; font-size: 18px;">
-			请等待品社审核，请稍后联系客服，查询审核进度...
-			<div style="padding-top: 30%;">
-				<a href="" style="color: #606060;" ng-click="loginOut()">退出登录</a>
-			</div>
-		</div>
-
-		<div ng-show="hasStore">
-			<div style="padding: 3%; font-size: 16px;">
-				<a href="" style="float: right; color: #606060;" ng-click="loginOut()">退出登录</a>
-				<!--<a ng-show="cashList.length > 0 && isFinished" style="float: right; color: #606060;" href="store_orderrecord.html?sid={{cashList[0].store_guid}}">查看订单明细</a>-->
-				<span>余额：</span><span ng-bind="member.current"></span><span>元</span>
+		<div>
+			<div style="padding-top: 3%; padding-left: 3%; padding-right: 3%; padding-bottom: 15px; font-size: 16px;">
+				
+				<div ng-bind="storeName"></div>
+				<div style="padding-top: 5px;">
+					<a ng-show="!isManager && storeName.length > 0" ng-click="loginOut()" style="float: right; color: #606060;">退出登录</a>
+					<span>余额：</span><span ng-bind="amount"></span><span>元</span>
+				</div>
 				<div style="clear: both;"></div>
 			</div>
+			
 			<div style="background-color: #E0E0E0; padding-top: 10px; padding-bottom: 10px; font-size: 16px;">
 				<span style="padding-left: 3%;">账单明细</span>
 			</div>
-			<div style="padding-top: 3%; padding-bottom: 58px; font-size: 16px; color: #909090;">
+			<div style="padding-top: 0px; font-size: 16px; color: #909090;">
 
-				<div ng-show="cashList.length == 0 && isFinished" style="text-align: center;">
+				<div ng-show="cashList.length == 0 && isFinished" style="text-align: center; padding-top: 10px;">
 					啊哦，目前没有账单哦～
 				</div>
 
 				<div ng-show="cashList.length > 0 && isFinished">
 					<div ng-repeat="row in cashList">
-						<div ng-show="row.type == 1" style="padding: 20px 3% 10px 3%; font-size: 14px; color: #909090;" >
+						<div ng-show="row.type == 1" style="padding: 20px 3% 10px 3%; font-size: 14px; color: #909090;">
 							<span>订单编号：</span><span ng-bind="row.order_order_no"></span>
 						</div>
 						<div ng-show="row.type == 1" style="background-color: #fafafa; padding-left: 3%; padding-right: 3%; padding-top: 10px; padding-bottom: 10px;">
@@ -59,9 +55,7 @@
 								<div style="clear: both;"></div>
 							</div>
 							<div style="padding-top: 5px;">
-								<!--<img ng-click="removeCash(row, $index)" src="img/del.png" width="18px" height="18px" style="float: right;" />-->
 								<span ng-bind="row.create_time"></span>
-								<!--<div style="clear: both;"></div>-->
 							</div>
 						</div>
 						<div ng-show="row.type == -1" style="background-color: #fafafa; padding-left: 3%; padding-right: 3%; padding-top: 10px; padding-bottom: 10px;">
@@ -80,11 +74,35 @@
 				</div>
 			</div>
 
-			<a href="store_cashadd.html?mid={{member.guid}}&sid={{cashList[0].store_guid}}">
-				<div style="position: fixed; bottom: 0px; width: 100%; background-color: #06bf04; line-height: 48px; text-align: center; color: white; font-size: 16px;">
-					<span>提现</span>
+			<div style="position: fixed; bottom: 48px; right: 0; text-align: center; width: 50%; line-height: 48px; background-color: white;" ng-show="isMyOpen">
+				<div style="border-style: solid; border-width: 1px; border-color: #d5d5d5;">
+					<a href="store_change.html?sid={{sid}}">
+						<div style="color: #404040;">切换店铺</div>
+					</a>
+					<div style="height: 1px; background-color: #d5d5d5;"></div>
+					<a href="store_member.html?sid={{sid}}">
+						<div style="color: #404040;">我的店员</div>
+					</a>
+					<div style="height: 1px; background-color: #d5d5d5;"></div>
+					<a href="" ng-click="loginOut()">
+						<div style="color: #404040;">退出登录</div>
+					</a>
 				</div>
-			</a>
+			</div>
+
+			<div ng-show="isManager" style="padding-bottom: 58px;"></div>
+
+			<div ng-show="isManager" style="position: fixed; bottom: 0px; width: 100%; line-height: 48px; text-align: center; color: #404040; font-size: 16px; background-color: #d5d5d5;">
+				<div style="height: 1px; background-color: #d5d5d5;"></div>
+				<a href="store_cashadd.html?mid={{member.guid}}&sid={{sid}}">
+					<div style="float: left; width: 49.75%; background-color: #06bf04; color: white; font-size: 14px;">提现</div>
+				</a>
+				<div style="float: left; width: 1px; height: 47px;"></div>
+				<div style="float: right; width: 49.75%; line-height: 47px; background-color: white; font-size: 14px;" ng-click="myClicked()"><img src="img/list.png" width="20px" height="20px" align="absmiddle" />我的</div>
+				<div style="margin-top: 47px; height: 1px; background-color: #d5d5d5;"></div>
+				<div style="clear: both;"></div>
+			</div>
+
 		</div>
 	</body>
 	<script type="text/javascript" src="js/mui.min.js"></script>

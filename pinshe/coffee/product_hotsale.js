@@ -23,15 +23,16 @@ app.controller("product_hotsale", function($scope, $http) {
 
 	$scope.bestsellerItems = [];
 
-	$http.get("http://interface.pinshe.org/v1/member.a?wcid=" + $scope.wcid).success(function(response) {
+	$http.get(getHeadUrl() + "member.a?wcid=" + $scope.wcid).success(function(response) {
 		$scope.member = response.body;
 		$scope.isMember = $scope.member.amount > 0;
+		$scope.requestEnd = true;
 		$scope.getList();
 	});
 
 	//热销单品，所有bestseller
 	$scope.getList = function() {
-		$http.get("http://interface.pinshe.org/v1/commodity.a?t1=4").success(function(response) {
+		$http.get(getHeadUrl() + "commodity.a?t1=4").success(function(response) {
 
 			for(var i = 0; i < response.body.array.length; i++) {
 				$scope.item = response.body.array[i];
@@ -42,7 +43,7 @@ app.controller("product_hotsale", function($scope, $http) {
 				$scope.bestsellerItems.push($scope.item);
 			}
 
-			$http.get("http://interface.pinshe.org/v1/commodity.a?t1=2").success(function(response) {
+			$http.get(getHeadUrl() + "commodity.a?t1=2").success(function(response) {
 
 				for(var i = 0; i < response.body.array.length; i++) {
 					$scope.item = response.body.array[i];
@@ -61,7 +62,7 @@ app.controller("product_hotsale", function($scope, $http) {
 	}	
 	
 	$scope.initWx = function() {
-		$http.get("http://interface.pinshe.org/v1/wechat_sign.a?url=" + encodeURIComponent(location.href)).success(function(response) {
+		$http.get(getHeadUrl() + "wechat_sign.a?url=" + encodeURIComponent(location.href)).success(function(response) {
 			$scope.wecharSign = response;
 			wx.config({
 				debug: false,

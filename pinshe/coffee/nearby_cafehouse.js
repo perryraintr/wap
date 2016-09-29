@@ -2,7 +2,7 @@ var app = angular.module("coffee", []);
 app.controller("nearby_cafehouse", function($scope, $http) {
 
 	$scope.wcid = getwcid();
-//	$scope.wcid = "o1D_JwHikK5LBt_Y__Ukr9p4tKsY";
+	//	$scope.wcid = "o1D_JwHikK5LBt_Y__Ukr9p4tKsY";
 	//	$scope.wcid = "o1D_JwGiLMukMtRIo6HU5M0ngxPs";
 
 	if($scope.wcid.length == 0) {
@@ -40,7 +40,13 @@ app.controller("nearby_cafehouse", function($scope, $http) {
 						$scope.storeModelList[i].starList.push(j);
 					}
 
-					$scope.storeList.push($scope.storeModelList[i]);
+					if($scope.storeModelList[i].guid == 83) {
+						if (pinSheMember()) {
+							$scope.storeList.push($scope.storeModelList[i]);	
+						}
+					} else {
+						$scope.storeList.push($scope.storeModelList[i]);
+					}
 				}
 			} else {
 				if($scope.page == 1) {
@@ -76,6 +82,7 @@ app.controller("nearby_cafehouse", function($scope, $http) {
 	$http.get(getHeadUrl() + "member.a?wcid=" + $scope.wcid).success(function(response) {
 		$scope.member = response.body;
 		$scope.isMember = $scope.member.amount > 0;
+		$scope.requestEnd = true;
 		$scope.initWx();
 	});
 
@@ -120,8 +127,8 @@ app.controller("nearby_cafehouse", function($scope, $http) {
 							});
 						} else {
 							var locations = longitude + "," + latitude;
-					
-							$http.get("http://restapi.amap.com/v3/assistant/coordinate/convert?locations=" + locations + "&coordsys=gps&output=json&key=f3deedff4fa239df6844a0f292c24d1d").success(function(response) {	
+
+							$http.get("http://restapi.amap.com/v3/assistant/coordinate/convert?locations=" + locations + "&coordsys=gps&output=json&key=f3deedff4fa239df6844a0f292c24d1d").success(function(response) {
 								$scope.locationModel.longitude = response.locations.split(",")[0];
 								$scope.locationModel.latitude = response.locations.split(",")[1];
 								$scope.getList();

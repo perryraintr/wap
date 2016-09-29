@@ -2,7 +2,7 @@ var app = angular.module("coffee", []);
 app.controller("my_member", function($scope, $http) {
 
 	$scope.wcid = getwcid();
-//	$scope.wcid = "o1D_JwHikK5LBt_Y__Ukr9p4tKsY";
+	//	$scope.wcid = "o1D_JwHikK5LBt_Y__Ukr9p4tKsY";
 
 	if($scope.wcid.length == 0) {
 		location.href = "go.html?url=" + location.href;
@@ -28,7 +28,7 @@ app.controller("my_member", function($scope, $http) {
 		$scope.isFinished = true;
 		//		 || $scope.wcid == "o1D_JwGKMNWZmBYLxghYYw0GIlUg" || $scope.wcid == "o1D_JwGTL0ZN81hpxJSxflvtXQj8"
 		if($scope.wcid == "o1D_JwHikK5LBt_Y__Ukr9p4tKsY") {
-//						$scope.isMember = false;
+			//						$scope.isMember = false;
 		}
 
 		$scope.getsubscription();
@@ -68,41 +68,13 @@ app.controller("my_member", function($scope, $http) {
 		"isChoose": false,
 		"cid": "111",
 		"amount": "1600"
+	}, {
+		"title": "自定义充值金额",
+		"desc": "",
+		"isChoose": false,
+		"cid": "126",
+		"amount": ""
 	}];
-
-	if($scope.wcid == "o1D_JwHikK5LBt_Y__Ukr9p4tKsY" || $scope.wcid == "o1D_JwGKMNWZmBYLxghYYw0GIlUg" || $scope.wcid == "o1D_JwGiLMukMtRIo6HU5M0ngxPs" || $scope.wcid == "o1D_JwFbCrjU1rPJdO6-ljRQC5qE" || $scope.wcid == "o1D_JwGTL0ZN81hpxJSxflvtXQj8") {
-		$scope.chooseList = [{
-			"title": "试用会员",
-			"desc": "充￥200得￥220",
-			"isChoose": false,
-			"cid": "114",
-			"amount": "200"
-		}, {
-			"title": "纯享会员",
-			"desc": "充￥500得￥600",
-			"isChoose": false,
-			"cid": "113",
-			"amount": "500"
-		}, {
-			"title": "乐享会员",
-			"desc": "充￥800得￥1000",
-			"isChoose": false,
-			"cid": "112",
-			"amount": "800"
-		}, {
-			"title": "尊享会员",
-			"desc": "充￥1600得￥2000",
-			"isChoose": false,
-			"cid": "111",
-			"amount": "1600"
-		}, {
-			"title": "自定义充值金额",
-			"desc": "",
-			"isChoose": false,
-			"cid": "126",
-			"amount": ""
-		}];
-	}
 
 	var chooseInde = 0;
 	$scope.chooseMember = function(model) {

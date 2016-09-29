@@ -5,9 +5,9 @@ app.controller("nearby_cafecomment", function($scope, $http) {
 	$scope.id = GetQueryInt("id");
 	$scope.orderno = GetQueryString("orderno");
 
-	//	$scope.wcid = "o1D_JwGKMNWZmBYLxghYYw0GIlUg";
-	//	$scope.id = 66;
-	//	$scope.orderno = "1474524995395";
+	//		$scope.wcid = "o1D_JwHikK5LBt_Y__Ukr9p4tKsY";
+	//		$scope.id = 66;
+	//		$scope.orderno = "20160824185823433949596150";
 
 	if($scope.wcid.length == 0) {
 		location.href = "go.html?url=" + location.href;
@@ -32,6 +32,7 @@ app.controller("nearby_cafecomment", function($scope, $http) {
 	$http.get(getHeadUrl() + "member.a?wcid=" + $scope.wcid).success(function(response) {
 		$scope.member = response.body;
 		$scope.isMember = $scope.member.amount > 0;
+		$scope.requestEnd = true;
 		$scope.isSecond = false;
 		$http.get(getHeadUrl() + "activity_detail.a?mid=" + $scope.member.guid + "&sid=" + $scope.id).success(function(response) {
 			if(response.body.order_guid != undefined && response.body.order_guid > 0) {
@@ -63,9 +64,10 @@ app.controller("nearby_cafecomment", function($scope, $http) {
 	$scope.getOrderDetail = function() {
 		$http.get(getHeadUrl() + "order.a?orderno=" + $scope.orderno).success(function(response) {
 			$scope.orderDetail = response.body;
-			if($scope.wcid == "o1D_JwHikK5LBt_Y__Ukr9p4tKsY" || $scope.wcid == "o1D_JwGKMNWZmBYLxghYYw0GIlUg" || $scope.wcid == "o1D_JwFbCrjU1rPJdO6-ljRQC5qE" || $scope.wcid == "o1D_JwGTL0ZN81hpxJSxflvtXQj8") {
-				$scope.isNeibu = true;
-			}
+			$scope.isNeibu = true;
+//			if($scope.wcid == "o1D_JwHikK5LBt_Y__Ukr9p4tKsY" || $scope.wcid == "o1D_JwGKMNWZmBYLxghYYw0GIlUg" || $scope.wcid == "o1D_JwFbCrjU1rPJdO6-ljRQC5qE" || $scope.wcid == "o1D_JwGTL0ZN81hpxJSxflvtXQj8") {
+//				$scope.isNeibu = true;
+//			}
 			switch($scope.orderDetail.status) {
 				case 0:
 					$scope.orderDetail.status_str = "订单未付款";
@@ -98,7 +100,7 @@ app.controller("nearby_cafecomment", function($scope, $http) {
 			return;
 		}
 		// 一定要改回来！！！！！！！！！！！ current
-		if($scope.orderDetail.type == 2 && $scope.orderDetail.amount > 20 && $scope.isNeibu) {
+		if($scope.orderDetail.type == 2 && $scope.orderDetail.current >= 18 && $scope.isNeibu) {
 			if($scope.isSecond) {
 				$http.get(getHeadUrl() + "store_comment_add.a?sid=" + $scope.id + "&mid=" + $scope.member.guid + "&star=" + $scope.star + "&m=" + $scope.message).success(function(response) {
 					location.href = "coupon_share.html?from=1";
@@ -173,7 +175,7 @@ app.controller("nearby_cafecomment", function($scope, $http) {
 				layer.msg("请输入正确的手机号");
 				return;
 			}
-			
+
 			if($scope.tel.length > 0 && $scope.tel.length != 11) {
 				layer.msg("请输入正确的手机号");
 				return;
@@ -183,27 +185,32 @@ app.controller("nearby_cafecomment", function($scope, $http) {
 				if($scope.tel == $scope.member.phone || $scope.tel == $scope.memberTel) {
 					layer.msg("推荐人不能是自己哦");
 					return;
-				}						
+				}
 			}
-			alert("llll = " + $scope.member.guid);
+
 			$http.get(getHeadUrl() + "login.a?wcid=" + $scope.wcid + "&phone=" + $scope.memberTel).success(function(response) {
 				layer.close(telpohoneIndex);
 				if(response.body.guid != undefined && response.body.guid > 0) {
 					$scope.member = response.body;
 					localStorage.setItem("wid", response.body.wechat_id);
 					localStorage.setItem("tel", response.body.phone);
-					alert($scope.member.guid);
-					alert($scope.orderDetail.guid);
-					$http.get(getHeadUrl() + "order_modify.a?id=" + $scope.orderDetail.guid + "&mid=" + $scope.member.guid).success(function(response){
-					});
-					
-					if ($scope.tel.length == 0) {
+					$http.get(getHeadUrl() + "order_modify.a?id=" + $scope.orderDetail.guid + "&mid=" + $scope.member.guid).success(function(response) {});
+
+					if($scope.tel.length == 0) {
 						$scope.addActivity("");
 					} else {
 						$http.get(getHeadUrl() + "member_add.a?phone=" + $scope.tel).success(function(response) {
 							$scope.sharer = response.body.guid;
-							$scope.addActivity("&sharer=" + $scope.sharer);
-						});	
+							$http.get(getHeadUrl() + "activity.a?mid=" + $scope.member.guid + "&sharerid=" + $scope.sharer).success(function(response) {
+								if(response.body.guid != undefined && response.body.guid > 0) {
+									layer.msg("此推荐人不能用");
+									return;
+									// 不可使用此推荐人
+								} else {
+									$scope.addActivity("&sharer=" + $scope.sharer);
+								}
+							});
+						});
 					}
 				}
 			});
@@ -223,7 +230,15 @@ app.controller("nearby_cafecomment", function($scope, $http) {
 
 				$http.get(getHeadUrl() + "member_add.a?phone=" + $scope.tel).success(function(response) {
 					$scope.sharer = response.body.guid;
-					$scope.addActivity("&sharer=" + $scope.sharer);
+					$http.get(getHeadUrl() + "activity.a?mid=" + $scope.member.guid + "&sharerid=" + $scope.sharer).success(function(response) {
+						if(response.body.guid != undefined && response.body.guid > 0) {
+							layer.msg("此推荐人不能用");
+							return;
+							// 不可使用此推荐人
+						} else {
+							$scope.addActivity("&sharer=" + $scope.sharer);
+						}
+					});
 				});
 			} else {
 				$scope.addActivity("");
@@ -234,8 +249,13 @@ app.controller("nearby_cafecomment", function($scope, $http) {
 
 	$scope.addActivity = function(paramString) {
 		$http.get(getHeadUrl() + "activity_add.a?mid=" + $scope.member.guid + paramString + "&sid=" + $scope.id + "&oid=" + $scope.orderDetail.guid).success(function(response) {
+			var activitySuccess = "";
+			if(response.body.guid != undefined && response.body.guid > 0) {
+				activitySuccess = "&activity=1";
+			}
+//			alert(activitySuccess);
 			$http.get(getHeadUrl() + "store_comment_add.a?sid=" + $scope.id + "&mid=" + $scope.member.guid + "&star=" + $scope.star + "&m=" + $scope.message).success(function(response) {
-				location.href = "coupon_share.html?from=1";
+				location.href = "coupon_share.html?from=1" + activitySuccess;
 			});
 		});
 	}

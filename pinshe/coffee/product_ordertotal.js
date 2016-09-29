@@ -30,15 +30,18 @@ app.controller("product_ordertotal", function($scope, $http) {
 	$http.get(getHeadUrl() + "member.a?wcid=" + $scope.wcid).success(function(response) {
 		$scope.member = response.body;
 		$scope.isMember = $scope.member.amount > 0;
+		$scope.requestEnd = true;
 		$scope.getList($scope.member.guid);
 		$scope.orderDetailFunc();
 	});
 
 	$scope.valid = function() {
-		$http.get(getHeadUrl() + "order.a?status=vaild&mid=" + $scope.member.guid).success(function(response) {
-			$scope.isShoudan = response.body.status == 0 ? true : false;
-			$scope.getCouponList($scope.member.guid);
-		});
+//		$http.get(getHeadUrl() + "order.a?status=vaild&mid=" + $scope.member.guid).success(function(response) {
+//			$scope.isShoudan = response.body.status == 0 ? true : false;
+//			$scope.getCouponList($scope.member.guid);
+//		});
+		$scope.isShoudan = false;
+		$scope.getCouponList($scope.member.guid);
 	}
 
 	$scope.orderDetailFunc = function() {

@@ -27,10 +27,19 @@
 
 	<body>
 		<div style="background-color: #1b1b1f; color: white; position: fixed; height: 38px; width: 100%; z-index: 999;">
-			<a href="product_highgrade.html"><img width="24" height="24" src="img/icon.png" style="margin: 7px 0px 0px 5px;"></a>
-			<span ng-show="isMember" style="font-size: 13px; vertical-align: top; line-height: 38px;" ng-cloak class="ng-cloak">品社会员</span>
-			<span ng-show="!isMember" style="font-size: 13px; vertical-align: top; line-height: 38px;" ng-cloak class="ng-cloak">品社咖啡</span>
-			<span ng-show="isMember" style="float: right; font-size: 13px; vertical-align: top; line-height: 38px; padding-right: 8px;" ng-cloak class="ng-cloak">余额：{{member.current}}元</span>
+			<div ng-show="isMember && requestEnd">
+				<a href="product_highgrade.html">
+					<img width="24" height="24" src="img/icon.png" style="margin: 7px 0px 0px 5px;">
+					<span style="font-size: 13px; color: white; vertical-align: top; line-height: 38px;" ng-cloak>品社会员</span>
+				</a>
+				<span ng-show="isMember" style="float: right; font-size: 13px; vertical-align: top; line-height: 38px; padding-right: 8px;" ng-cloak>余额：{{member.current}}元</span>
+			</div>
+			<div ng-show="!isMember && requestEnd">
+				<a href="nearby_cafemore.html">
+					<img width="24" height="24" src="img/icon.png" style="margin: 7px 0px 0px 5px;">
+					<span style="font-size: 13px; color: white; vertical-align: top; line-height: 38px;" ng-cloak>了解更多咖啡馆的故事</span>
+				</a>
+			</div>
 			<div style="clear: both;"></div>
 		</div>
 
@@ -116,11 +125,11 @@
 		
 		<div id="activityId" style="background-color: white; border-radius: 10px; text-align: center; display: none;">
 			<div style="padding: 3%;">
-				<div style="font-size: 16px; padding-top: 15px;">您还没有评论，<span style="color: #fd6e7f;">请填写评论</span>参与#寻咖#活动</div>
+				<div style="font-size: 16px; padding-top: 15px;">您还没有评论，<span style="color: #fd6e7f;">请填写评论</span>参与#寻咖#活动，获30元奖金</div>
 			</div>
 			<div style="height: 1px; background-color: #d5d5d5; margin-top: 10px;"></div>
 			<div style="width: 100%; text-align: center;">
-				<div style="float: left; width: 49.75%; height: 41px; padding-top: 10px;" ng-click="activityMakeSure()">参与活动</div>
+				<div style="float: left; width: 49.75%; height: 41px; padding-top: 10px; color: #fd6e7f" ng-click="activityMakeSure()">参与活动</div>
 				<div style="float: left; width: 1px; height: 41px; background-color: #d5d5d5;"></div>
 				<div style="float: right; width: 49.75%; height: 41px; padding-top: 10px;" ng-click="activityCancel()">不参与</div>
 				<div style="clear: both;"></div>

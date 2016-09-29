@@ -54,6 +54,9 @@ app.controller("nearby_cafemap", function($scope, $http) {
 				for (var i = 0; i < response.body.array.length; i++) {
 					$scope.newStore = response.body.array[i];
 					$scope.isNew = true;
+					if($scope.newStore.guid == 83) {
+						break;
+					}
 					
 					for (var j = 0; j < $scope.storeList.length; j++) {
 						$scope.lastStore = $scope.storeList[j];

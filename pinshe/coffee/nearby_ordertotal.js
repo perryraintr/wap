@@ -3,8 +3,8 @@ app.controller("nearby_ordertotal", function($scope, $http) {
 
 	$scope.wcid = getwcid();
 	$scope.guid = GetQueryString("id");
-
-//		$scope.guid = 865;
+	
+//		$scope.guid = 371;
 //		$scope.wcid = "o1D_JwHikK5LBt_Y__Ukr9p4tKsY";
 	//	$scope.wcid = "o1D_JwGiLMukMtRIo6HU5M0ngxPs";
 	//		$scope.wcid = "o1D_JwFbCrjU1rPJdO6-ljRQC5qE";	
@@ -15,9 +15,10 @@ app.controller("nearby_ordertotal", function($scope, $http) {
 		return;
 	}
 
-	if($scope.wcid == "o1D_JwHikK5LBt_Y__Ukr9p4tKsY" || $scope.wcid == "o1D_JwGKMNWZmBYLxghYYw0GIlUg" || $scope.wcid == "o1D_JwFbCrjU1rPJdO6-ljRQC5qE") {
-		$scope.isNeibu = true;
-	}
+	$scope.isNeibu = true;
+//	if($scope.wcid == "o1D_JwHikK5LBt_Y__Ukr9p4tKsY" || $scope.wcid == "o1D_JwGKMNWZmBYLxghYYw0GIlUg" || $scope.wcid == "o1D_JwFbCrjU1rPJdO6-ljRQC5qE") {
+//		$scope.isNeibu = true;
+//	}
 
 	$scope.paramStr = "";
 	$scope.isFinished = false; // 订单已完成状态
@@ -31,6 +32,7 @@ app.controller("nearby_ordertotal", function($scope, $http) {
 	$http.get(getHeadUrl() + "member.a?wcid=" + $scope.wcid).success(function(response) {
 		$scope.member = response.body;
 		$scope.isMember = $scope.member.amount > 0;
+		$scope.requestEnd = true;
 		$scope.hasTel = $scope.member.phone.length > 0 ? true : false;
 		$scope.orderDetailFunc();
 	});
@@ -44,22 +46,26 @@ app.controller("nearby_ordertotal", function($scope, $http) {
 			$scope.paramStr = "-3-" + $scope.storeId;
 			if($scope.orderDetail.status != 0) {
 				$scope.isFinished = true;
+				$scope.isPay = false;
 			}
 			$scope.valid();
 		});
 	}
 
 	$scope.valid = function() {
-		$http.get(getHeadUrl() + "order.a?status=vaild&mid=" + $scope.member.guid).success(function(response) {
-			$scope.isShoudan = response.body.status == 0 ? true : false;
-			$scope.getCouponList($scope.member.guid);
-		});
+//		$http.get(getHeadUrl() + "order.a?status=vaild&mid=" + $scope.member.guid).success(function(response) {
+//			$scope.isShoudan = response.body.status == 0 ? true : false;
+//			$scope.getCouponList($scope.member.guid);
+//		});
+		$scope.isShoudan = false;
+		$scope.getCouponList($scope.member.guid);
 	}
 
 	$scope.getCouponList = function(guid) {
 		$http.get(getHeadUrl() + "coupon_member.a?mid=" + guid).success(function(response) {
 			if(response.body.array != undefined && response.body.array.length > 0) {
 				$scope.couponList = response.body.array;
+
 				for(var i = 0; i < $scope.couponList.length; i++) {
 					$scope.couponList[i].isChoose = false;
 					if($scope.couponList[i].status == 2) {
@@ -161,6 +167,7 @@ app.controller("nearby_ordertotal", function($scope, $http) {
 				console.log($scope.money);
 				$http.get(getHeadUrl() + "member_modify.a?id=" + $scope.member.guid + "&current=" + $scope.money).success(function(response) {
 					$scope.isFinished = true;
+					$scope.isPay = true;
 					$scope.orderModify(false);
 				});
 			} else {
@@ -228,9 +235,10 @@ app.controller("nearby_ordertotal", function($scope, $http) {
 	// 微信支付
 	$scope.wxpay = function() {
 		$scope.isFinished = true;
-		if($scope.wcid == "o1D_JwHikK5LBt_Y__Ukr9p4tKsY" || $scope.wcid == "o1D_JwGKMNWZmBYLxghYYw0GIlUg" || $scope.wcid == "o1D_JwGTL0ZN81hpxJSxflvtXQj8" || $scope.wcid == "o1D_JwFbCrjU1rPJdO6-ljRQC5qE") {
-			$scope.orderDetail.payamount = 0.01;
-		}
+		$scope.isPay = true;
+//		if($scope.wcid == "o1D_JwHikK5LBt_Y__Ukr9p4tKsY" || $scope.wcid == "o1D_JwGKMNWZmBYLxghYYw0GIlUg" || $scope.wcid == "o1D_JwGTL0ZN81hpxJSxflvtXQj8" || $scope.wcid == "o1D_JwFbCrjU1rPJdO6-ljRQC5qE" || $scope.wcid == "o1D_JwGiLMukMtRIo6HU5M0ngxPs") {
+//			$scope.orderDetail.payamount = 0.01;
+//		}
 		$scope.orderModify(true);
 	}
 
