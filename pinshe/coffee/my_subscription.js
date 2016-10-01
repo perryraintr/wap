@@ -35,7 +35,8 @@ app.controller("my_subscription", function($scope, $http) {
 	$scope.jiYuLayer = false;
 	$scope.weiFeingLayer = false;
 	$scope.paramStrJiyu = "&cid1=80&cid2=69&cid3=85&cid4=71&cid5=55&cid6=78";
-	$scope.paramStrWeifeng = "&cid1=82&cid2=92&cid3=53&cid4=65&cid5=60&cid6＝87";
+	//$scope.paramStrWeifeng = "&cid1=82&cid2=92&cid3=53&cid4=65&cid5=60&cid6=87";
+	$scope.paramStrWeifeng = "&cid1=120&cid2=92&cid3=53&cid4=65&cid5=60&cid6=87";
 	
 	$http.get(getHeadUrl() + "member.a?wcid=" + $scope.wcid).success(function(response) {
 		$scope.member = response.body;
