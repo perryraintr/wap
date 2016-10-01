@@ -17,6 +17,7 @@ app.controller("coupon_share", function($scope, $http) {
 		return;
 	}
 
+	//寻咖活动
 	$scope.activity = GetQueryInt("activity");
 	//	$scope.activity = 1;
 
@@ -79,6 +80,8 @@ app.controller("coupon_share", function($scope, $http) {
 					imgUrl: "http://www.pinshe.org/html/v1/coffee/img/redicon.png" // 分享图标
 				});
 				$("#bodyId").show();
+				
+				//寻咖活动
 				if($scope.activity == 1) {
 					layer.msg("感谢你参与寻咖，你的奖金已存入你的会员帐户，请前往我的-我的会员查看详情！", {
 						time: 0,

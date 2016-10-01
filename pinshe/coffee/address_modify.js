@@ -22,20 +22,35 @@ app.controller("address_modify", function($scope, $http) {
 	});
 	
 	$scope.modifyAddress = function() {
+		var mid = $scope.member.guid;
+		var guid = $scope.consignee.guid;
+		var name = document.getElementById("name").value;
+		if (name.length == 0) {
+			layer.msg("请填写收货人");
+			return;
+		}
+		var phone = document.getElementById("phone").value;
+		if (phone.length == 0) {
+			layer.msg("请填写收货人电话号码");
+			return;
+		}
+		var address = document.getElementById("address").value;
+		if (address.length == 0) {
+			layer.msg("请填写收货人地址");
+			return;
+		}
+		var zip = document.getElementById("zip").value;
 		
-		var formdata = new FormData($("address"));
-     	$http({
-        		method: 'POST',
-         	url: getHeadUrl() + "consignee_modify.a",
-         	data: formdata,
-         	headers: {
-            		'Content-Type': undefined
-         	},
-         	transformRequest: angular.identity
-     	}).success(function(response) {
-     		location.href = "address_list.html?oid=" + $scope.orderId;
-     	});
-     	
+		$http({
+			method: 'POST',
+			url: getHeadUrl() + "consignee_modify.a",
+			data: "id=" + guid + "&status=1&mid=" + mid + "&name=" + name + "&phone=" + phone + "&address=" + address + "&zip=" + zip,
+			headers: {
+				'Content-Type': 'application/x-www-form-urlencoded'
+			}
+		}).success(function(response) {
+			location.href = "address_list.html?oid=" + $scope.orderId;
+		});
 	}
 	
 });

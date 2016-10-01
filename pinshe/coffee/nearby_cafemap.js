@@ -50,12 +50,12 @@ app.controller("nearby_cafemap", function($scope, $http) {
 	$scope.getList = function() {
 		var distance = 9007199254740993;
 		$http.get(getHeadUrl() + "store.a?longitude=" + $scope.longitude + "&latitude=" + $scope.latitude + "&distance=" + distance + "&page=1").success(function(response) {
-			if (response.body.array.length > 0) {
+			if (response.body.array != undefined && response.body.array.length > 0) {
 				for (var i = 0; i < response.body.array.length; i++) {
 					$scope.newStore = response.body.array[i];
 					$scope.isNew = true;
 					if($scope.newStore.guid == 83) {
-						break;
+						continue;
 					}
 					
 					for (var j = 0; j < $scope.storeList.length; j++) {
@@ -96,6 +96,8 @@ app.controller("nearby_cafemap", function($scope, $http) {
 					}
 					
 				}
+			} else {
+				layer.msg("当前范围没有咖啡馆");
 			}
 			
 			var height = document.body.clientWidth * 0.42 * 900 / 1242.0;

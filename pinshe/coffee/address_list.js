@@ -36,7 +36,7 @@ app.controller("address_list", function($scope, $http) {
 	}
 	
 	$scope.deleteClicked = function(row, index) {
-		$http.get(getHeadUrl() + "consignee_remove.a?id=" + row.guid).success(function(response) {
+		$http.get(getHeadUrl() + "consignee_modify.a?id=" + row.guid + "&mid=" + $scope.member.guid + "&is_delete=1").success(function(response) {
 			$scope.consigneeList.splice(index, 1);
 		});
 	}

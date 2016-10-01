@@ -99,7 +99,8 @@ app.controller("nearby_cafecomment", function($scope, $http) {
 			layer.msg("您还没有评星级哦");
 			return;
 		}
-		// 一定要改回来！！！！！！！！！！！ current
+		
+		//寻咖活动
 		if($scope.orderDetail.type == 2 && $scope.orderDetail.current >= 18 && $scope.isNeibu) {
 			if($scope.isSecond) {
 				$http.get(getHeadUrl() + "store_comment_add.a?sid=" + $scope.id + "&mid=" + $scope.member.guid + "&star=" + $scope.star + "&m=" + $scope.message).success(function(response) {

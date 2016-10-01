@@ -57,7 +57,7 @@ app.controller("store_login", function($scope, $http) {
 				localStorage.setItem("store_guid", $scope.storeMember.store_guid);
 				location.href = "store_cashrecord.html";
 			} else {
-				layer.msg("你还未加入品社咖啡馆！如果你是店长，请联系品社客服；如果你是店员，请联系你的店长。", {
+				layer.msg("你还未加入品社咖啡馆！如果你是咖啡馆长，请联系品社客服；如果你是店员，请联系你的馆长。", {
 					time: 0,
 					btn: ['确定'],
 					yes: function(index) {

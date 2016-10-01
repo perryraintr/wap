@@ -63,7 +63,7 @@ app.controller("store_cashrecord", function($scope, $http) {
 				$scope.checkStoreAmount();
 				$scope.getList();
 			} else {
-				layer.msg("你还未加入品社咖啡馆！如果你是店长，请联系品社客服；如果你是店员，请联系你的店长。", {
+				layer.msg("你还未加入品社咖啡馆！如果你是咖啡馆长，请联系品社客服；如果你是店员，请联系你的馆长。", {
 					time: 0,
 					btn: ['确定', '取消'],
 					yes: function(index) {
