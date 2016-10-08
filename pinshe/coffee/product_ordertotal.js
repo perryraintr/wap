@@ -11,6 +11,11 @@ app.controller("product_ordertotal", function($scope, $http) {
 	$scope.guid = GetQueryString("id");
 //		$scope.guid = 709;
 
+	if($scope.guid.length == 0){
+		location.href = "my_member.html";
+		return;
+	}
+
 	if($scope.wcid.length == 0) {
 		location.href = "go.html?url=" + location.href;
 		return;

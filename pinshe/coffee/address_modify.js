@@ -25,16 +25,19 @@ app.controller("address_modify", function($scope, $http) {
 		var mid = $scope.member.guid;
 		var guid = $scope.consignee.guid;
 		var name = document.getElementById("name").value;
+		name = name.replace(/ /g,"");
 		if (name.length == 0) {
 			layer.msg("请填写收货人");
 			return;
 		}
 		var phone = document.getElementById("phone").value;
+		phone = phone.replace(/ /g,"");
 		if (phone.length == 0) {
 			layer.msg("请填写收货人电话号码");
 			return;
 		}
 		var address = document.getElementById("address").value;
+		address = address.replace(/ /g,"");
 		if (address.length == 0) {
 			layer.msg("请填写收货人地址");
 			return;
