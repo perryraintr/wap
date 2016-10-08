@@ -1,1 +1,40 @@
-a{text-decoration:none}
+a {
+	text-decoration: none
+}
+
+body,
+#mapContainer {
+	margin: 0;
+	height: 100%;
+	width: 100%;
+	text-align: center;
+	font-size: 12px;
+}
+
+.panel {
+	position: absolute;
+	top: 15px;
+	right: 15px;
+}
+
+.qrcodetxt {
+	background-color: #0D9BF2;
+	padding: 6px;
+	color: white;
+}
+
+.center {
+	position: absolute;
+	width: 100%;
+	bottom: 24px;
+}
+
+.btmtip {
+	cursor: pointer;
+	border-radius: 5px;
+	background-color: #0D9BF2;
+	padding: 6px;
+	width: 160px;
+	color: white;
+	margin: 0 auto;
+}
