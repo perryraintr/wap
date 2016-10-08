@@ -111,8 +111,9 @@ app.controller("my_member", function($scope, $http) {
 				transformRequest: angular.identity
 			}).success(function(response) {
 				console.log(response.body);
-				if(response.body.guid != null)
-					location.href = "product_ordertotal.html?id=" + response.body.guid;
+				if(response.body.guid != undefined && response.body.guid > 0) {
+					location.href = "product_ordertotal.html?id=" + response.body.guid;	
+				}
 			});
 		} else {
 			layer.msg("请选择您的充值金额");

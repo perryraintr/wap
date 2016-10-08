@@ -64,8 +64,13 @@ app.controller("nearby_cafecomment", function($scope, $http) {
 	$scope.getOrderDetail = function() {
 		$http.get(getHeadUrl() + "order.a?orderno=" + $scope.orderno).success(function(response) {
 			$scope.orderDetail = response.body;
-			$scope.isNeibu = true;
-//			if($scope.wcid == "o1D_JwHikK5LBt_Y__Ukr9p4tKsY" || $scope.wcid == "o1D_JwGKMNWZmBYLxghYYw0GIlUg" || $scope.wcid == "o1D_JwFbCrjU1rPJdO6-ljRQC5qE" || $scope.wcid == "o1D_JwGTL0ZN81hpxJSxflvtXQj8") {
+			$scope.isNeibu = false;
+//			$scope.expire_time = "2016-10-07 23:59:59";
+//			var d = new Date(Date.parse($scope.expire_time.replace(/-/g, "/")));
+//			var currentDate = new Date();
+//			if(currentDate > d) { // 大于10月7号晚上24点
+//				$scope.isNeibu = false;
+//			} else {
 //				$scope.isNeibu = true;
 //			}
 			switch($scope.orderDetail.status) {

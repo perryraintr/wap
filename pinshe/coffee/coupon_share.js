@@ -19,7 +19,16 @@ app.controller("coupon_share", function($scope, $http) {
 
 	//寻咖活动
 	$scope.activity = GetQueryInt("activity");
-	//	$scope.activity = 1;
+	
+	$scope.isNeibu = false;
+//	$scope.expire_time = "2016-10-07 23:59:59";
+//	var d = new Date(Date.parse($scope.expire_time.replace(/-/g, "/")));
+//	var currentDate = new Date();
+//	if(currentDate > d) { // 大于10月7号晚上24点
+//		$scope.isNeibu = false;
+//	} else {
+//		$scope.isNeibu = true;
+//	}
 
 	$http.get(getHeadUrl() + "member.a?wcid=" + $scope.wcid).success(function(response) {
 		$scope.member = response.body;
@@ -82,7 +91,7 @@ app.controller("coupon_share", function($scope, $http) {
 				$("#bodyId").show();
 				
 				//寻咖活动
-				if($scope.activity == 1) {
+				if($scope.activity == 1 && $scope.isNeibu) {
 					layer.msg("感谢你参与寻咖，你的奖金已存入你的会员帐户，请前往我的-我的会员查看详情！", {
 						time: 0,
 						btn: ['确定'],

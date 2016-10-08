@@ -14,12 +14,17 @@ app.controller("nearby_ordertotal", function($scope, $http) {
 		location.href = "go.html?url=" + location.href;
 		return;
 	}
-
-	$scope.isNeibu = true;
-//	if($scope.wcid == "o1D_JwHikK5LBt_Y__Ukr9p4tKsY" || $scope.wcid == "o1D_JwGKMNWZmBYLxghYYw0GIlUg" || $scope.wcid == "o1D_JwFbCrjU1rPJdO6-ljRQC5qE") {
+	
+	$scope.isNeibu = false;
+//	$scope.expire_time = "2016-10-07 23:59:59";
+//	var d = new Date(Date.parse($scope.expire_time.replace(/-/g, "/")));
+//	var currentDate = new Date();
+//	if(currentDate > d) { // 大于10月7号晚上24点
+//		$scope.isNeibu = false;
+//	} else {
 //		$scope.isNeibu = true;
 //	}
-
+	
 	$scope.paramStr = "";
 	$scope.isFinished = false; // 订单已完成状态
 	$scope.couponList = []; // 红包
