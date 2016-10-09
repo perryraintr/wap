@@ -2,32 +2,32 @@ var app = angular.module("coffee", []);
 app.controller("qrcode_cafepay", function($scope, $http) {
 	$("#bodyId").hide();
 	$scope.id = GetQueryInt("sid");
-//	$scope.id = 66;
-	if ($scope.id == undefined || $scope.id == 0) {
+	//	$scope.id = 66;
+	if($scope.id == undefined || $scope.id == 0) {
 		layer.msg("无效的咖啡馆");
 		return;
 	} else {
 		$("#bodyId").show();
 	}
-	
+
 	$scope.wcid = getwcid();
-//	$scope.wcid = "o1D_JwGKMNWZmBYLxghYYw0GIlUg";
+	//	$scope.wcid = "o1D_JwGKMNWZmBYLxghYYw0GIlUg";
 	if($scope.wcid.length == 0) {
 		var sd = localStorage.getItem("goBase");
-		if (sd != undefined && sd.length > 0) {
+		if(sd != undefined && sd.length > 0) {
 			localStorage.setItem("goBase", "");
 			location.href = "go.html?url=" + location.href;
-			return;	
+			return;
 		} else {
 			localStorage.setItem("goBase", "goBase");
 			location.href = "go_base.html?url=" + location.href;
 			return;
 		}
 	}
-	
+
 	$scope.getUrl = getHeadUrl();
-//	$scope.getUrl = "http://192.168.2.104/v1/";
-	
+	//	$scope.getUrl = "http://192.168.2.104/v1/";
+
 	var redIndex = 0;
 	$scope.isPay = false;
 	$http.get($scope.getUrl + "member.a?wcid=" + $scope.wcid).success(function(response) {
@@ -77,17 +77,20 @@ app.controller("qrcode_cafepay", function($scope, $http) {
 			if(response.body.guid != undefined && response.body.guid > 0) {
 				// 有id，创建成功
 				$scope.order = response.body;
-				
+
 				if(formWx) { // 微信
 					$http.get($scope.getUrl + "order_modify.a?id=" + $scope.order.guid + "&type=2").success(function(response) {
 						location.href = $scope.getUrl + "pay/wechat_pay.a?type=1&wcid=" + $scope.wcid + "&order_no=" + $scope.order.order_no + $scope.paramStr + "&amount=" + $scope.order.amount * 100;
 					});
 
 				} else { // 会员
-					$http.get($scope.getUrl + "order_modify.a?id=" + $scope.order.guid + "&type=1&status=1").success(function(response) {
-						$http.get($scope.getUrl + "cash_add.a?sid=" + $scope.id + "&mid=" + $scope.member.guid + "&oid=" + $scope.order.guid + "&amount=" + $scope.order.amount + "&type=1&status=1").success(function(response) {
-						}).finally(function() {
-							location.href = "qrcode_done.html?orderno=" + $scope.order.order_no;
+					$scope.payMoney = $scope.member.current - $scope.money;
+					$scope.payMoney = $scope.payMoney.toFixed(2);
+					$http.get($scope.getUrl + "member_modify.a?id=" + $scope.member.guid + "&current=" + $scope.payMoney).success(function(response) {
+						$http.get($scope.getUrl + "order_modify.a?id=" + $scope.order.guid + "&type=1&status=1").success(function(response) {
+							$http.get($scope.getUrl + "cash_add.a?sid=" + $scope.id + "&mid=" + $scope.member.guid + "&oid=" + $scope.order.guid + "&amount=" + $scope.order.amount + "&type=1&status=1").success(function(response) {}).finally(function() {
+								location.href = "qrcode_done.html?orderno=" + $scope.order.order_no;
+							});
 						});
 					});
 				}
@@ -99,11 +102,7 @@ app.controller("qrcode_cafepay", function($scope, $http) {
 		$http.get($scope.getUrl + "member.a?wcid=" + $scope.wcid).success(function(response) {
 			$scope.member = response.body;
 			if($scope.member.current >= $scope.money) { // 会员剩余的钱够支付
-				$scope.payMoney = $scope.member.current - $scope.money;
-				$scope.payMoney = $scope.payMoney.toFixed(2);
-				$http.get($scope.getUrl + "member_modify.a?id=" + $scope.member.guid + "&current=" + $scope.payMoney).success(function(response) {
-					$scope.payClicked(false);
-				});
+				$scope.payClicked(false);
 			} else {
 				layer.msg("你的余额不足哦", {
 					time: 0,
@@ -118,15 +117,15 @@ app.controller("qrcode_cafepay", function($scope, $http) {
 	}
 
 	$scope.wxpayAction = function() {
-		if ($scope.member == null || $scope.member.guid == 0) {
+		if($scope.member == null || $scope.member.guid == 0) {
 			layer.msg("无效用户");
 			return;
 		}
-		if ($scope.id == 0) {
+		if($scope.id == 0) {
 			layer.msg("无效咖啡馆");
 			return;
 		}
-		
+
 		$scope.money = document.getElementById("money").value;
 
 		if($scope.money.length == 0) {
@@ -141,15 +140,15 @@ app.controller("qrcode_cafepay", function($scope, $http) {
 	}
 
 	$scope.memberpayAction = function() {
-		if ($scope.member == null || $scope.member.guid == 0) {
+		if($scope.member == null || $scope.member.guid == 0) {
 			layer.msg("无效用户");
 			return;
 		}
-		if ($scope.id == 0) {
+		if($scope.id == 0) {
 			layer.msg("无效咖啡馆");
 			return;
 		}
-		
+
 		$scope.money = document.getElementById("money").value;
 
 		if($scope.money.length == 0) {
