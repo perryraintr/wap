@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html ng-app="coffee" ng-controller="qrcode_done">
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="height=device-height,width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0" />
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<meta name="format-detection" content="telephone=no">
+		<link rel="shortcut icon" href="">
+		<link href="css/default.css" rel="stylesheet" type="text/css" />
+		<link href="css/mui.min.css" rel="stylesheet" type="text/css" />
+		<script type="text/javascript" src="js/helper.js"></script>
+		<script type="text/javascript" src="js/angular.min.js"></script>
+		<script type="text/javascript" src="js/jquery-3.0.0.min.js"></script>
+		<script type="text/javascript" src="js/layer.js"></script>
+		<script type="text/javascript" src="js/underscore-min.js"></script>
+		<meta name="description" content="最有温度的品质生活社区。" />
+		<title>支付完成</title>
+		<link href="qrcode_done.css" rel="stylesheet" type="text/css" />
+	</head>
+
+	<body>
+		<div id="bodyId">
+			<div style="">
+				<div style="padding-top: 25%; font-size: 20px; color: #00a651; text-align: center;">支付完成</div>
+				<div style="padding-left: 30px; padding-top: 20%; font-size: 16px; color: #404040;">支付金额:<span style="color: #ce1736; font-size: 16px;">￥{{order.amount}}</span></div>
+				<div style="padding-left: 30px; padding-top: 2%; font-size: 16px; color: #404040;">订单号:{{order.order_no}}</div>
+			</div>
+			<div style="clear: both;"></div>
+			<div style="padding-top: 60%; padding-left: 10%; padding-right: 5%; text-align: center;">
+				<div style="width: 45%; line-height: 46px; border-style: solid; border-color: black; border-width: 1px; border-radius: 4px; font-size: 18px; float: left; margin-right: 2.5%;" onclick="WeixinJSBridge.call('closeWindow');">离开</div>
+				<div style="width: 45%; line-height: 46px; background-color: #06bf04; border-style: solid; border-color: #06bf04; border-width: 1px; border-radius: 4px; font-size: 18px; float: left; margin-left: 2.5%; color: white;" ng-click="followClicked()">关注品社</div>
+				<div style="clear: both;"></div>
+			</div>
+		</div>
+		
+		<div id="followId" style="background-color: white; border-radius: 10px; text-align: center; display: none;">
+			<div>
+				<img src="banner/follow_code.jpg" width="100%" />
+			</div>
+		</div>
+		
+	</body>
+	<script type="text/javascript" src="js/mui.min.js"></script>
+	<script type="text/javascript" src="js/global.js"></script>
+	<script type="text/javascript" src="qrcode_done.js"></script>
+
+</html>
