@@ -31,7 +31,8 @@ app.controller("product_ordertotal", function($scope, $http) {
 		"coupon_guid": 0,
 		"amount": 0
 	};
-
+	$scope.payActionSecond = false;
+	
 	$http.get(getHeadUrl() + "member.a?wcid=" + $scope.wcid).success(function(response) {
 		$scope.member = response.body;
 		$scope.isMember = $scope.member.amount > 0;
@@ -119,54 +120,16 @@ app.controller("product_ordertotal", function($scope, $http) {
 		if(isFormWx) {
 			$http.get(getHeadUrl() + "order_modify.a?id=" + $scope.guid + "&type=2"  + "&current=" + $scope.orderDetail.payamount + "&cneeid=" + $scope.consignee.guid + paramString).success(function(response) {
 				$scope.modifyCoupon();
-
-				if($scope.wcid == "o1D_JwHikK5LBt_Y__Ukr9p4tKsY") {
-					$http.get(getHeadUrl() + "wechat_send.a?wcid=o1D_JwHikK5LBt_Y__Ukr9p4tKsY&m=来订单了，<a href='http://www.pinshe.org/admin/v1/order_detail.html?id=" + $scope.guid + "'>订单详情</a>").success(function(response) {}).finally(function() {
-						$http.get(getHeadUrl() + "wechat_send.a?wcid=o1D_JwGKMNWZmBYLxghYYw0GIlUg&m=来订单了，<a href='http://www.pinshe.org/admin/v1/order_detail.html?id=" + $scope.guid + "'>订单详情</a>").success(function(response) {}).finally(function() {
-							location.href = getHeadUrl() + "pay/wechat_pay.a?wcid=" + $scope.wcid + "&order_no=" + $scope.orderDetail.order_no + paramStr + "&amount=" + $scope.orderDetail.payamount * 100;
-						});
-					});
-				} else {
-					$http.get(getHeadUrl() + "wechat_send.a?wcid=o1D_JwGTL0ZN81hpxJSxflvtXQj8&m=来订单了，<a href='http://www.pinshe.org/admin/v1/order_detail.html?id=" + $scope.guid + "'>订单详情</a>").success(function(response) {}).finally(function() {
-						$http.get(getHeadUrl() + "wechat_send.a?wcid=o1D_JwFbCrjU1rPJdO6-ljRQC5qE&m=来订单了，<a href='http://www.pinshe.org/admin/v1/order_detail.html?id=" + $scope.guid + "'>订单详情</a>").success(function(response) {}).finally(function() {
-							$http.get(getHeadUrl() + "wechat_send.a?wcid=o1D_JwHikK5LBt_Y__Ukr9p4tKsY&m=来订单了，<a href='http://www.pinshe.org/admin/v1/order_detail.html?id=" + $scope.guid + "'>订单详情</a>").success(function(response) {}).finally(function() {
-								$http.get(getHeadUrl() + "wechat_send.a?wcid=o1D_JwGKMNWZmBYLxghYYw0GIlUg&m=来订单了，<a href='http://www.pinshe.org/admin/v1/order_detail.html?id=" + $scope.guid + "'>订单详情</a>").success(function(response) {}).finally(function() {
-									location.href = getHeadUrl() + "pay/wechat_pay.a?wcid=" + $scope.wcid + "&order_no=" + $scope.orderDetail.order_no + paramStr + "&amount=" + $scope.orderDetail.payamount * 100;
-								});
-							});
-						});
-					});
-				}
-
+				location.href = getHeadUrl() + "pay/wechat_pay.a?wcid=" + $scope.wcid + "&order_no=" + $scope.orderDetail.order_no + paramStr + "&amount=" + $scope.orderDetail.payamount * 100;
 			});
 		} else {
 			$http.get(getHeadUrl() + "order_modify.a?id=" + $scope.guid + "&type=1"  + "&current=" + $scope.orderDetail.payamount + "&cneeid=" + $scope.consignee.guid + paramString + "&status=1").success(function(response) {
 				$scope.modifyCoupon();
-
-				if($scope.wcid == "o1D_JwHikK5LBt_Y__Ukr9p4tKsY") {
-					$http.get(getHeadUrl() + "wechat_send.a?wcid=o1D_JwHikK5LBt_Y__Ukr9p4tKsY&m=来订单了，<a href='http://www.pinshe.org/admin/v1/order_detail.html?id=" + $scope.guid + "'>订单详情</a>").success(function(response) {}).finally(function() {
-						$http.get(getHeadUrl() + "wechat_send.a?wcid=o1D_JwGKMNWZmBYLxghYYw0GIlUg&m=来订单了，<a href='http://www.pinshe.org/admin/v1/order_detail.html?id=" + $scope.guid + "'>订单详情</a>").success(function(response) {}).finally(function() {
-							if($scope.isMemberOrder && $scope.orderDetail.amount >= 200) {
-								location.href = "order_done.html?amount=" + $scope.orderDetail.payamount + "&orderno=" + $scope.orderDetail.order_no + "&from=2";
-							} else {
-								location.href = "order_done.html?amount=" + $scope.orderDetail.payamount + "&orderno=" + $scope.orderDetail.order_no + "&from=1";
-							}
-						});
-					});
+				var currentDate = new Date();
+				if($scope.isMemberOrder && $scope.orderDetail.amount >= 200) {
+					location.href = "order_done.html?amount=" + $scope.orderDetail.payamount + "&orderno=" + $scope.orderDetail.order_no + "&from=2" + "&time=" + currentDate.getTime();
 				} else {
-					$http.get(getHeadUrl() + "wechat_send.a?wcid=o1D_JwGTL0ZN81hpxJSxflvtXQj8&m=来订单了，<a href='http://www.pinshe.org/admin/v1/order_detail.html?id=" + $scope.guid + "'>订单详情</a>").success(function(response) {}).finally(function() {
-						$http.get(getHeadUrl() + "wechat_send.a?wcid=o1D_JwFbCrjU1rPJdO6-ljRQC5qE&m=来订单了，<a href='http://www.pinshe.org/admin/v1/order_detail.html?id=" + $scope.guid + "'>订单详情</a>").success(function(response) {}).finally(function() {
-							$http.get(getHeadUrl() + "wechat_send.a?wcid=o1D_JwHikK5LBt_Y__Ukr9p4tKsY&m=来订单了，<a href='http://www.pinshe.org/admin/v1/order_detail.html?id=" + $scope.guid + "'>订单详情</a>").success(function(response) {}).finally(function() {
-								$http.get(getHeadUrl() + "wechat_send.a?wcid=o1D_JwGKMNWZmBYLxghYYw0GIlUg&m=来订单了，<a href='http://www.pinshe.org/admin/v1/order_detail.html?id=" + $scope.guid + "'>订单详情</a>").success(function(response) {}).finally(function() {
-									if($scope.isMemberOrder && $scope.orderDetail.amount >= 200) {
-										location.href = "order_done.html?amount=" + $scope.orderDetail.payamount + "&orderno=" + $scope.orderDetail.order_no + "&from=2";
-									} else {
-										location.href = "order_done.html?amount=" + $scope.orderDetail.payamount + "&orderno=" + $scope.orderDetail.order_no + "&from=1";
-									}
-								});
-							});
-						});
-					});
+					location.href = "order_done.html?amount=" + $scope.orderDetail.payamount + "&orderno=" + $scope.orderDetail.order_no + "&from=1" + "&time=" + currentDate.getTime();
 				}
 			});
 		}
@@ -188,6 +151,7 @@ app.controller("product_ordertotal", function($scope, $http) {
 					$scope.orderModify(false);
 				});
 			} else {
+				$scope.payActionSecond = false;
 				layer.msg("您好，您的余额不足哦", {
 					time: 0,
 					btn: ['确定', '取消'],
@@ -221,11 +185,16 @@ app.controller("product_ordertotal", function($scope, $http) {
 
 	// 确定会员支付
 	$scope.makeSure = function() {
+		if (	$scope.payActionSecond) {
+			return;
+		}
+		$scope.payActionSecond = true;
 		$scope.member_modify();
 	}
 
 	// 取消会员支付
 	$scope.cancel = function() {
+		$scope.payActionSecond = false;
 		layer.close(memberIndex);
 	}
 
@@ -251,11 +220,17 @@ app.controller("product_ordertotal", function($scope, $http) {
 
 	// 取消会员支付
 	$scope.addMemberCancel = function() {
+		$scope.payActionSecond = false;
 		layer.close(addmemberIndex);
 	}
 
 	// 微信支付
 	$scope.wxpay = function() {
+		if (	$scope.payActionSecond) {
+			return;
+		}
+		$scope.payActionSecond = true;
+		
 		if(!$scope.hasConsignee) {
 			layer.msg("请填写你的收获地址");
 			return;

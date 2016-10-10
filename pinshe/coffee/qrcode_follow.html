@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html ng-app="coffee" ng-controller="qrcode_follow">
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="height=device-height,width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0" />
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<meta name="format-detection" content="telephone=no">
+		<link rel="shortcut icon" href="">
+		<script type="text/javascript" src="js/helper.js"></script>
+		<script type="text/javascript" src="js/angular.min.js"></script>
+		<script type="text/javascript" src="js/jquery-3.0.0.min.js"></script>
+		<meta name="description" content="最有温度的品质生活社区。" />
+		<title></title>
+		<link href="qrcode_follow.css" rel="stylesheet" type="text/css" />
+	</head>
+
+	<body style="font-family: helvetica;">
+		<div id="bodyId">
+			<div style="text-align: center; padding-top: 38%;">
+				<img src="img/icon2.png" width="60px" height="60px" />
+				<div style="padding-top: 5px; font-size: 18px; color: #404040;">品社, 拥抱品质生活</div>
+			</div>
+			
+			<div style="position: fixed; left: 0px; right: 0px; bottom: 10%; text-align: center; font-size: 14px;">
+				<img ng-src="{{qrcodeUrl}}" width="80px" height="80px" align="absmiddle" style="border-style: solid; border-width: 1px; border-radius: 5px; border-color: black; padding: 2px;" />
+				<div style="font-size: 16px; font-weight: bold; color: #404040; padding-top: 10px;">长按识别二维码</div>
+				<div style="color: #606060;">了解品质背后的故事</div>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript" src="js/global.js"></script>
+	<script type="text/javascript" src="qrcode_follow.js"></script>
+
+</html>

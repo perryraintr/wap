@@ -2,7 +2,7 @@ var app = angular.module("coffee", []);
 app.controller("my_member", function($scope, $http) {
 
 	$scope.wcid = getwcid();
-	//	$scope.wcid = "o1D_JwHikK5LBt_Y__Ukr9p4tKsY";
+//	$scope.wcid = "o1D_JwHikK5LBt_Y__Ukr9p4tKsY";
 
 	if($scope.wcid.length == 0) {
 		location.href = "go.html?url=" + location.href;
@@ -26,11 +26,35 @@ app.controller("my_member", function($scope, $http) {
 		$scope.member = response.body;
 		$scope.isMember = $scope.member.amount > 0;
 		$scope.isFinished = true;
-		//		 || $scope.wcid == "o1D_JwGKMNWZmBYLxghYYw0GIlUg" || $scope.wcid == "o1D_JwGTL0ZN81hpxJSxflvtXQj8"
-		if($scope.wcid == "o1D_JwHikK5LBt_Y__Ukr9p4tKsY") {
-			//						$scope.isMember = false;
-		}
+		if($scope.member.phone.length == 0) {
+			var index = layer.prompt({
+				title: "请输入中国11位手机号",
+				formType: 0,
+				btn: ['确定'],
+				closeBtn: 0,
+				move: false,
+				scrollbar: false,
+				success: function(layero){
+    					layero.find('.layui-layer-btn').css('text-align', 'center');
+  				}
+			}, function(val) {
+				if(val.length == 11) {
+					layer.close(index);
+					$http.get(getHeadUrl() + "login.a?wcid=" + $scope.wcid + "&phone=" + val).success(function(response) {
+						if(response.body.guid != undefined && response.body.guid > 0) {
+							localStorage.setItem("wid", response.body.wechat_id);
+							localStorage.setItem("tel", response.body.phone);
+							console.log(response.body);
+							$scope.member = response.body;
+						} else {
+							layer.msg("微信客户端不可用");
+						}
+					});
 
+				}
+
+			});
+		}
 		$scope.getsubscription();
 	});
 
@@ -112,7 +136,7 @@ app.controller("my_member", function($scope, $http) {
 			}).success(function(response) {
 				console.log(response.body);
 				if(response.body.guid != undefined && response.body.guid > 0) {
-					location.href = "product_ordertotal.html?id=" + response.body.guid;	
+					location.href = "product_ordertotal.html?id=" + response.body.guid;
 				}
 			});
 		} else {

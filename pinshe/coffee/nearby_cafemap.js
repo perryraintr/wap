@@ -49,7 +49,7 @@ app.controller("nearby_cafemap", function($scope, $http) {
 
 	$scope.getList = function() {
 		var distance = 9007199254740993;
-		$http.get(getHeadUrl() + "store.a?longitude=" + $scope.longitude + "&latitude=" + $scope.latitude + "&distance=" + distance + "&page=1&by=1").success(function(response) {
+		$http.get(getHeadUrl() + "store.a?longitude=" + $scope.longitude + "&latitude=" + $scope.latitude + "&real_longitude=" + $scope.peopleLongitude + "&real_latitude=" + $scope.peopleLatitude + "&distance=" + distance + "&page=1&by=1").success(function(response) {
 			if (response.body.array != undefined && response.body.array.length > 0) {
 				for (var i = 0; i < response.body.array.length; i++) {
 					$scope.newStore = response.body.array[i];

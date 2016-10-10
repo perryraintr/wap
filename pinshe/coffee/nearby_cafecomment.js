@@ -4,7 +4,8 @@ app.controller("nearby_cafecomment", function($scope, $http) {
 	$scope.wcid = getwcid();
 	$scope.id = GetQueryInt("id");
 	$scope.orderno = GetQueryString("orderno");
-
+	$scope.time = GetQueryInt("time");
+	//		$scope.time = 1476070725089;
 	//		$scope.wcid = "o1D_JwHikK5LBt_Y__Ukr9p4tKsY";
 	//		$scope.id = 66;
 	//		$scope.orderno = "20160824185823433949596150";
@@ -65,6 +66,22 @@ app.controller("nearby_cafecomment", function($scope, $http) {
 		$http.get(getHeadUrl() + "order.a?orderno=" + $scope.orderno).success(function(response) {
 			$scope.orderDetail = response.body;
 			$scope.isNeibu = false;
+			var currentDate = new Date();
+			if(currentDate.getTime() - $scope.time < 15000) { // 发送
+				if($scope.wcid == "o1D_JwHikK5LBt_Y__Ukr9p4tKsY" || $scope.wcid == "o1D_JwGKMNWZmBYLxghYYw0GIlUg") {
+					$http.get(getHeadUrl() + "wechat_send.a?wcid=o1D_JwHikK5LBt_Y__Ukr9p4tKsY&m=来订单了，<a href='http://www.pinshe.org/admin/v1/order_detail.html?id=" + $scope.orderDetail.guid + "'>订单详情</a>").success(function(response) {}).finally(function() {
+						$http.get(getHeadUrl() + "wechat_send.a?wcid=o1D_JwGKMNWZmBYLxghYYw0GIlUg&m=来订单了，<a href='http://www.pinshe.org/admin/v1/order_detail.html?id=" + $scope.orderDetail.guid + "'>订单详情</a>").success(function(response) {}).finally(function() {});
+					});
+				} else {
+					$http.get(getHeadUrl() + "wechat_send.a?wcid=o1D_JwGTL0ZN81hpxJSxflvtXQj8&m=来订单了，<a href='http://www.pinshe.org/admin/v1/order_detail.html?id=" + $scope.orderDetail.guid + "'>订单详情</a>").success(function(response) {}).finally(function() {
+						$http.get(getHeadUrl() + "wechat_send.a?wcid=o1D_JwFbCrjU1rPJdO6-ljRQC5qE&m=来订单了，<a href='http://www.pinshe.org/admin/v1/order_detail.html?id=" + $scope.orderDetail.guid + "'>订单详情</a>").success(function(response) {}).finally(function() {
+							$http.get(getHeadUrl() + "wechat_send.a?wcid=o1D_JwHikK5LBt_Y__Ukr9p4tKsY&m=来订单了，<a href='http://www.pinshe.org/admin/v1/order_detail.html?id=" + $scope.orderDetail.guid + "'>订单详情</a>").success(function(response) {}).finally(function() {
+								$http.get(getHeadUrl() + "wechat_send.a?wcid=o1D_JwGKMNWZmBYLxghYYw0GIlUg&m=来订单了，<a href='http://www.pinshe.org/admin/v1/order_detail.html?id=" + $scope.orderDetail.guid + "'>订单详情</a>").success(function(response) {}).finally(function() {});
+							});
+						});
+					});
+				}
+			}
 //			$scope.expire_time = "2016-10-07 23:59:59";
 //			var d = new Date(Date.parse($scope.expire_time.replace(/-/g, "/")));
 //			var currentDate = new Date();
@@ -104,7 +121,7 @@ app.controller("nearby_cafecomment", function($scope, $http) {
 			layer.msg("您还没有评星级哦");
 			return;
 		}
-		
+
 		//寻咖活动
 		if($scope.orderDetail.type == 2 && $scope.orderDetail.current >= 18 && $scope.isNeibu) {
 			if($scope.isSecond) {
@@ -259,7 +276,7 @@ app.controller("nearby_cafecomment", function($scope, $http) {
 			if(response.body.guid != undefined && response.body.guid > 0) {
 				activitySuccess = "&activity=1";
 			}
-//			alert(activitySuccess);
+			//			alert(activitySuccess);
 			$http.get(getHeadUrl() + "store_comment_add.a?sid=" + $scope.id + "&mid=" + $scope.member.guid + "&star=" + $scope.star + "&m=" + $scope.message).success(function(response) {
 				location.href = "coupon_share.html?from=1" + activitySuccess;
 			});

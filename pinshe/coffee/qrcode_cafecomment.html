@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html ng-app="coffee" ng-controller="qrcode_cafecomment">
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="height=device-height,width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0" />
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<meta name="format-detection" content="telephone=no">
+		<link rel="shortcut icon" href="">
+		<link href="css/mui.min.css" rel="stylesheet" type="text/css" />
+		<script type="text/javascript" src="js/helper.js"></script>
+		<script type="text/javascript" src="js/jquery-3.0.0.min.js" ></script>
+		<script type="text/javascript" src="js/angular.min.js"></script>
+		<script type="text/javascript" src="js/layer.js"></script>
+		<meta name="description" content="最有温度的品质生活社区。" />
+		<link href="qrcode_cafecomment.css" rel="stylesheet" type="text/css" />
+		<title></title>
+	</head>
+
+	<body>
+		<div style="background-color: #1b1b1f; color: white; font-size: 13px; position: fixed; height: 38px; width: 100%; z-index: 999;">
+			<div ng-show="isMember && requestEnd">
+				<a href="product_highgrade.html" style="color: white;">
+					<img width="24" height="24" src="img/icon.png" style="margin: 7px 0px 0px 5px;">
+					<span style="vertical-align: top; line-height: 38px;">品社会员</span>
+				</a>
+				<span style="float: right; vertical-align: top; line-height: 38px; padding-right: 8px;" ng-cloak>余额：<span ng-bind="member.current"></span>元</span>
+			</div>
+			<div ng-show="!isMember && requestEnd">
+				<a href="nearby_cafemore.html">
+					<img width="24" height="24" src="img/icon.png" style="margin: 7px 0px 0px 5px;">
+					<span style="vertical-align: top; line-height: 38px;">了解更多咖啡馆的故事</span>
+				</a>
+			</div>
+			<div style="clear: both;"></div>
+		</div>
+
+		<div style="padding-top: 38px;">
+			<div style="padding: 3%; font-size: 16px;" ng-bind="store.slogan"></div>
+			<div style="padding:0 3% 4% 3%; width: 100%;">
+				<table width="100%">
+					<tr>
+						<td id="imageHeight" rowspan="5" width="42%" style="background-image: url({{store.image}}); background-repeat: no-repeat; background-size: 100% 100%;"></td>
+						<td>
+							<div style="padding-left: 10px; margin-top: -4px;">
+								<span style="color: #404040; font-size: 16px;" ng-bind="store.name"></span>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<div style="padding-left: 10px;">
+								<div style="float: left; padding-left: 1px; margin-top: -1px;" ng-repeat="s in store.starList">
+									<img src="img1/n2sel.png" width="14.7" height="14" align="absmiddle" />
+								</div>
+								<span style="padding-left: 5px; font-size: 14px; color: #909090;" ng-bind="store.comment"></span>
+								<div style="clear: both;"></div>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<div style="padding-left: 10px; color: #909090; font-size: 14px;" ng-bind="store.feature3"></div>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2" valign="bottom">
+							<div style="padding-left: 10px;">
+								<div style="float: left; padding-top: 10px; width: 68%;"><span style="font-size: 14px; color: #909090;">创始人:</span><span style="color: #fd6e7f; font-size: 14px;" ng-bind="store.owner"></span></div>
+								<div><a href="avatar.html?url={{store.avatar}}" target="_blank"><img ng-src="{{store.avatar}}" width="40px" height="40px" align="absmiddle" style="border-radius: 100%; float: right;" /></a></div>
+							</div>
+							<div style="clear: both;"></div>
+						</td>
+					</tr>
+					<tr>
+					</tr>
+				</table>
+			</div>
+
+			<div style="height: 1px; background-color: #E0E0E0;"></div>
+			<div style="text-align: center; color: #606060; padding-top: 20px; font-size: 14px;">感觉如何，评论一下，领红包！</div>
+			
+			<div style="padding-left: 15%; padding-right: 15%; padding-bottom: 3%;">
+				<div style="width: 20%; float: left; padding-top: 15px;" ng-repeat="row in startList">
+					<img ng-show="row.isChoose" src="img1/n2sel.png" width="70%" align="absmiddle" ng-click="startClicked($index)" ng-cloak/>
+					<img ng-show="!row.isChoose" src="img1/n2.png" width="70%" align="absmiddle" ng-click="startClicked($index)" ng-cloak/>	
+				</div>
+				<div style="clear: both;"></div>
+			</div>
+			
+			<div style="height: 1px; background-color: #E0E0E0; margin-top: 15px;"></div>
+			
+			<textarea id="message" name="message" placeholder="从咖啡到环境，把你对这里的印象记录下来吧！也可以给我们可爱的店长店员们一些鼓励哦！" style="font-size: 14px; color: #909090; height: 200px; border-style: none;"></textarea>
+			
+		</div>
+		
+		<div style="text-align: center; position: fixed; bottom: 0px; left: 0px; right: 0px;">
+			<div style="width: 100%; letter-spacing: 1px; line-height: 60px; background-color: #ff7d8f; font-size: 20px; color: white;" ng-click="sendMessage()">评价获得品社余额</div>
+		</div>
+		
+	</body>
+	<script type="text/javascript" src="js/global.js"></script>
+	<script type="text/javascript" src="qrcode_cafecomment.js"></script>
+
+</html>

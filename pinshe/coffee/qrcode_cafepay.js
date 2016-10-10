@@ -2,7 +2,7 @@ var app = angular.module("coffee", []);
 app.controller("qrcode_cafepay", function($scope, $http) {
 	$("#bodyId").hide();
 	$scope.id = GetQueryInt("sid");
-	//	$scope.id = 66;
+//	$scope.id = 66;
 	if($scope.id == undefined || $scope.id == 0) {
 		layer.msg("无效的咖啡馆");
 		return;
@@ -11,7 +11,7 @@ app.controller("qrcode_cafepay", function($scope, $http) {
 	}
 
 	$scope.wcid = getwcid();
-	//	$scope.wcid = "o1D_JwGKMNWZmBYLxghYYw0GIlUg";
+//	$scope.wcid = "o1D_JwGKMNWZmBYLxghYYw0GIlUg";
 	if($scope.wcid.length == 0) {
 		var sd = localStorage.getItem("goBase");
 		if(sd != undefined && sd.length > 0) {
@@ -89,7 +89,8 @@ app.controller("qrcode_cafepay", function($scope, $http) {
 					$http.get($scope.getUrl + "member_modify.a?id=" + $scope.member.guid + "&current=" + $scope.payMoney).success(function(response) {
 						$http.get($scope.getUrl + "order_modify.a?id=" + $scope.order.guid + "&type=1&status=1").success(function(response) {
 							$http.get($scope.getUrl + "cash_add.a?sid=" + $scope.id + "&mid=" + $scope.member.guid + "&oid=" + $scope.order.guid + "&amount=" + $scope.order.amount + "&type=1&status=1").success(function(response) {}).finally(function() {
-								location.href = "qrcode_done.html?orderno=" + $scope.order.order_no;
+								var currentDate = new Date();
+								location.href = "qrcode_done.html?orderno=" + $scope.order.order_no + "&id=" + $scope.id + "&time=" + currentDate.getTime();
 							});
 						});
 					});
@@ -133,12 +134,18 @@ app.controller("qrcode_cafepay", function($scope, $http) {
 			return;
 		}
 
-		if(!$scope.isPay) {
-			$scope.isPay = true;
-			$scope.payClicked(true);
+		if(verifyMoney($scope.money)) { // 验证格式正确
+			if(!$scope.isPay) {
+				$scope.isPay = true;
+				$scope.payClicked(true);
+			}
+		} else {
+			layer.msg("只能输入数字，小数点后只能保留两位");
 		}
+
 	}
 
+	var memberIndex = 0;
 	$scope.memberpayAction = function() {
 		if($scope.member == null || $scope.member.guid == 0) {
 			layer.msg("无效用户");
@@ -156,10 +163,35 @@ app.controller("qrcode_cafepay", function($scope, $http) {
 			return;
 		}
 
-		if(!$scope.isPay) {
-			$scope.isPay = true;
-			$scope.member_modify();
+		if(verifyMoney($scope.money)) { // 验证格式正确
+			if(!$scope.isPay) {
+				//页面层-会员确定
+				memberIndex = layer.open({
+					type: 1,
+					title: false,
+					area: ['80%', ''], //宽高
+					closeBtn: 0,
+					shadeClose: false,
+					skin: 'yourclass',
+					content: $("#memberPayId")
+				});
+			}
+		} else {
+			layer.msg("只能输入数字，小数点后只能保留两位");
 		}
+
+	}
+
+	// 确定会员支付
+	$scope.makeSure = function() {
+		layer.close(memberIndex);
+		$scope.isPay = true;
+		$scope.member_modify();
+	}
+
+	// 取消会员支付
+	$scope.cancel = function() {
+		layer.close(memberIndex);
 	}
 
 });
