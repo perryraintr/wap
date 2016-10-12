@@ -13,7 +13,7 @@ app.controller("store_change", function($scope, $http) {
 	
 	$scope.sid = GetQueryInt("sid");
 	
-	$http.get(getHeadUrl() + "member.a?phone=" + $scope.storeTel).success(function(response) {
+	$http.get(getHeadUrl() + "merchant.a?phone=" + $scope.storeTel).success(function(response) {
 		$scope.member = response.body;
 		$scope.getList();
 	});

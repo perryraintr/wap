@@ -1,12 +1,12 @@
 var app = angular.module("coffee", []);
 app.controller("store_register", function($scope, $http, $interval) {
 	$scope.wcid = getwcid();
-	//	$scope.wcid = "o1D_JwHikK5LBt_Y__Ukr9p4tKsY";
+//	$scope.wcid = "o1D_JwHikK5LBt_Y__Ukr9p4tKsY";
 	if($scope.wcid.length == 0) {
 		location.href = "go.html?url=" + location.href;
 		return;
 	}
-
+	
 	$scope.paracont = "获取验证码";
 	$scope.paraclass = "but_null";
 	$scope.paraevent = true;
@@ -69,26 +69,17 @@ app.controller("store_register", function($scope, $http, $interval) {
 			return;
 		}
 
-		$http.get(getHeadUrl() + "member_add.a?wcid=" + $scope.wcid + "&phone=" + phone + "&code=" + telMsgCode + "&password=" + password).success(function(response) {
+		$http.get(getHeadUrl() + "merchant_add.a?wcid=" + $scope.wcid + "&phone=" + phone + "&code=" + telMsgCode + "&password=" + password).success(function(response) {
 			if(response.body.guid != undefined && response.body.guid > 0) {
-				if($scope.wcid == "o1D_JwHikK5LBt_Y__Ukr9p4tKsY") {
-					$http.get(getHeadUrl() + "wechat_send.a?wcid=o1D_JwHikK5LBt_Y__Ukr9p4tKsY&m=有商家注册了，请审核该商品对应的咖啡馆，进行关联，手机号为：" + phone + "\n 用户id为：" + response.body.guid).success(function(response) {}).finally(function() {
-						$http.get(getHeadUrl() + "wechat_send.a?wcid=o1D_JwGKMNWZmBYLxghYYw0GIlUg&m=有商家注册了，请审核该商品对应的咖啡馆，进行关联，手机号为：" + phone + "\n 用户id为：" + response.body.guid).success(function(response) {}).finally(function() {
-							location.href = "store_login.html";
-						});
-					});
-				} else {
-					$http.get(getHeadUrl() + "wechat_send.a?wcid=o1D_JwGTL0ZN81hpxJSxflvtXQj8&m=有商家注册了，请审核该商品对应的咖啡馆，进行关联，手机号为：" + phone + "\n 用户id为：" + response.body.guid).success(function(response) {}).finally(function() {
-						$http.get(getHeadUrl() + "wechat_send.a?wcid=o1D_JwFbCrjU1rPJdO6-ljRQC5qE&m=有商家注册了，请审核该商品对应的咖啡馆，进行关联，手机号为：" + phone + "\n 用户id为：" + response.body.guid).success(function(response) {}).finally(function() {
-							$http.get(getHeadUrl() + "wechat_send.a?wcid=o1D_JwHikK5LBt_Y__Ukr9p4tKsY&m=有商家注册了，请审核该商品对应的咖啡馆，进行关联，手机号为：" + phone + "\n 用户id为：" + response.body.guid).success(function(response) {}).finally(function() {
-								$http.get(getHeadUrl() + "wechat_send.a?wcid=o1D_JwGKMNWZmBYLxghYYw0GIlUg&m=有商家注册了，请审核该商品对应的咖啡馆，进行关联，手机号为：" + phone + "\n 用户id为：" + response.body.guid).success(function(response) {}).finally(function() {
-									location.href = "store_login.html";
-								});
+				$http.get(getHeadUrl() + "wechat_send.a?wcid=o1D_JwGTL0ZN81hpxJSxflvtXQj8&m=有商家注册了，请审核该商品对应的咖啡馆，进行关联，手机号为：" + phone + "\n 用户id为：" + response.body.guid).success(function(response) {}).finally(function() {
+					$http.get(getHeadUrl() + "wechat_send.a?wcid=o1D_JwFbCrjU1rPJdO6-ljRQC5qE&m=有商家注册了，请审核该商品对应的咖啡馆，进行关联，手机号为：" + phone + "\n 用户id为：" + response.body.guid).success(function(response) {}).finally(function() {
+						$http.get(getHeadUrl() + "wechat_send.a?wcid=o1D_JwHikK5LBt_Y__Ukr9p4tKsY&m=有商家注册了，请审核该商品对应的咖啡馆，进行关联，手机号为：" + phone + "\n 用户id为：" + response.body.guid).success(function(response) {}).finally(function() {
+							$http.get(getHeadUrl() + "wechat_send.a?wcid=o1D_JwGKMNWZmBYLxghYYw0GIlUg&m=有商家注册了，请审核该商品对应的咖啡馆，进行关联，手机号为：" + phone + "\n 用户id为：" + response.body.guid).success(function(response) {}).finally(function() {
+								location.href = "store_login.html";
 							});
 						});
 					});
-				}
-
+				});
 			} else {
 				layer.msg("注册失败");
 			}

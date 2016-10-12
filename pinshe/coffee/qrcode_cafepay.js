@@ -88,7 +88,7 @@ app.controller("qrcode_cafepay", function($scope, $http) {
 					$scope.payMoney = $scope.payMoney.toFixed(2);
 					$http.get($scope.getUrl + "member_modify.a?id=" + $scope.member.guid + "&current=" + $scope.payMoney).success(function(response) {
 						$http.get($scope.getUrl + "order_modify.a?id=" + $scope.order.guid + "&type=1&status=1").success(function(response) {
-							$http.get($scope.getUrl + "cash_add.a?sid=" + $scope.id + "&mid=" + $scope.member.guid + "&oid=" + $scope.order.guid + "&amount=" + $scope.order.amount + "&type=1&status=1").success(function(response) {}).finally(function() {
+							$http.get($scope.getUrl + "store_cash_add.a?sid=" + $scope.id + "&memberid=" + $scope.member.guid + "&oid=" + $scope.order.guid + "&amount=" + $scope.order.amount + "&type=1&status=1").success(function(response) {}).finally(function() {
 								var currentDate = new Date();
 								location.href = "qrcode_done.html?orderno=" + $scope.order.order_no + "&id=" + $scope.id + "&time=" + currentDate.getTime();
 							});
@@ -133,6 +133,11 @@ app.controller("qrcode_cafepay", function($scope, $http) {
 			layer.msg("请输入金额");
 			return;
 		}
+		
+		if($scope.money == 0) {
+			layer.msg("金额不能为0元");
+			return;
+		}		
 
 		if(verifyMoney($scope.money)) { // 验证格式正确
 			if(!$scope.isPay) {
@@ -147,6 +152,11 @@ app.controller("qrcode_cafepay", function($scope, $http) {
 
 	var memberIndex = 0;
 	$scope.memberpayAction = function() {
+		if ($scope.member.amount == 0) { // 不是会员
+			layer.msg("你还不是品社会员,请选择微信支付");
+			return;
+		}
+		
 		if($scope.member == null || $scope.member.guid == 0) {
 			layer.msg("无效用户");
 			return;
@@ -163,6 +173,11 @@ app.controller("qrcode_cafepay", function($scope, $http) {
 			return;
 		}
 
+		if($scope.money == 0) {
+			layer.msg("金额不能为0元");
+			return;
+		}
+		
 		if(verifyMoney($scope.money)) { // 验证格式正确
 			if(!$scope.isPay) {
 				//页面层-会员确定

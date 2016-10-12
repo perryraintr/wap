@@ -33,10 +33,7 @@ app.controller("my_member", function($scope, $http) {
 				btn: ['确定'],
 				closeBtn: 0,
 				move: false,
-				scrollbar: false,
-				success: function(layero){
-    					layero.find('.layui-layer-btn').css('text-align', 'center');
-  				}
+				scrollbar: false
 			}, function(val) {
 				if(val.length == 11) {
 					layer.close(index);

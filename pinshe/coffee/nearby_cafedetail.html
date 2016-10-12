@@ -21,7 +21,7 @@
 		<link href="nearby_cafedetail.css" rel="stylesheet" type="text/css" />
 		<script type="text/javascript" src="js/media/mediaelement-and-player.min.js"></script>
 		<link rel="stylesheet" href="js/media/mediaelementplayer.min.css" />
-		<title ng-bind="store.slogan"></title>
+		<title ng-bind="store.name"></title>
 		<script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
 		<script type="text/javascript" src="https://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
 	</head>
@@ -29,14 +29,14 @@
 	<body style="font-family: helvetica;">
 		<div style="background-color: #1b1b1f; color: white; position: fixed; height: 38px; width: 100%; z-index: 999;">
 			<div ng-show="isMember && requestEnd">
-				<a href="product_highgrade.html">
+				<a href="product_highgrade.html" style="color: white;">
 					<img width="24" height="24" src="img/icon.png" style="margin: 7px 0px 0px 5px;">
 					<span style="font-size: 13px; color: white; vertical-align: top; line-height: 38px;" ng-cloak>品社会员</span>
 				</a>
 				<span ng-show="isMember" style="float: right; font-size: 13px; vertical-align: top; line-height: 38px; padding-right: 8px;" ng-cloak>余额：{{member.current}}元</span>
 			</div>
 			<div ng-show="!isMember && requestEnd">
-				<a href="nearby_cafemore.html">
+				<a href="nearby_cafemore.html" style="color: white;">
 					<img width="24" height="24" src="img/icon.png" style="margin: 7px 0px 0px 5px;">
 					<span style="font-size: 13px; color: white; vertical-align: top; line-height: 38px;" ng-cloak>了解更多咖啡馆的故事</span>
 				</a>
@@ -204,7 +204,7 @@
 		</div>
 
 		<div style="text-align: center; position: fixed; bottom: 0; left: 0; right: 0;">
-			<a href="nearby_cafepay.html?id={{id}}" ng-show="store.invaild == 0"><img src="img1/n8.png" width="100%" align="absbottom" /></a>
+			<a href="qrcode_cafepay.html?sid={{id}}" ng-show="store.invaild == 0"><img src="img1/n8.png" width="100%" align="absbottom" /></a>
 			<img ng-show="store.invaild == 1" src="img1/n15.png" width="100%" align="absbottom" />
 		</div>
 	</body>

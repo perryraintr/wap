@@ -11,7 +11,7 @@
 		<link rel="shortcut icon" href="">
 		<link href="css/mui.min.css" rel="stylesheet" type="text/css" />
 		<script type="text/javascript" src="js/helper.js"></script>
-		<script type="text/javascript" src="js/jquery-3.0.0.min.js" ></script>
+		<script type="text/javascript" src="js/jquery-3.0.0.min.js"></script>
 		<script type="text/javascript" src="js/angular.min.js"></script>
 		<script type="text/javascript" src="js/layer.js"></script>
 		<meta name="description" content="最有温度的品质生活社区。" />
@@ -29,7 +29,7 @@
 				<span style="float: right; vertical-align: top; line-height: 38px; padding-right: 8px;" ng-cloak>余额：<span ng-bind="member.current"></span>元</span>
 			</div>
 			<div ng-show="!isMember && requestEnd">
-				<a href="nearby_cafemore.html">
+				<a href="nearby_cafemore.html" style="color: white;">
 					<img width="24" height="24" src="img/icon.png" style="margin: 7px 0px 0px 5px;">
 					<span style="vertical-align: top; line-height: 38px;">了解更多咖啡馆的故事</span>
 				</a>
@@ -69,7 +69,9 @@
 						<td colspan="2" valign="bottom">
 							<div style="padding-left: 10px;">
 								<div style="float: left; padding-top: 10px; width: 68%;"><span style="font-size: 14px; color: #909090;">创始人:</span><span style="color: #fd6e7f; font-size: 14px;" ng-bind="store.owner"></span></div>
-								<div><a href="avatar.html?url={{store.avatar}}" target="_blank"><img ng-src="{{store.avatar}}" width="40px" height="40px" align="absmiddle" style="border-radius: 100%; float: right;" /></a></div>
+								<div>
+									<a href="avatar.html?url={{store.avatar}}" target="_blank"><img ng-src="{{store.avatar}}" width="40px" height="40px" align="absmiddle" style="border-radius: 100%; float: right;" /></a>
+								</div>
 							</div>
 							<div style="clear: both;"></div>
 						</td>
@@ -80,26 +82,45 @@
 			</div>
 
 			<div style="height: 1px; background-color: #E0E0E0;"></div>
-			<div style="text-align: center; color: #606060; padding-top: 20px; font-size: 14px;">感觉如何，评论一下，领红包！</div>
-			
-			<div style="padding-left: 15%; padding-right: 15%; padding-bottom: 3%;">
-				<div style="width: 20%; float: left; padding-top: 15px;" ng-repeat="row in startList">
-					<img ng-show="row.isChoose" src="img1/n2sel.png" width="70%" align="absmiddle" ng-click="startClicked($index)" ng-cloak/>
-					<img ng-show="!row.isChoose" src="img1/n2.png" width="70%" align="absmiddle" ng-click="startClicked($index)" ng-cloak/>	
+
+			<div style="padding: 10px 5% 10px 3%; font-size: 14px; color: #909090;">
+				<div>
+					<div style="float: right;">
+						<span style="font-size: 14px; color: #d1a224;" ng-bind="orderDetail.status_str"></span>
+					</div>
+					<div>
+						<span>订单金额：</span><span ng-bind="orderDetail.amount"></span><span>元</span>
+					</div>
+					<div style="clear: both;"></div>
 				</div>
-				<div style="clear: both;"></div>
+				<div style="padding-top: 5px;">
+					<span>订单编号：</span><span ng-bind="orderDetail.order_no"></span>
+				</div>
+
 			</div>
-			
-			<div style="height: 1px; background-color: #E0E0E0; margin-top: 15px;"></div>
-			
-			<textarea id="message" name="message" placeholder="从咖啡到环境，把你对这里的印象记录下来吧！也可以给我们可爱的店长店员们一些鼓励哦！" style="font-size: 14px; color: #909090; height: 200px; border-style: none;"></textarea>
-			
+			<div style="height: 1px; background-color: #E0E0E0;"></div>
+
+			<div ng-show="!orderDetail.isComment">
+				<div style="text-align: center; color: #606060; padding-top: 20px; font-size: 14px;">感觉如何，评论一下，领红包！</div>
+
+				<div style="padding-left: 15%; padding-right: 15%; padding-bottom: 3%;">
+					<div style="width: 20%; float: left; padding-top: 15px;" ng-repeat="row in startList">
+						<img ng-show="row.isChoose" src="img1/n2sel.png" width="70%" align="absmiddle" ng-click="startClicked($index)" ng-cloak/>
+						<img ng-show="!row.isChoose" src="img1/n2.png" width="70%" align="absmiddle" ng-click="startClicked($index)" ng-cloak/>
+					</div>
+					<div style="clear: both;"></div>
+				</div>
+
+				<div style="height: 1px; background-color: #E0E0E0; margin-top: 15px;"></div>
+
+				<textarea id="message" name="message" placeholder="从咖啡到环境，把你对这里的印象记录下来吧！也可以给我们可爱的店长店员们一些鼓励哦！" style="font-size: 14px; color: #909090; height: 200px; border-style: none;"></textarea>
+			</div>
 		</div>
-		
-		<div style="text-align: center; position: fixed; bottom: 0px; left: 0px; right: 0px;">
+
+		<div ng-show="!orderDetail.isComment" style="text-align: center; position: fixed; bottom: 0px; left: 0px; right: 0px;">
 			<div style="width: 100%; letter-spacing: 1px; line-height: 60px; background-color: #ff7d8f; font-size: 20px; color: white;" ng-click="sendMessage()">评价获得品社余额</div>
 		</div>
-		
+
 	</body>
 	<script type="text/javascript" src="js/global.js"></script>
 	<script type="text/javascript" src="qrcode_cafecomment.js"></script>

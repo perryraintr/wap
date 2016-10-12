@@ -1,11 +1,12 @@
 var app = angular.module("coffee", []);
 app.controller("qrcode_cafecomment", function($scope, $http) {
-
+	
 	$scope.wcid = getwcid();
 	$scope.id = GetQueryInt("id");
-	
+	$scope.oid = GetQueryInt("oid");
 //	$scope.wcid = "o1D_JwHikK5LBt_Y__Ukr9p4tKsY";
 //	$scope.id = 83;
+//	$scope.oid = 2063;
 
 	if($scope.wcid.length == 0) {
 		location.href = "go.html?url=" + location.href;
@@ -24,7 +25,7 @@ app.controller("qrcode_cafecomment", function($scope, $http) {
 		"isChoose": false
 	}];
 	$scope.star = 0;
-
+	$scope.commentSend = false;
 	var redIndex = 0;
 
 	$http.get(getHeadUrl() + "member.a?wcid=" + $scope.wcid).success(function(response) {
@@ -34,6 +35,7 @@ app.controller("qrcode_cafecomment", function($scope, $http) {
 		$scope.getDetail();
 	});
 
+	
 	$scope.getDetail = function() {
 		$http.get(getHeadUrl() + "store.a?id=" + $scope.id).success(function(response) {
 			$scope.store = response.body;
@@ -45,10 +47,20 @@ app.controller("qrcode_cafecomment", function($scope, $http) {
 
 			var height = $(window).width() * 0.42 * 900 / 1242.0;
 			$("#imageHeight").attr("height", height);
-
+			
+			$scope.getOrderDetail();
 		});
 	}
-
+	
+	$scope.getOrderDetail = function() {
+		$http.get(getHeadUrl() + "order.a?id=" + $scope.oid).success(function(response) {
+			$scope.orderDetail = response.body;
+			$scope.orderDetail.status_str = "订单已完成";
+			
+			$scope.orderDetail.isComment =  $scope.orderDetail.details[0].store_comment_guid > 0 ? true : false;
+		});
+	}
+	
 	$scope.sendMessage = function() {
 		$scope.message = document.getElementById("message").value;
 		$scope.message = $scope.message.replace(/ /g, "");
@@ -57,7 +69,13 @@ app.controller("qrcode_cafecomment", function($scope, $http) {
 			return;
 		}
 		
-		$http.get(getHeadUrl() + "store_comment_add.a?sid=" + $scope.id + "&mid=" + $scope.member.guid + "&star=" + $scope.star + "&m=" + $scope.message).success(function(response) {
+		if ($scope.commentSend) {
+			return;
+		}
+		$scope.commentSend = true;
+		
+		$http.get(getHeadUrl() + "store_comment_add.a?sid=" + $scope.id + "&oid=" + $scope.oid + "&mid=" + $scope.member.guid + "&star=" + $scope.star + "&m=" + $scope.message).success(function(response) {
+			$scope.isCommentEnd = true;
 			// 推送
 			$http.get(getHeadUrl() + "member.a?wcid=" + $scope.wcid).success(function(response) {
 				$scope.member = response.body;
@@ -69,6 +87,10 @@ app.controller("qrcode_cafecomment", function($scope, $http) {
 					});
 				});
 			});
+		}).finally(function() {
+			if (!$scope.isCommentEnd) {
+				$scope.commentSend = false;
+			}
 		});
 	}
 

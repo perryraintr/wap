@@ -11,7 +11,7 @@ app.controller("store_cashrecord", function($scope, $http) {
 
 	//	$scope.storeTel = "13661060130";
 	//	$scope.storeTel = "13241991175";
-	//	$scope.storeTel = "13524556007";
+//		$scope.storeTel = "13524556007";
 	//	$scope.sid = 70;
 
 	if($scope.storeTel.length == 0) {
@@ -19,16 +19,10 @@ app.controller("store_cashrecord", function($scope, $http) {
 		return;
 	}
 
-	$http.get(getHeadUrl() + "member.a?phone=" + $scope.storeTel).success(function(response) {
+	$http.get(getHeadUrl() + "merchant.a?phone=" + $scope.storeTel).success(function(response) {
 		$scope.member = response.body;
 		$scope.checkStore();
 	});
-
-	$scope.checkStoreAmount = function() {
-		$http.get(getHeadUrl() + "cash.a?sid=" + $scope.sid + "&page=all").success(function(response) {
-			$scope.amount = response.body.amount;
-		});
-	}
 
 	$scope.checkStore = function() {
 		$http.get(getHeadUrl() + "store.a?mid=" + $scope.member.guid).success(function(response) {
@@ -41,9 +35,9 @@ app.controller("store_cashrecord", function($scope, $http) {
 				for(var i = 0; i < response.body.array.length; i++) {
 					if($scope.sid == response.body.array[i].guid) {
 						$scope.storeName = response.body.array[i].name;
+						$scope.current = response.body.array[i].current;
 					}
 				}
-				$scope.checkStoreAmount();
 				$scope.getList();
 			} else {
 				$scope.isManager = false;
@@ -58,9 +52,9 @@ app.controller("store_cashrecord", function($scope, $http) {
 			if(response.body.array != undefined && response.body.array.length > 0) {
 				$scope.storeMember = response.body.array[0];
 				$scope.storeName = $scope.storeMember.store_name;
+				$scope.current = $scope.storeMember.store_current;
 				localStorage.setItem("store_guid", $scope.storeMember.store_guid);
 				$scope.sid = $scope.storeMember.store_guid;
-				$scope.checkStoreAmount();
 				$scope.getList();
 			} else {
 				layer.msg("你还未加入品社咖啡馆！如果你是咖啡馆长，请联系品社客服；如果你是店员，请联系你的馆长。", {
@@ -78,7 +72,7 @@ app.controller("store_cashrecord", function($scope, $http) {
 	}
 
 	$scope.getList = function() {
-		$http.get(getHeadUrl() + "cash.a?sid=" + $scope.sid + "&page=1").success(function(response) {
+		$http.get(getHeadUrl() + "store_cash.a?sid=" + $scope.sid + "&page=1").success(function(response) {
 			if(response.body.array != undefined && response.body.array.length > 0) {
 				for(var i = 0; i < response.body.array.length; i++) {
 					$scope.cash = response.body.array[i];

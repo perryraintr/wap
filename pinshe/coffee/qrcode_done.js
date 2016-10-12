@@ -42,8 +42,8 @@ app.controller("qrcode_done", function($scope, $http) {
 		$http.get($scope.getUrl + "order.a?orderno=" + $scope.orderno).success(function(response) {
 			$scope.orderDetail = response.body;
 			
-			if($scope.orderDetail.status == 1) {
-				$scope.orderDetail.status_str = "订单已付款";
+			if($scope.orderDetail.status != 0) {
+				$scope.orderDetail.status_str = "订单已完成";
 				var currentDate = new Date();
 				if(currentDate.getTime() - $scope.time < 15000) {
 					if($scope.wcid == "o1D_JwHikK5LBt_Y__Ukr9p4tKsY" || $scope.wcid == "o1D_JwGKMNWZmBYLxghYYw0GIlUg") {
@@ -65,7 +65,10 @@ app.controller("qrcode_done", function($scope, $http) {
 	}
 
 	$scope.followClicked = function() {
-		location.href = "qrcode_follow.html?id=" + $scope.id;
+		// 完成
+		$http.get($scope.getUrl + "wechat_send.a?wcid=" + $scope.wcid + "&sid=" + $scope.id + "&oid=" + $scope.orderDetail.guid).success(function(response) {
+			WeixinJSBridge.call('closeWindow');
+		});
 	}
 
 });

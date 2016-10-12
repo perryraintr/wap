@@ -24,7 +24,7 @@ app.controller("store_login", function($scope, $http) {
 			return;
 		}
 
-		$http.get(getHeadUrl() + "login.a?phone=" + phone + "&password=" + password).success(function(response) {
+		$http.get(getHeadUrl() + "merchant_login.a?phone=" + phone + "&password=" + password).success(function(response) {
 			if(response.body.guid != undefined && response.body.guid > 0) {
 				$scope.member = response.body;
 				localStorage.setItem("store_tel", $scope.member.phone);

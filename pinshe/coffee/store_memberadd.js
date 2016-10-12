@@ -17,7 +17,7 @@ app.controller("store_memberadd", function($scope, $http) {
 			return;
 		}
 
-		$http.get(getHeadUrl() + "member_add.a?phone=" + phone).success(function(response) {
+		$http.get(getHeadUrl() + "merchant_add.a?phone=" + phone).success(function(response) {
 			$scope.member = response.body;
 
 			$http.get(getHeadUrl() + "store_member_add.a?mid=" + $scope.member.guid + "&sid=" + $scope.sid).success(function(response) {

@@ -24,14 +24,14 @@
 	<body>
 		<div style="background-color: #1b1b1f; color: white; position: fixed; height: 38px; width: 100%; z-index: 999;">
 			<div ng-show="isMember && requestEnd">
-				<a href="product_highgrade.html">
+				<a href="product_highgrade.html" style="color: white;">
 					<img width="24" height="24" src="img/icon.png" style="margin: 7px 0px 0px 5px;">
 					<span style="font-size: 13px; color: white; vertical-align: top; line-height: 38px;" ng-cloak>品社会员</span>
 				</a>
 				<span ng-show="isMember" style="float: right; font-size: 13px; vertical-align: top; line-height: 38px; padding-right: 8px;" ng-cloak>余额：{{member.current}}元</span>
 			</div>
 			<div ng-show="!isMember && requestEnd">
-				<a href="nearby_cafemore.html">
+				<a href="nearby_cafemore.html" style="color: white;">
 					<img width="24" height="24" src="img/icon.png" style="margin: 7px 0px 0px 5px;">
 					<span style="font-size: 13px; color: white; vertical-align: top; line-height: 38px;" ng-cloak>了解更多咖啡馆的故事</span>
 				</a>

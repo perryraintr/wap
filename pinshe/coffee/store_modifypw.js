@@ -4,7 +4,7 @@ app.controller("store_modifypw", function($scope, $http, $interval) {
 	$scope.id = GetQueryString("id");
 //	$scope.id = 66;
 	if ($scope.id > 0) {
-		$http.get(getHeadUrl() + "member.a?id=" + $scope.id).success(function(response) {
+		$http.get(getHeadUrl() + "merchant.a?id=" + $scope.id).success(function(response) {
 			$scope.member = response.body;	
 		});	
 	}
@@ -76,10 +76,10 @@ app.controller("store_modifypw", function($scope, $http, $interval) {
 			return;
 		}
 		
-		$http.get(getHeadUrl() + "member.a?phone=" + phone).success(function(response) {
+		$http.get(getHeadUrl() + "merchant.a?phone=" + phone).success(function(response) {
 			$scope.member = response.body;	
 	
-			$http.get(getHeadUrl() + "member_modify.a?id=" + $scope.member.guid + "&code=" + telMsgCode + "&password=" + password).success(function(response) {
+			$http.get(getHeadUrl() + "merchant_modify.a?id=" + $scope.member.guid + "&code=" + telMsgCode + "&password=" + password).success(function(response) {
 				if (response.body.guid != undefined && response.body.guid > 0) {
 					location.href = "store_login.html";	
 				} else {

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html ng-app="coffee" ng-controller="store_cashrecord">
+<html ng-app="coffee" ng-controller="store_allcashrecord">
 
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -17,21 +17,32 @@
 		<script type="text/javascript" src="js/underscore-min.js"></script>
 		<meta name="description" content="最有温度的品质生活社区。" />
 		<title>商家系统</title>
-		<link href="store_cashrecord.css" rel="stylesheet" type="text/css" />
+		<link href="store_allcashrecord.css" rel="stylesheet" type="text/css" />
 	</head>
 
 	<body>
 		<div>
+			<div ng-show="memberList.length > 0" ng-repeat="row in memberList">
+				<div style="padding-top: 10px;">
+					<div style="padding: 10px; background-color: white;">
+						<img ng-show="row.member_avatar.length > 0" ng-src="{{row.member_avatar}}" style="float: left; border-radius: 100%; width: 40px; height: 40px; margin-right: 10px;" />
+						<div ng-show="row.member_name.length > 0" ng-bind="row.member_name" style="padding-bottom: 5px;"></div>
+						<div ng-bind="row.member_phone"></div>
+						<div style="clear: both;"></div>
+					</div>
+				</div>
+				<div style="height: 10px; background-color: #e0e0e0;"></div>
+			</div>
+
 			<div style="padding-top: 3%; padding-left: 3%; padding-right: 3%; padding-bottom: 15px; font-size: 16px;">
-				
-				<div ng-bind="storeName"></div>
+
+				<div ng-bind="store.name"></div>
 				<div style="padding-top: 5px;">
-					<a ng-show="!isManager && storeName.length > 0" ng-click="loginOut()" style="float: right; color: #606060;">退出登录</a>
-					<span>余额：</span><span ng-bind="current"></span><span>元</span>
+					<span>余额：</span><span ng-bind="store.current"></span><span>元</span>
 				</div>
 				<div style="clear: both;"></div>
 			</div>
-			
+
 			<div style="background-color: #E0E0E0; padding-top: 10px; padding-bottom: 10px; font-size: 16px;">
 				<span style="padding-left: 3%;">账单明细</span>
 			</div>
@@ -78,39 +89,10 @@
 				</div>
 			</div>
 
-			<div style="position: fixed; bottom: 48px; right: 0; text-align: center; width: 50%; line-height: 48px; background-color: white;" ng-show="isMyOpen">
-				<div style="border-style: solid; border-width: 1px; border-color: #d5d5d5;">
-					<a href="store_change.html?sid={{sid}}">
-						<div style="color: #404040;">切换店铺</div>
-					</a>
-					<div style="height: 1px; background-color: #d5d5d5;"></div>
-					<a href="store_member.html?sid={{sid}}">
-						<div style="color: #404040;">我的店员</div>
-					</a>
-					<div style="height: 1px; background-color: #d5d5d5;"></div>
-					<a href="" ng-click="loginOut()">
-						<div style="color: #404040;">退出登录</div>
-					</a>
-				</div>
-			</div>
-
-			<div ng-show="isManager" style="padding-bottom: 58px;"></div>
-
-			<div ng-show="isManager" style="position: fixed; bottom: 0px; width: 100%; line-height: 48px; text-align: center; color: #404040; font-size: 16px; background-color: #d5d5d5;">
-				<div style="height: 1px; background-color: #d5d5d5;"></div>
-				<a href="store_cashadd.html?mid={{member.guid}}&sid={{sid}}">
-					<div style="float: left; width: 49.75%; background-color: #06bf04; color: white; font-size: 14px;">提现</div>
-				</a>
-				<div style="float: left; width: 1px; height: 47px;"></div>
-				<div style="float: right; width: 49.75%; line-height: 47px; background-color: white; font-size: 14px;" ng-click="myClicked()"><img src="img/list.png" width="20px" height="20px" align="absmiddle" />我的</div>
-				<div style="margin-top: 47px; height: 1px; background-color: #d5d5d5;"></div>
-				<div style="clear: both;"></div>
-			</div>
-
 		</div>
 	</body>
 	<script type="text/javascript" src="js/mui.min.js"></script>
 	<script type="text/javascript" src="js/global.js"></script>
-	<script type="text/javascript" src="store_cashrecord.js"></script>
+	<script type="text/javascript" src="store_allcashrecord.js"></script>
 
 </html>

@@ -2,7 +2,7 @@ var app = angular.module("coffee", []);
 app.controller("nearby_cafehouse", function($scope, $http) {
 
 	$scope.wcid = getwcid();
-	//	$scope.wcid = "o1D_JwHikK5LBt_Y__Ukr9p4tKsY";
+//		$scope.wcid = "o1D_JwHikK5LBt_Y__Ukr9p4tKsY";
 	//	$scope.wcid = "o1D_JwGiLMukMtRIo6HU5M0ngxPs";
 
 	if($scope.wcid.length == 0) {

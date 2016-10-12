@@ -112,10 +112,12 @@ app.controller("nearby_ordertotal", function($scope, $http) {
 				location.href = getHeadUrl() + "pay/wechat_pay.a?wcid=" + $scope.wcid + "&order_no=" + $scope.orderDetail.order_no + $scope.paramStr + "&amount=" + $scope.orderDetail.payamount * 100;
 			});
 		} else {
-			$http.get(getHeadUrl() + "order_modify.a?id=" + $scope.guid + "&type=1"  + "&current=" + $scope.orderDetail.payamount + paramString + "&status=1").success(function(response) {
+			$http.get(getHeadUrl() + "order_modify.a?id=" + $scope.guid + "&type=1"  + "&current=" + $scope.orderDetail.payamount + paramString + "&status=3").success(function(response) {
 				$scope.modifyCoupon();
-				var currentDate = new Date();
-				location.href = "nearby_cafecomment.html?id=" + $scope.storeId + "&orderno=" + $scope.orderDetail.order_no + "&time=" + currentDate.getTime();
+				$http.get(getHeadUrl() + "store_cash_add.a?sid=" + $scope.storeId + "&memberid=" + $scope.member.guid + "&oid=" + $scope.guid + "&amount=" + $scope.orderDetail.amount + "&type=1&status=1").success(function(response) {}).finally(function() {
+					var currentDate = new Date();
+					location.href = "nearby_cafecomment.html?id=" + $scope.storeId + "&orderno=" + $scope.orderDetail.order_no + "&time=" + currentDate.getTime();
+				});
 			});
 		}
 	}

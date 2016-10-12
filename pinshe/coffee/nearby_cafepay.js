@@ -3,8 +3,8 @@ app.controller("nearby_cafepay", function($scope, $http) {
 
 	$scope.wcid = getwcid();
 	$scope.id = GetQueryInt("id");
-//	$scope.wcid = "o1D_JwGKMNWZmBYLxghYYw0GIlUg";
-//	$scope.id = 66;
+//	$scope.wcid = "o1D_JwHikK5LBt_Y__Ukr9p4tKsY";
+//	$scope.id = 59;
 
 	if($scope.wcid.length == 0) {
 		location.href = "go.html?url=" + location.href;

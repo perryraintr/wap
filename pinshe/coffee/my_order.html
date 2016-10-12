@@ -44,10 +44,10 @@
 				</div>
 			</div>
 			<div style="background-color: #fafafa;" ng-repeat="detail in row.details">
-				<a href="product_detail.html?id={{detail.commodity_guid}}" ng-show="!row.isMemberOrder && detail.commodity_guid > 0">
+				<div ng-show="!row.isMemberOrder && detail.commodity_guid > 0">
 					<div style="padding: 2%;">
 						<div style="float: left;">
-							<img ng-src="{{detail.commodity_image}}" width="124px" height="90px" />
+							<a href="product_detail.html?id={{detail.commodity_guid}}"><img ng-src="{{detail.commodity_image}}" width="124px" height="90px" /></a>
 						</div>
 						<div style="padding-left: 134px;">
 							<div style="float: left; width: 100%;">
@@ -62,20 +62,23 @@
 							<div style="clear: both;"></div>
 						</div>
 					</div>
-				</a>
-				<a href="nearby_cafedetail.html?id={{detail.store_guid}}" ng-show="!row.isMemberOrder && detail.store_guid > 0">
+				</div>
+				<div ng-show="!row.isMemberOrder && detail.store_guid > 0">
 					<div style="padding: 2%;">
 						<div style="float: left;">
-							<img ng-src="{{detail.store_image}}" width="124px" height="90px" />
+							<a href="nearby_cafedetail.html?id={{detail.store_guid}}"><img ng-src="{{detail.store_image}}" width="124px" height="90px" /></a>
 						</div>
 						<div style="padding-left: 134px;">
 							<div style="float: left; width: 100%;">
 								<span style="font-size: 13px; color: #404040; margin-top: -5px;" ng-bind="detail.store_name"></span>
 							</div>
+							<div ng-show="row.status != 0 && row.status != 4 && detail.store_comment_guid == 0" style="float: right; width: 50px; height: 24px; font-size: 14px; padding-top: 1px; border-radius: 3px; border-style: solid; border-width: 1px; border-color: #d1a224; text-align: center;">
+							 	<a style="color: #d1a224;" href="qrcode_cafecomment.html?id={{detail.store_guid}}&oid={{row.guid}}">评价</a>
+							</div>
 							<div style="clear: both;"></div>
 						</div>
 					</div>
-				</a>
+				</div>
 				<div style="padding: 2%;" ng-show="row.isMemberOrder">
 					<div style="float: left;">
 						<img ng-src="{{detail.commodity_image}}" width="124px" height="90px" />
