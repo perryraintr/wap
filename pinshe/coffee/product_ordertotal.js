@@ -127,9 +127,9 @@ app.controller("product_ordertotal", function($scope, $http) {
 				$scope.modifyCoupon();
 				var currentDate = new Date();
 				if($scope.isMemberOrder && $scope.orderDetail.amount >= 200) {
-					location.href = "order_done.html?amount=" + $scope.orderDetail.payamount + "&orderno=" + $scope.orderDetail.order_no + "&from=2" + "&time=" + currentDate.getTime();
+					location.href = "order_done.html?orderno=" + $scope.orderDetail.order_no + "&from=2" + "&time=" + currentDate.getTime();
 				} else {
-					location.href = "order_done.html?amount=" + $scope.orderDetail.payamount + "&orderno=" + $scope.orderDetail.order_no + "&from=1" + "&time=" + currentDate.getTime();
+					location.href = "order_done.html?orderno=" + $scope.orderDetail.order_no + "&from=1" + "&time=" + currentDate.getTime();
 				}
 			});
 		}

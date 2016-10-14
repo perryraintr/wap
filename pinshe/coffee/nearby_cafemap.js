@@ -5,14 +5,14 @@ app.controller("nearby_cafemap", function($scope, $http) {
 	$scope.longitude = GetQueryString("longitude");
 	$scope.latitude = GetQueryString("latitude");
 	
-//	$scope.wcid = "o1D_JwHikK5LBt_Y__Ukr9p4tKsY";
+	$scope.wcid = "o1D_JwHikK5LBt_Y__Ukr9p4tKsY";
 	if($scope.wcid.length == 0) {
 		location.href = "go.html?url=" + location.href;
 		return;
 	}
 
-//	$scope.longitude = 116.40384;
-//	$scope.latitude = 39.938986;
+	$scope.longitude = 116.40384;
+	$scope.latitude = 39.938986;
 	
 	$scope.peopleLongitude = $scope.longitude;
 	$scope.peopleLatitude = $scope.latitude;
@@ -118,9 +118,11 @@ app.controller("nearby_cafemap", function($scope, $http) {
 	});
 
 	$scope.readStore = function(e) {
+		console.log(e);
 		for(var j = 0; j < $scope.makerList.length; j++) {
 			$scope.marke = $scope.makerList[j];
-			if($scope.marke.G.title == e.target.G.title) {
+			console.log($scope.marke);
+			if($scope.marke.Af.title == e.target.Af.title) {
 				$scope.marke.setIcon("http://www.pinshe.org/html/v1/coffee/img1/n11.png");
 				$scope.marke.setzIndex(101);
 			} else {
@@ -138,7 +140,7 @@ app.controller("nearby_cafemap", function($scope, $http) {
 				$scope.store.starList.push(j);
 			}
 
-			if($scope.store.name == e.target.G.title) {
+			if($scope.store.name == e.target.Af.title) {
 				$("#currenStoreId").html(_.template($('#templateId').html())($scope.store));
 			}
 

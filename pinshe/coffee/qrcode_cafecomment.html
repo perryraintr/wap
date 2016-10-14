@@ -83,7 +83,7 @@
 
 			<div style="height: 1px; background-color: #E0E0E0;"></div>
 
-			<div style="padding: 10px 5% 10px 3%; font-size: 14px; color: #909090;">
+			<div ng-show="getMoney" style="padding: 10px 5% 10px 3%; font-size: 14px; color: #909090;">
 				<div>
 					<div style="float: right;">
 						<span style="font-size: 14px; color: #d1a224;" ng-bind="orderDetail.status_str"></span>
@@ -98,7 +98,7 @@
 				</div>
 
 			</div>
-			<div style="height: 1px; background-color: #E0E0E0;"></div>
+			<div ng-show="getMoney" style="height: 1px; background-color: #E0E0E0;"></div>
 
 			<div ng-show="!orderDetail.isComment">
 				<div style="text-align: center; color: #606060; padding-top: 20px; font-size: 14px;">感觉如何，评论一下，领红包！</div>
@@ -118,7 +118,8 @@
 		</div>
 
 		<div ng-show="!orderDetail.isComment" style="text-align: center; position: fixed; bottom: 0px; left: 0px; right: 0px;">
-			<div style="width: 100%; letter-spacing: 1px; line-height: 60px; background-color: #ff7d8f; font-size: 20px; color: white;" ng-click="sendMessage()">评价获得品社余额</div>
+			<div ng-show="getMoney" style="width: 100%; letter-spacing: 1px; line-height: 60px; background-color: #ff7d8f; font-size: 20px; color: white;" ng-click="sendMessage()">评价获得品社余额</div>
+			<div ng-show="!getMoney" style="width: 100%; letter-spacing: 1px; line-height: 60px; background-color: #ff7d8f; font-size: 20px; color: white;" ng-click="sendMessage()">评价</div>
 		</div>
 
 	</body>

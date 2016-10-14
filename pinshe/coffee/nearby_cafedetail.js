@@ -5,7 +5,7 @@ app.controller("nearby_cafedetail", function($scope, $http) {
 	
 //	$scope.wcid = "o1D_JwHikK5LBt_Y__Ukr9p4tKsY";
 	//	$scope.wcid = "o1D_JwGiLMukMtRIo6HU5M0ngxPs";
-//	$scope.id = 62;
+//	$scope.id = 83;
 	
 	if($scope.wcid.length == 0) {
 		location.href = "go.html?url=" + location.href;

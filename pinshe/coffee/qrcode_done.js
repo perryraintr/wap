@@ -44,8 +44,8 @@ app.controller("qrcode_done", function($scope, $http) {
 			
 			if($scope.orderDetail.status != 0) {
 				$scope.orderDetail.status_str = "订单已完成";
-				var currentDate = new Date();
-				if(currentDate.getTime() - $scope.time < 15000) {
+//				var currentDate = new Date();
+//				if(currentDate.getTime() - $scope.time < 15000) {
 					if($scope.wcid == "o1D_JwHikK5LBt_Y__Ukr9p4tKsY" || $scope.wcid == "o1D_JwGKMNWZmBYLxghYYw0GIlUg") {
 						$http.get($scope.getUrl + "wechat_send.a?wcid=o1D_JwHikK5LBt_Y__Ukr9p4tKsY&m=来订单了，<a href='http://www.pinshe.org/admin/v1/order_detail.html?id=" + $scope.orderDetail.guid + "'>订单详情</a>").success(function(response) {}).finally(function() {
 							$http.get($scope.getUrl + "wechat_send.a?wcid=o1D_JwGKMNWZmBYLxghYYw0GIlUg&m=来订单了，<a href='http://www.pinshe.org/admin/v1/order_detail.html?id=" + $scope.orderDetail.guid + "'>订单详情</a>").success(function(response) {}).finally(function() {});
@@ -59,7 +59,7 @@ app.controller("qrcode_done", function($scope, $http) {
 							});
 						});
 					}
-				}
+//				}
 			}
 		});
 	}

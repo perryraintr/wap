@@ -107,8 +107,27 @@
 			<div ng-show="!isExpand" style="text-align: right; padding-right: 4%; padding-top: 10px;">
 				<a href="" style="color: #fd6e7f; font-size: 16px; padding-right: 0px;" ng-click="readDescription()">阅读全文</a>
 			</div>
-
+			
 			<div style="margin-top: 4%; height: 1px; background-color: #e0e0e0;"></div>
+			<div style="padding: 3% 0 0 4%;" ng-show="store.recommends.length > 0">
+				<div><span style="color: #fd6e7f; font-size: 16px;" ng-bind="store.owner"></span><span style="color: #909090; font-size: 16px;">推荐的好咖啡</span></div>
+				<div style="padding-top: 16px;" ng-repeat="recommed in store.recommends">
+					<a href="product_detail.html?id={{recommed.commodity_guid}}"><div>
+						<div style="float: left; padding-right: 10px; margin-top: 2px;">
+							<img ng-src="{{recommed.commodity_image_url}}" align="absmiddle" width="80px" height="60px"/>
+						</div>
+						<div style="float: right;">
+							<img style="margin-top: -5px" src="img/arrow.png" align="absmiddle" width="32px" height="32px" />
+						</div>
+						<span style="color: #fd6e7f; font-size: 16px;" ng-bind="recommed.commodity_name"></span><span style="color: #fd6e7f; font-size: 16px;"> | </span><span style="color: #fd6e7f; font-size: 16px;" ng-bind="recommed.commodity_description"></span>
+						<div style="padding-left: 90px; font-size: 16px; color: #606060;" ng-bind="recommed.message"></div>
+						<div style="clear: both;"></div>
+					</div></a>
+				</div>
+				
+				<div style="margin-top: 4%; height: 1px; background-color: #e0e0e0;"></div>		
+			</div>
+			
 			<a href="nearby_cafedetailmap.html?longitude={{store.longitude}}&latitude={{store.latitude}}">
 				<div style="padding: 4% 0 0 4%; color: #606060; font-size: 14px;">
 					<div style="float: right;">
@@ -136,22 +155,6 @@
 				<div style="clear: both;"></div>
 			</div>
 			<div style="margin-top: 4%; height: 1px; background-color: #e0e0e0;"></div>
-
-			<div style="padding: 3% 0 0 4%;" ng-show="store.recommends.length > 0">
-				<div><span style="color: #fd6e7f; font-size: 16px;" ng-bind="store.owner"></span><span style="color: #909090; font-size: 16px;">推荐的好咖啡</span></div>
-				<div style="padding-top: 16px;" ng-repeat="recommed in store.recommends">
-					<a href="product_detail.html?id={{recommed.commodity_guid}}"><div>
-						<div style="float: right;">
-							<img style="margin-top: -5px" src="img/arrow.png" align="absmiddle" width="32px" height="32px" />
-						</div>
-						<span style="color: #fd6e7f; font-size: 16px;" ng-bind="recommed.commodity_name"></span><span style="color: #fd6e7f; font-size: 16px;"> | </span><span style="color: #fd6e7f; font-size: 16px;" ng-bind="recommed.commodity_description"></span>
-						<div style="clear: both;"></div>
-						<div style="font-size: 16px; color: #606060;" ng-bind="recommed.message"></div>
-					</div></a>
-				</div>
-				
-				<div style="margin-top: 4%; height: 1px; background-color: #e0e0e0;"></div>		
-			</div>
 		
 			<div style="width: 100%; padding: 5%">
 				<div ng-repeat="row in resultFeature1">

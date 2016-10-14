@@ -4,8 +4,8 @@ app.controller("product_detail", function($scope, $http) {
 	$scope.wcid = getwcid();
 	$scope.cid = GetQueryString("id");
 
-//	$scope.wcid = "o1D_JwHikK5LBt_Y__Ukr9p4tKsY"; 
-//	$scope.cid = "121";
+	//	$scope.wcid = "o1D_JwHikK5LBt_Y__Ukr9p4tKsY"; 
+	//	$scope.cid = "121";
 
 	if($scope.wcid.length == 0) {
 		location.href = "go.html?url=" + location.href;
@@ -64,7 +64,7 @@ app.controller("product_detail", function($scope, $http) {
 			}
 		});
 	}
-	
+
 	$scope.initWx = function() {
 		$scope.shareContent = $scope.row.name + " | " + $scope.row.description;
 		$http.get(getHeadUrl() + "wechat_sign.a?url=" + encodeURIComponent(location.href)).success(function(response) {
@@ -111,11 +111,11 @@ app.controller("product_detail", function($scope, $http) {
 
 	// 加入购物车
 	$scope.addCart = function() {
-		if ($scope.row.count <= 0) {
+		if($scope.row.count <= 0) {
 			layer.msg("手慢了，此商品已售完");
 			return;
 		}
-		
+
 		$http.get(getHeadUrl() + "cart_add.a?mid=" + $scope.member.guid + "&cid=" + $scope.row.guid + "&count=1").success(function(response) {
 			layer.msg('已加入购物车');
 			$scope.cartList.push("addCart");
@@ -124,14 +124,11 @@ app.controller("product_detail", function($scope, $http) {
 
 	// 立即购买
 	$scope.buyClicked = function() {
-		if ($scope.row.count <= 0) {
+		if($scope.row.count <= 0) {
 			layer.msg("手慢了，此商品已售完");
 			return;
 		}
-		//		mid count amount  cids  counts  amounts
-		for (var i = 0; i < 100; i++) {
-			
-		
+		//		mid count amount  cids  counts  amounts			
 		var orderAddParamData = {
 			"mid": $scope.member.guid,
 			"count": 1,
@@ -150,15 +147,14 @@ app.controller("product_detail", function($scope, $http) {
 			},
 			transformRequest: angular.identity
 		}).success(function(response) {
-			if (response.body.guid != undefined && response.body.guid > 0) {
-				location.href = "product_ordertotal.html?id=" + response.body.guid;				
+			if(response.body.guid != undefined && response.body.guid > 0) {
+				location.href = "product_ordertotal.html?id=" + response.body.guid;
 			} else {
 				layer.msg("库存不足");
 				return;
 			}
 
 		});
-		}
 	}
 
 });
