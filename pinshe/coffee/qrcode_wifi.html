@@ -18,7 +18,7 @@
 		<script type="text/javascript" src="js/underscore-min.js"></script>
 		<script type="text/javascript" src="js/clipboard.min.js" ></script>
 		<meta name="description" content="最有温度的品质生活社区。" />
-		<title>支付完成</title>
+		<title ng-bind="store.name"></title>
 		<link href="qrcode_wifi.css" rel="stylesheet" type="text/css" />
 	</head>
 
@@ -88,10 +88,10 @@
 				<div style="clear: both;"></div>
 				<div style="padding-top: 15%; text-align: center;">
 					<div style="font-size: 18px; color: #404040; padding-bottom: 15px;"><b>无线账户</b></div>
-					<div style="font-size: 18px; color: #fd6e7f; padding-bottom: 15px;" ng-bind="wifi"></div>
+					<div style="font-size: 18px; color: #fd6e7f; padding-bottom: 15px;" ng-bind="store.wifi"></div>
 					<div style="font-size: 18px; color: #404040; padding-bottom: 20px;"><b>复制下面的WiFi密码</b></div>
 					<div id="btn" class="js-copy" data-clipboard-text="{{store.wifi_password}}">
-        				<span style="border-color: #fd6e7f; color: #fd6e7f; border-style: solid; border-width: 1px; padding: 5px 10px" ng-bind="store.wifi_password"></span>
+        				<span style="border-color: #fd6e7f; color: #fd6e7f; border-style: solid; border-width: 1px; padding: 5px 10px;-moz-user-select: all;-webkit-user-select:all;-ms-user-select:all;user-select:all;" ng-bind="store.wifi_password"></span>
     					</div>
 					<!--<div style="font-size: 18px;"><span style="border-color: #fd6e7f; color: #fd6e7f; border-style: solid; border-width: 1px; padding: 5px 10px">ReaclCaffee2014</span></div>-->
 					<div style="clear: both;"></div>
