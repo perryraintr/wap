@@ -240,7 +240,7 @@ app.controller("product_ordertotal", function($scope, $http) {
 		if($scope.wcid == "o1D_JwHikK5LBt_Y__Ukr9p4tKsY" || $scope.wcid == "o1D_JwGKMNWZmBYLxghYYw0GIlUg" || $scope.wcid == "o1D_JwGTL0ZN81hpxJSxflvtXQj8") {
 			$scope.orderDetail.payamount = 0.01;
 		}
-		if($scope.isMemberOrder && $scope.orderDetail.amount >= 200) {
+		if($scope.isMemberOrder) {
 			paramStr = "-2-" + $scope.memberCid;
 		} else {
 			paramStr = "-1-0";

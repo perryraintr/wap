@@ -3,7 +3,7 @@ app.controller("address_add", function($scope, $http) {
 	$scope.wcid = getwcid();
 	$scope.orderId = GetQueryString("oid");
 
-		$scope.wcid = "o1D_JwHikK5LBt_Y__Ukr9p4tKsY";
+		//$scope.wcid = "o1D_JwHikK5LBt_Y__Ukr9p4tKsY";
 
 	if($scope.wcid.length == 0) {
 		location.href = "go.html?url=" + location.href;
