@@ -21,7 +21,7 @@ app.controller("product_ordertotal", function($scope, $http) {
 		return;
 	}
 
-	var paramStr = "";
+	$scope.paramStr = "";
 	$scope.hasConsignee = false; // 有收货人信息
 	$scope.isFinished = false; // 订单已完成状态
 	$scope.isMemberOrder = false; // 是否是会员订单
@@ -120,7 +120,7 @@ app.controller("product_ordertotal", function($scope, $http) {
 		if(isFormWx) {
 			$http.get(getHeadUrl() + "order_modify.a?id=" + $scope.guid + "&type=2"  + "&current=" + $scope.orderDetail.payamount + "&cneeid=" + $scope.consignee.guid + paramString).success(function(response) {
 				$scope.modifyCoupon();
-				location.href = getHeadUrl() + "pay/wechat_pay.a?wcid=" + $scope.wcid + "&order_no=" + $scope.orderDetail.order_no + paramStr + "&amount=" + $scope.orderDetail.payamount * 100;
+				location.href = getHeadUrl() + "pay/wechat_pay.a?wcid=" + $scope.wcid + "&order_no=" + $scope.orderDetail.order_no + $scope.paramStr + "&amount=" + $scope.orderDetail.payamount * 100;
 			});
 		} else {
 			$http.get(getHeadUrl() + "order_modify.a?id=" + $scope.guid + "&type=1"  + "&current=" + $scope.orderDetail.payamount + "&cneeid=" + $scope.consignee.guid + paramString + "&status=1").success(function(response) {
@@ -241,9 +241,9 @@ app.controller("product_ordertotal", function($scope, $http) {
 			$scope.orderDetail.payamount = 0.01;
 		}
 		if($scope.isMemberOrder) {
-			paramStr = "-2-" + $scope.memberCid;
+			$scope.paramStr = "-2-" + $scope.memberCid;
 		} else {
-			paramStr = "-1-0";
+			$scope.paramStr = "-1-0";
 		}
 		$scope.orderModify(true);
 	}

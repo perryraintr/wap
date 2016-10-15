@@ -46,13 +46,13 @@ app.controller("qrcode_wifi", function($scope, $http) {
 
     //复制成功执行的回调，可选
     clipboard.on('success', function(e) {
-    		layer.msg("复制成功");
+    		layer.msg("复制成功，请在输入WiFi密码时直接粘贴");
         console.log(e);
     });
 
     //复制失败执行的回调，可选
     clipboard.on('error', function(e) {
-    		layer.msg("复制成功");
+    		layer.msg("复制成功，请在输入WiFi密码时直接粘贴");
         console.log(e);
     });
 });
