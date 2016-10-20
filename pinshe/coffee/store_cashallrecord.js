@@ -1,5 +1,5 @@
 var app = angular.module("coffee", []);
-app.controller("store_cashrecord", function($scope, $http) {
+app.controller("store_cashallrecord", function($scope, $http) {
 
 	$scope.storeTel = getStoreTel();
 	if(GetQueryInt("sid") > 0) {
@@ -11,29 +11,20 @@ app.controller("store_cashrecord", function($scope, $http) {
 
 	//	$scope.storeTel = "13661060130";
 	//	$scope.storeTel = "13241991175";
-		$scope.storeTel = "13524556007";
-//		$scope.sid = 59;
+//		$scope.storeTel = "13524556007";
+	//	$scope.sid = 70;
 
 	if($scope.storeTel.length == 0) {
 		location.href = "store_login.html";
 		return;
 	}
-	
-	var currentDate = new Date();
-	var year=currentDate.getFullYear(); //获取当前年份
-   	var mon=currentDate.getMonth()+1; //获取当前月份
-   	var da=currentDate.getDate(); //获取当前日
-	$scope.currentDay = year + "" + mon + "" + da;
-	$scope.currentShowDay = year + "年" + mon + "月" + da + "日";
-//	$scope.currentDay = 20161013;
-//	alert($scope.currentDay);
+
 	$http.get(getHeadUrl() + "merchant.a?phone=" + $scope.storeTel).success(function(response) {
 		$scope.member = response.body;
 		$scope.checkStore();
 	});
 
 	$scope.checkStore = function() {
-		
 		$http.get(getHeadUrl() + "store.a?mid=" + $scope.member.guid).success(function(response) {
 			if(response.body.array != undefined && response.body.array.length > 0) {
 				// 该人是店长
@@ -42,7 +33,6 @@ app.controller("store_cashrecord", function($scope, $http) {
 					$scope.sid = response.body.array[0].guid;
 				}
 				for(var i = 0; i < response.body.array.length; i++) {
-					console.log(response.body.array[i].guid);
 					if($scope.sid == response.body.array[i].guid) {
 						$scope.storeName = response.body.array[i].name;
 						$scope.current = response.body.array[i].current;
@@ -82,12 +72,8 @@ app.controller("store_cashrecord", function($scope, $http) {
 	}
 
 	$scope.getList = function() {
-		$http.get(getHeadUrl() + "store_cash.a?sid=" + $scope.sid + "&date=" + $scope.currentDay).success(function(response) {
-			$scope.storeAmount = 0;
-			$scope.storeCount = 0;
+		$http.get(getHeadUrl() + "store_cash.a?sid=" + $scope.sid + "&page=1").success(function(response) {
 			if(response.body.array != undefined && response.body.array.length > 0) {
-				$scope.storeAmount = response.body.amount;
-				$scope.storeCount = response.body.count;
 				for(var i = 0; i < response.body.array.length; i++) {
 					$scope.cash = response.body.array[i];
 					if($scope.cash.type == -1) {

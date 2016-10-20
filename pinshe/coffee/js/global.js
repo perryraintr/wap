@@ -1,5 +1,7 @@
 
 function getwcid() {
+	return "o1D_JwHikK5LBt_Y__Ukr9p4tKsY";
+	
 	if (GetQueryString("wcid").length > 0) {
 		return GetQueryString("wcid");
 	}
@@ -70,7 +72,7 @@ function getStoreMember() {
 }
 
 function getHeadUrl() {
-//	return "http://192.168.2.104/v1/";
+//	return "http://192.168.0.138/v1/";
 	return "http://interface.pinshe.org/v1/";
 }
 

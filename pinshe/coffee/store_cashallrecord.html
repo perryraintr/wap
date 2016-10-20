@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html ng-app="coffee" ng-controller="store_cashrecord">
+<html ng-app="coffee" ng-controller="store_cashallrecord">
 
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -10,7 +10,6 @@
 		<meta name="format-detection" content="telephone=no">
 		<link rel="shortcut icon" href="">
 		<link href="css/default.css" rel="stylesheet" type="text/css" />
-		<link href="css/mui.min.css" rel="stylesheet" type="text/css" />
 		<script type="text/javascript" src="js/helper.js"></script>
 		<script type="text/javascript" src="js/angular.min.js"></script>
 		<script type="text/javascript" src="js/jquery-3.0.0.min.js"></script>
@@ -18,49 +17,13 @@
 		<script type="text/javascript" src="js/underscore-min.js"></script>
 		<meta name="description" content="最有温度的品质生活社区。" />
 		<title>商家系统</title>
-		<link href="store_cashrecord.css" rel="stylesheet" type="text/css" />
+		<link href="store_cashallrecord.css" rel="stylesheet" type="text/css" />
 	</head>
 
 	<body>
 		<div>
-			<div style="text-align: center; padding-top: 3%; padding-left: 3%; padding-right: 3%; padding-bottom: 15px; font-size: 18px;">
-				
-				<div style="padding-top: 10px;"><b><span ng-bind="storeName" style="font-size: 20px;"></span></b></div>
-				<div style="padding-top: 12px;">
-					<a ng-show="!isManager && storeName.length > 0" ng-click="loginOut()" style="float: right; color: #606060;">退出登录</a>
-					<span>当前余额: </span><span ng-bind="current"></span><span>元</span>
-				</div>
-				<div style="clear: both;"></div>
-			</div>
-			<div style="height: 1px; background-color: #e0e0e0;"></div>
-			<div style="background-color: #E0E0E0; padding-top: 15px; padding-bottom: 10px; font-size: 16px;">
-				<div style="float: left; width: 100px; padding-top: 8px; padding-left: 3%;">
-					<b><span style="padding-left: 3%; font-size: 18px;">当日累计</span></b>
-				</div>
-				<a href="store_cashchooserecord.html?sid={{sid}}" style="color: #404040; padding-right: 3%; float: right; font-size: 14px;"><input type="button" value="查看其他日期" style="float: right;"/></a>
-				<div style="clear: both;"></div>
-				<div style="clear: both;"></div>
-			</div>
-			
-			<div style="padding-top: 3%; padding-left: 3%; padding-right: 3%; padding-bottom: 0px; font-size: 16px;">
-				<div><span ng-bind="currentShowDay" style="color: #909090;"></span></div>
-				<div style="padding-top: 15px;">
-					品社订单收入: <span ng-bind="storeAmount" style="font-size: 18px;"></span><span style="font-size: 18px;">元</span>
-				</div>
-				<div style="padding-top: 5px;">
-					品社订单笔数: <span ng-bind="storeCount" style="font-size: 18px;"></span><span style="font-size: 18px;">笔</span>
-				</div>
-				<div style="padding-top: 15px;">
-					<span style="font-size: 11px; color: #909090">不包含提现信息</span>
-				</div>
-			</div>
-			
-			<div style="background-color: #E0E0E0; padding-top: 15px; padding-bottom: 10px; font-size: 16px;">
-				<div style="float: left; width: 100px; padding-top: 8px; padding-left: 3%;">
-					<b><span style="padding-left: 3%; font-size: 18px;">当日明细</span></b>
-				</div>
-				<a href="store_cashallrecord.html" style="color: #404040; padding-right: 3%; float: right; font-size: 14px;"><input type="button" value="查看全部账单" style="float: right;"/></a>
-				<div style="clear: both;"></div>
+			<div style="background-color: #E0E0E0; padding-top: 10px; padding-bottom: 10px; font-size: 16px;">
+				<b><span style="padding-left: 3%; font-size: 18px;">当日明细</span></b>
 			</div>
 			<div style="padding-top: 0px; font-size: 16px; color: #909090;">
 
@@ -76,7 +39,7 @@
 						<div ng-show="row.type == 1" style="background-color: #fafafa; padding-left: 3%; padding-right: 3%; padding-top: 10px; padding-bottom: 10px;">
 							<div>
 								<div style="float: right;">
-									<span ng-bind="row.member_name"  style="color: green;"></span><span style="color: green">支付成功</span>
+									<span ng-bind="row.member_name" style="color: green;"></span><span style="color: green;">支付成功</span>
 								</div>
 								<span style="color: green;">+</span><span ng-bind="row.amount" style="color: green;"></span>
 								<div style="clear: both;"></div>
@@ -107,10 +70,6 @@
 
 			<div style="position: fixed; bottom: 48px; right: 0; text-align: center; width: 50%; line-height: 48px; background-color: white;" ng-show="isMyOpen">
 				<div style="border-style: solid; border-width: 1px; border-color: #d5d5d5;">
-					<a href="store_setting.html?sid={{sid}}">
-						<div style="color: #404040;">设置店铺</div>
-					</a>
-					<div style="height: 1px; background-color: #d5d5d5;"></div>
 					<a href="store_change.html?sid={{sid}}">
 						<div style="color: #404040;">切换店铺</div>
 					</a>
@@ -125,23 +84,23 @@
 				</div>
 			</div>
 
-			<div ng-show="isManager" style="padding-bottom: 58px;"></div>
+			<!--<div ng-show="isManager" style="padding-bottom: 58px;"></div>
 
 			<div ng-show="isManager" style="position: fixed; bottom: 0px; width: 100%; line-height: 48px; text-align: center; color: #404040; font-size: 16px; background-color: #d5d5d5;">
 				<div style="height: 1px; background-color: #d5d5d5;"></div>
 				<a href="store_cashadd.html?mid={{member.guid}}&sid={{sid}}">
-					<div style="float: left; width: 49.75%; background-color: #06bf04; color: white; font-size: 18px;">提现</div>
+					<div style="float: left; width: 49.75%; background-color: #06bf04; color: white; font-size: 14px;">提现</div>
 				</a>
 				<div style="float: left; width: 1px; height: 47px;"></div>
-				<div style="float: right; width: 49.75%; line-height: 47px; background-color: white; font-size: 18px;" ng-click="myClicked()"><img src="img/list.png" width="20px" height="20px" align="absmiddle"/> 我的</div>
+				<div style="float: right; width: 49.75%; line-height: 47px; background-color: white; font-size: 14px;" ng-click="myClicked()"><img src="img/list.png" width="20px" height="20px" align="absmiddle" />我的</div>
 				<div style="margin-top: 47px; height: 1px; background-color: #d5d5d5;"></div>
 				<div style="clear: both;"></div>
-			</div>
+			</div>-->
 
 		</div>
 	</body>
 	<script type="text/javascript" src="js/mui.min.js"></script>
 	<script type="text/javascript" src="js/global.js"></script>
-	<script type="text/javascript" src="store_cashrecord.js"></script>
+	<script type="text/javascript" src="store_cashallrecord.js"></script>
 
 </html>

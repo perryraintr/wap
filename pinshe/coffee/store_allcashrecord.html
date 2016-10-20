@@ -66,9 +66,12 @@
 								<div style="clear: both;"></div>
 							</div>
 							<div style="padding-top: 5px; font-size: 13px;">
-								<span>余额: </span><span ng-bind="row.total"></span><span>元</span>
-								<span style="float: right;" ng-bind="row.create_time"></span>
-								<div style="clear: both;"></div>
+								<span>余额: </span>
+								<input type="text" id="total{{$index}}" name="total{{$index}}" value="{{row.total}}"></input>
+								<span>元</span>
+							</div>
+							<div style="padding-top: 5px; font-size: 13px;">
+								<span ng-bind="row.create_time"></span>
 							</div>
 						</div>
 						<div ng-show="row.type == -1" style="background-color: #fafafa; padding-left: 3%; padding-right: 3%; padding-top: 10px; padding-bottom: 10px;">
@@ -79,10 +82,17 @@
 								<span>-</span><span ng-bind="row.amount"></span>
 							</div>
 							<div style="padding-top: 5px; font-size: 13px;">
-								<span>余额: </span><span ng-bind="row.total"></span><span>元</span>
-								<span style="float: right;" ng-bind="row.create_time"></span>
-								<div style="clear: both;"></div>
+								<span>余额: </span>
+								<input type="text" id="total{{$index}}" name="total{{$index}}" ng-model="row.total" value="{{row.total}}"></input>
+								<span>元</span>
 							</div>
+							<div style="padding-top: 5px; font-size: 13px;">
+								<span ng-bind="row.create_time"></span>
+							</div>
+						</div>
+						<div style="background-color: white; padding: 10px;">
+							<button style="" ng-click="modifyCash(row, $index)">修改</button>
+							<button style="" ng-click="deleteCash(row, $index)">删除</button>
 						</div>
 						<div style="width: 100%; height: 10px; background-color: #E0E0E0;"></div>
 					</div>

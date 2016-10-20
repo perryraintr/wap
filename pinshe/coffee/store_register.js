@@ -6,12 +6,30 @@ app.controller("store_register", function($scope, $http, $interval) {
 		location.href = "go.html?url=" + location.href;
 		return;
 	}
-	
+
 	$scope.paracont = "获取验证码";
 	$scope.paraclass = "but_null";
 	$scope.paraevent = true;
 	var second = 60,
 		timePromise = undefined;
+		
+	$scope.createCode = function() {
+		$scope.code = "";
+		var codeLength = 4; //验证码的长度
+		var checkCode = document.getElementById("checkCode");
+		var codeChars = new Array(0, 1, 2, 3, 4, 5, 6, 7, 8, 9,
+			'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
+			'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'); //所有候选组成验证码的字符，当然也可以用中文的
+		for(var i = 0; i < codeLength; i++) {
+			var charNum = Math.floor(Math.random() * 52);
+			$scope.code += codeChars[charNum];
+		}
+		if(checkCode) {
+			checkCode.className = "code";
+			checkCode.innerHTML = $scope.code;
+		}
+	}
+	$scope.createCode();
 	$scope.sendphonecode = function(telphone) {
 		var phone = document.getElementById("tel").value;
 		if(phone.length == 0) {
@@ -22,6 +40,17 @@ app.controller("store_register", function($scope, $http, $interval) {
 		if(phone.length != 11) {
 			layer.msg("请输入正确格式的手机号");
 			return;
+		}
+
+		var picMsgCode = document.getElementById("picMsgCode").value;
+		if(picMsgCode.length == 0) {
+			layer.msg("请输入图形验证码");
+			return;
+		} else if(picMsgCode.toUpperCase() != $scope.code.toUpperCase()) {
+			layer.msg("验证码输入错误");
+			$scope.createCode();
+			return;
+		} else {
 		}
 
 		$http.get(getHeadUrl() + "yunpian.a?phone=" + phone).success(function(response) {
@@ -58,7 +87,18 @@ app.controller("store_register", function($scope, $http, $interval) {
 			layer.msg("请输入正确格式的手机号");
 			return;
 		}
-
+		
+		var picMsgCode = document.getElementById("picMsgCode").value;
+		if(picMsgCode.length == 0) {
+			layer.msg("请输入图形验证码");
+			return;
+		} else if(picMsgCode.toUpperCase() != $scope.code.toUpperCase()) {
+			layer.msg("验证码输入错误");
+			$scope.createCode();
+			return;
+		} else {
+		}
+		
 		if(telMsgCode.length == 0) {
 			layer.msg("请输入短信验证码");
 			return;
@@ -85,6 +125,19 @@ app.controller("store_register", function($scope, $http, $interval) {
 			}
 		});
 
+	}
+
+
+	$scope.validateCode =  function() {
+		var inputCode = document.getElementById("inputCode").value;
+		if(inputCode.length <= 0) {
+			alert("请输入验证码！");
+		} else if(inputCode.toUpperCase() != $scope.code.toUpperCase()) {
+			alert("验证码输入有误！");
+			$scope.createCode();
+		} else {
+			alert("验证码正确！");
+		}
 	}
 
 });

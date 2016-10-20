@@ -1,1 +1,11 @@
 body{background-color: white;}
+*{   
+    -webkit-touch-callout:default;  /*系统默认菜单被禁用*/   
+    -webkit-user-select:auto; /*webkit浏览器*/      
+    -moz-user-select:auto;/*火狐*/   
+    -ms-user-select:auto; /*IE10*/   
+}  
+
+input {      
+    -webkit-user-select:auto; /*webkit浏览器*/     
+}  

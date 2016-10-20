@@ -32,9 +32,17 @@
 		</div>
 		
 		<div style="padding: 10px 10px 0px 10px; font-size: 16px;">
+			<div style="float: right; background-color: #E9E7E7; padding: 10px;" id="checkCode" ng-click="createCode()" ></div>  
+			<label style="width: 90px; line-height: 28px; padding: 10px 0px;">图形验证码</label>
+			<input style="width: 150px; border: none; line-height: 28px; padding: 5px 0px 10px 5px; outline: none; font-size: 16px;" type="text" name="picMsgCode" id="picMsgCode" placeholder="请输入图形验证码" value="" />
+			<div style="height: 1px; background-color: #d5d5d5;"></div>
+			<div style="clear: both;"></div>
+		</div>
+		
+		<div style="padding: 10px 10px 0px 10px; font-size: 16px;">
 			<a style="float: right; padding-top: 10px;" href="javascript:" ng-click="sendphonecode(reg_phone)" ng-class="paraclass" ng-bind="paracont">获取验证码</a>  
-			<label style="width: 90px; line-height: 28px; padding: 10px 0px;">验证码</label>
-			<input style="width: 150px; border: none; line-height: 28px; padding: 5px 0px 10px 32px; outline: none; font-size: 16px;" type="text" name="telMsgCode" id="telMsgCode" placeholder="请输入短信验证码" value="" />
+			<label style="width: 90px; line-height: 28px; padding: 10px 0px;">短信验证码</label>
+			<input style="width: 150px; border: none; line-height: 28px; padding: 5px 0px 10px 5px; outline: none; font-size: 16px;" type="text" name="telMsgCode" id="telMsgCode" placeholder="请输入6位数字" value="" />
 			<div style="height: 1px; background-color: #d5d5d5;"></div>
 			<div style="clear: both;"></div>
 		</div>
