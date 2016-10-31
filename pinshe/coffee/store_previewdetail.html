@@ -8,40 +8,19 @@
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<meta name="format-detection" content="telephone=no">
-		<link rel="shortcut icon" href="">
-		<link href="css/mui.min.css" rel="stylesheet" type="text/css" />
-		<link href="css/default.css" rel="stylesheet" type="text/css" />
-		<script type="text/javascript" src="js/helper.js"></script>
-		<script type="text/javascript" src="js/angular.min.js"></script>
-		<script type="text/javascript" src="js/jquery-3.0.0.min.js"></script>
-		<script type="text/javascript" src="js/underscore-min.js"></script>
-		<script type="text/javascript" src="js/layer.js"></script>
 		<meta name="description" content="最有温度的品质生活社区。" />
-		<link href="store_previewdetail.css" rel="stylesheet" type="text/css" />
-		<link href="css/swiper-3.3.1.min.css" rel="stylesheet" type="text/css" />
-		<script type="text/javascript" src="js/media/mediaelement-and-player.min.js"></script>
-		<link rel="stylesheet" href="js/media/mediaelementplayer.min.css" />
-		<title ng-bind="store.name"></title>
-		<script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
-		<script type="text/javascript" src="https://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+		<script type="text/javascript" src="js/angular.min.js" ></script>
+		<title></title>
 	</head>
 
 	<body style="font-family: helvetica;">
-
 		<div>
 			<div style="background-color: white;">
-				<div class="swiper-container swiper-container-horizontal">
-					<div id="swiperwrapper" class="swiper-wrapper">
-						<li class="swiper-slide">
-						</li>
-					</div>
-					<div style="text-align:center" class="swiper-pagination"></div>
-				</div>
+				<img ng-src="{{store.image}}" width="100%"/>
 			</div>
 
 			<div style="background-color: white; padding: 4% 4% 0 4%;">
-
-				<div style="padding-top: 10px; color: #404040; font-size: 20px;" ng-cloak>{{store.name}}</div>
+				<div style="color: #404040; font-size: 20px;" ng-cloak>{{store.name}}</div>
 				<div style="color: #909090; padding-top: 10px; font-size: 20px;" ng-cloak>{{store.slogan}}</div>
 				<div style="color: #909090; padding-top: 10px;">
 					<div style="float: left; padding-left: 1px; margin-top: -2px;" ng-repeat="s in store.starList">
@@ -51,7 +30,7 @@
 					<div style="clear: both;"></div>
 				</div>
 				<div style="margin-top: 6%; height: 1px; background-color: #e0e0e0;"></div>
-				<div style="width: 100%; padding-left: 5%; padding-right: 5%; padding-top: 5%;">
+				<div style="padding-top: 5%;">
 					<div ng-repeat="row in resultFeature2">
 						<div ng-repeat="number in row">
 							<div ng-show="row.length == 1" style="text-align: center;" ng-cloak>
@@ -77,56 +56,42 @@
 						<div style="color: #fd6e7f; font-size: 16px; padding-top: 4px;" ng-cloak>{{store.owner}}</div>
 					</div>
 					<div style="float: right;">
-						<a href="avatar.html?url={{store.avatar}}" target="_blank"><img ng-src="{{store.avatar}}" width="50px" height="50px" style="border-radius: 100%;" /></a>
+						<img ng-src="{{store.avatar}}" width="50px" height="50px" style="border-radius: 100%;" />
 					</div>
 					<div style="clear: both;"></div>
-				</div>
-
-				<div id="videoId" style="display: none;">
-					<video width="100%" height="250px" src="{{store.video}}" type="video/mp4" id="player1" poster="{{store.posterUrl}}" controls="controls" webkit-playsinline preload="none"></video>
 				</div>
 
 				<div style="padding-top: 4%; padding-left: 4%; padding-right: 4%;">
 					<div id="descriptionId" style="color: #606060; font-size: 16px; line-height: 150%; text-align: justify;"></div>
 				</div>
 				<div ng-show="!isExpand" style="text-align: right; padding-right: 4%; padding-top: 10px;">
-					<a href="" style="color: #fd6e7f; font-size: 16px; padding-right: 0px;" ng-click="readDescription()">阅读全文</a>
+					<a href="" style="color: #fd6e7f; font-size: 16px; padding-right: 0px; text-decoration:none" ng-click="readDescription()">阅读全文</a>
 				</div>
 
 				<div style="margin-top: 4%; height: 1px; background-color: #e0e0e0;"></div>
 				<div style="padding: 3% 0 0 4%;" ng-show="store.recommends.length > 0">
 					<div><span style="color: #fd6e7f; font-size: 16px;" ng-bind="store.owner"></span><span style="color: #909090; font-size: 16px;">推荐的好咖啡</span></div>
 					<div style="padding-top: 16px;" ng-repeat="recommed in store.recommends">
-						<!--<a href="product_detail.html?id={{recommed.commodity_guid}}">-->
 						<div>
 							<div style="float: left; padding-right: 10px; margin-top: 2px;">
 								<img ng-src="{{recommed.commodity_image_url}}" align="absmiddle" width="80px" height="60px" />
 							</div>
-							<!--<div style="float: right;">
-								<img style="margin-top: -5px" src="img/arrow.png" align="absmiddle" width="32px" height="32px" />
-							</div>-->
 							<span style="color: #fd6e7f; font-size: 16px;" ng-bind="recommed.commodity_name"></span><span style="color: #fd6e7f; font-size: 16px;"> | </span><span style="color: #fd6e7f; font-size: 16px;" ng-bind="recommed.commodity_description"></span>
 							<div style="padding-left: 90px; font-size: 16px; color: #606060;" ng-bind="recommed.message"></div>
 							<div style="clear: both;"></div>
 						</div>
-						<!--</a>-->
 					</div>
 
 					<div style="margin-top: 4%; height: 1px; background-color: #e0e0e0;"></div>
 				</div>
 
-				<!--<a href="nearby_cafedetailmap.html?longitude={{store.longitude}}&latitude={{store.latitude}}">-->
 				<div style="padding: 4% 0 0 4%; color: #606060; font-size: 14px;">
-					<!--<div style="float: right;">
-						<img style="margin-top: -3px" src="img/arrow.png" align="absmiddle" width="32px" height="32px" />
-					</div>-->
 					<img style="float: left;" src="img1/n12.png" width="20px" height="20px" align="absmiddle" />
 					<div style="padding-left: 30px;">
 						<span style="font-size: 16px;" ng-bind="store.address"></span>
 					</div>
 					<div style="clear: both;"></div>
 				</div>
-				<!--</a>-->
 				<div style="padding: 3% 0 0 4%; color: #606060; font-size: 12px;">
 					<img style="float: left;" src="img1/n13.png" width="20px" height="20px" align="absmiddle" />
 					<div style="padding-left: 30px;">
@@ -137,13 +102,13 @@
 				<div style="padding: 3% 0 0 4%; color: #606060; font-size: 12px;">
 					<img style="float: left;" src="img1/n14.png" width="20px" height="20px" align="absmiddle" />
 					<div style="padding-left: 30px; padding-right: 40px;">
-						<a href="tel:{{store.phone}}"><span id="phoneId" style="font-size: 16px; color: #606060;"></span></a>
+						<a href="tel:{{store.phone}}" style="text-decoration:none"><span id="phoneId" style="font-size: 16px; color: #606060;"></span></a>
 					</div>
 					<div style="clear: both;"></div>
 				</div>
 				<div style="margin-top: 4%; height: 1px; background-color: #e0e0e0;"></div>
 
-				<div style="width: 100%; padding: 5%">
+				<div style="padding-top: 5%; padding-bottom: 5%;">
 					<div ng-repeat="row in resultFeature1">
 						<div ng-repeat="number in row">
 							<div ng-show="row.length == 1" style="text-align: center; padding-top: 10px;" ng-cloak>
@@ -187,7 +152,6 @@
 
 					</div>
 					<div style="text-align: right; padding-top: 10px; padding-bottom: 10px;">
-						<a href="" style="color: #fd6e7f; font-size: 16px; padding-right: 0px;" ng-click="moreCommend()">查看更多</a>
 					</div>
 				</div>
 
@@ -195,23 +159,5 @@
 		</div>
 
 	</body>
-	<script type="text/template" id="templateSwiper">
-		<li class="swiper-slide">
-			<img class="picture" style="vertical-align:top;" src="<%=obj%>" width="100%" />
-		</li>
-	</script>
-	<script>
-		$('audio,video').mediaelementplayer({
-			//mode: 'shim',
-			success: function(player, node) {
-				$('#' + node.id + '-mode').html('mode: ' + player.pluginType);
-			}
-		});
-	</script>
-
-	<script type="text/javascript" src="js/mui.min.js"></script>
-	<script type="text/javascript" src="js/swiper-3.3.1.min.js"></script>
-	<script type="text/javascript" src="js/global.js"></script>
 	<script type="text/javascript" src="store_previewdetail.js"></script>
-
 </html>

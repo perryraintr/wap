@@ -6,6 +6,14 @@ app.controller("store_register", function($scope, $http, $interval) {
 		location.href = "go.html?url=" + location.href;
 		return;
 	}
+	
+	if (GetQueryString("isBoss") == "true") {
+		$scope.isBoss = true;	
+		$scope.isBossStr = "店长注册";
+	} else {
+		$scope.isBoss = false;
+		$scope.isBossStr = "员工注册";
+	}
 
 	$scope.paracont = "获取验证码";
 	$scope.paraclass = "but_null";
@@ -111,10 +119,10 @@ app.controller("store_register", function($scope, $http, $interval) {
 
 		$http.get(getHeadUrl() + "merchant_add.a?wcid=" + $scope.wcid + "&phone=" + phone + "&code=" + telMsgCode + "&password=" + password).success(function(response) {
 			if(response.body.guid != undefined && response.body.guid > 0) {
-				$http.get(getHeadUrl() + "wechat_send.a?wcid=o1D_JwGTL0ZN81hpxJSxflvtXQj8&m=有商家注册了，请审核该商品对应的咖啡馆，进行关联，手机号为：" + phone + "\n 用户id为：" + response.body.guid).success(function(response) {}).finally(function() {
-					$http.get(getHeadUrl() + "wechat_send.a?wcid=o1D_JwFbCrjU1rPJdO6-ljRQC5qE&m=有商家注册了，请审核该商品对应的咖啡馆，进行关联，手机号为：" + phone + "\n 用户id为：" + response.body.guid).success(function(response) {}).finally(function() {
-						$http.get(getHeadUrl() + "wechat_send.a?wcid=o1D_JwHikK5LBt_Y__Ukr9p4tKsY&m=有商家注册了，请审核该商品对应的咖啡馆，进行关联，手机号为：" + phone + "\n 用户id为：" + response.body.guid).success(function(response) {}).finally(function() {
-							$http.get(getHeadUrl() + "wechat_send.a?wcid=o1D_JwGKMNWZmBYLxghYYw0GIlUg&m=有商家注册了，请审核该商品对应的咖啡馆，进行关联，手机号为：" + phone + "\n 用户id为：" + response.body.guid).success(function(response) {}).finally(function() {
+				$http.get(getHeadUrl() + "wechat_send.a?wcid=o1D_JwGTL0ZN81hpxJSxflvtXQj8&m=" + $scope.isBossStr + "： 手机号为：" + phone + " 用户id为：" + response.body.guid).success(function(response) {}).finally(function() {
+					$http.get(getHeadUrl() + "wechat_send.a?wcid=o1D_JwFbCrjU1rPJdO6-ljRQC5qE&m=" + $scope.isBossStr + "： 手机号为：" + phone + " 用户id为：" + response.body.guid).success(function(response) {}).finally(function() {
+						$http.get(getHeadUrl() + "wechat_send.a?wcid=o1D_JwHikK5LBt_Y__Ukr9p4tKsY&m=" + $scope.isBossStr + "： 手机号为：" + phone + " 用户id为：" + response.body.guid).success(function(response) {}).finally(function() {
+							$http.get(getHeadUrl() + "wechat_send.a?wcid=o1D_JwGKMNWZmBYLxghYYw0GIlUg&m=" + $scope.isBossStr + "： 手机号为：" + phone + " 用户id为：" + response.body.guid).success(function(response) {}).finally(function() {
 								location.href = "store_login.html";
 							});
 						});

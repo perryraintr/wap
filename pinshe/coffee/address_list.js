@@ -59,7 +59,7 @@ app.controller("address_list", function($scope, $http) {
 				location.href = "product_ordertotal.html?id=" + $scope.orderId;
 			});	
 		} else {
-			layer.msg("请选择收获地址");
+			layer.msg("请选择收货地址");
 		}
 		
 	}

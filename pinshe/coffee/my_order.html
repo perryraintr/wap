@@ -107,7 +107,7 @@
 					<input ng-show="!row.isMemberOrder && row.details[0].store_guid > 0" type="button" value="取消订单" width="103px" height="30px" style="margin-left: 10px;" ng-click="storemodifyOrder(row)" />
 					<a ng-show="row.isMemberOrder" href="product_ordertotal.html?id={{row.guid}}"><input type="button" value="去支付" width="103px" height="30px" style="background-color: #00a651; color: white;" /></a>
 					<a ng-show="!row.isMemberOrder && row.details[0].commodity_guid > 0" href="product_ordertotal.html?id={{row.guid}}"><input type="button" value="去支付" width="103px" height="30px" style="background-color: #00a651; color: white;" /></a>
-					<a ng-show="!row.isMemberOrder && row.details[0].store_guid > 0" href="nearby_ordertotal.html?id={{row.guid}}"><input type="button" value="去支付" width="103px" height="30px" style="background-color: #00a651; color: white;" /></a>
+					<a ng-show="!row.isMemberOrder && row.details[0].store_guid > 0" href="qrcode_cafepay.html?sid={{row.details[0].store_guid}}"><input type="button" value="去支付" width="103px" height="30px" style="background-color: #00a651; color: white;" /></a>
 				</div>
 				<div style="clear: both;"></div>
 			</div>

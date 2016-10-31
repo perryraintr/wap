@@ -2,6 +2,7 @@ var app = angular.module("coffee", []);
 app.controller("store_modifypw", function($scope, $http, $interval) {
 	
 	$scope.id = GetQueryString("id");
+	$scope.getui = GetQueryString("getui");
 //	$scope.id = 66;
 	if ($scope.id > 0) {
 		$http.get(getHeadUrl() + "merchant.a?id=" + $scope.id).success(function(response) {
@@ -81,7 +82,7 @@ app.controller("store_modifypw", function($scope, $http, $interval) {
 	
 			$http.get(getHeadUrl() + "merchant_modify.a?id=" + $scope.member.guid + "&code=" + telMsgCode + "&password=" + password).success(function(response) {
 				if (response.body.guid != undefined && response.body.guid > 0) {
-					location.href = "store_login.html";	
+					location.href = "store_login.html?getui=" + $scope.getui;	
 				} else {
 					layer.msg("修改失败，手机号或验证码错误");
 				}

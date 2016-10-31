@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html ng-app="coffee" ng-controller="qrcode_done">
+<html>
 
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -9,89 +9,85 @@
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<meta name="format-detection" content="telephone=no">
 		<link rel="shortcut icon" href="">
-		<link href="css/default.css" rel="stylesheet" type="text/css" />
-		<link href="css/mui.min.css" rel="stylesheet" type="text/css" />
-		<script type="text/javascript" src="js/helper.js"></script>
-		<script type="text/javascript" src="js/angular.min.js"></script>
-		<script type="text/javascript" src="js/jquery-3.0.0.min.js"></script>
-		<script type="text/javascript" src="js/layer.js"></script>
-		<script type="text/javascript" src="js/underscore-min.js"></script>
 		<meta name="description" content="最有温度的品质生活社区。" />
 		<title>支付完成</title>
-		<link href="qrcode_done.css" rel="stylesheet" type="text/css" />
+		<script type="text/javascript" src="js/zepto.min.js" ></script>
+		<script type="text/javascript" src="js/underscore-min-1.2.2.js"></script>
 	</head>
 
-	<body>
-		<div id="bodyId">
-			<div style="padding: 3%; font-size: 16px;" ng-bind="store.slogan"></div>
-			<div style="padding:0 3% 4% 3%; width: 100%;">
-				<table width="100%">
-					<tr>
-						<td id="imageHeight" rowspan="5" width="42%" style="background-image: url({{store.image}}); background-repeat: no-repeat; background-size: 100% 100%;"></td>
-						<td>
-							<div style="padding-left: 10px; margin-top: -4px;">
-								<span style="color: #404040; font-size: 16px;" ng-bind="store.name"></span>
-							</div>
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<div style="padding-left: 10px;">
-								<div style="float: left; padding-left: 1px; margin-top: -1px;" ng-repeat="s in store.starList">
-									<img src="img1/n2sel.png" width="14.7" height="14" align="absmiddle" />
-								</div>
-								<span style="padding-left: 5px; font-size: 14px; color: #909090;" ng-bind="store.comment"></span>
-								<div style="clear: both;"></div>
-							</div>
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<div style="padding-left: 10px; color: #909090; font-size: 14px;" ng-bind="store.feature3"></div>
-						</td>
-					</tr>
-					<tr>
-						<td colspan="2" valign="bottom">
-							<div style="padding-left: 10px;">
-								<div style="float: left; padding-top: 10px; width: 68%;"><span style="font-size: 14px; color: #909090;">创始人:</span><span style="color: #fd6e7f; font-size: 14px;" ng-bind="store.owner"></span> </div>
-								<div><img ng-src="{{store.avatar}}" width="40px" height="40px" align="absmiddle" style="border-radius: 100%; float: right;" /></div>
-							</div>
-							<div style="clear: both;"></div>
-						</td>
-					</tr>
-					<tr>
-					</tr>
-				</table>
-			</div>
-
+	<body style="font-family: helvetica;">
+		<div>
+			<div id="headId"></div>
+			
 			<div style="height: 1px; background-color: #E0E0E0;"></div>
-			<div style="padding:10px 5% 10px 3%; font-size: 14px; color: #909090;">
+			<div style="padding:10px 5% 10px 3%; font-size: 18px; color: #404040;">
 				<div>
-					<div style="float: right;">
-						<span style="font-size: 16px; color: #06bf04;" ng-bind="orderDetail.status_str"></span>
-					</div>
 					<div>
-						<span>订单金额：</span><span ng-bind="orderDetail.amount" style="font-size: 16px;"></span><span style="font-size: 16px;">元</span>
+						<span style="font-size: 20px; color: green;" id="orderStatusStrId"></span>
+					</div>
+					<div style="padding-top: 5px;">
+						<span>订单金额：</span><span id="orderAmountId" style="font-size: 20px;"></span><span style="font-size: 20px;">元</span>
 					</div>
 					<div style="clear: both;"></div>
 				</div>
 				<div style="padding-top: 5px;">
-					<span>订单编号：</span><span ng-bind="orderDetail.order_no" style="font-size: 16px;"></span>
+					<span>订单编号：</span><span id="orderNoId" style=""></span>
 				</div>
 			</div>
 
 			<div style="clear: both;"></div>
 			<div style="position: fixed; left: 0px; right: 0px; bottom: 0px; text-align: center;">
-				<div style="font-size: 14px; color: #404040; padding-bottom: 3px; padding-left: 10px; padding-right: 10px;">前往品社, 了解 <span ng-bind="store.name" style="color: #fd6e7f;"></span> 的故事</div>
-				<div style="font-size: 14px; color: #404040; padding-bottom: 16px;">并查看你的品社余额</div>
-				<div style="width: 100%; letter-spacing: 2px; line-height: 60px; background-color: #06bf04; font-size: 20px; color: white;" ng-click="followClicked()">完成</div>
+				<div style="width: 100%; letter-spacing: 10px; line-height: 60px; background-color: green; font-size: 24px; color: white;" id="followClicked"><b>完成</b></div>
 				<div style="clear: both;"></div>
 			</div>
 		</div>
 
 	</body>
-	<script type="text/javascript" src="js/mui.min.js"></script>
-	<script type="text/javascript" src="js/global.js"></script>
+	<script type="text/template" id="headTemplate">
+		<div style="padding: 3%; font-size: 16px;"><%= slogan %></div>
+		<div style="padding:0 3% 4% 3%; width: 100%;">
+			<table width="100%">
+				<tr>
+					<td id="imageHeight" rowspan="5" width="42%" style="background-image: url(<%=image%>); background-repeat: no-repeat; background-size: 100% 100%;"></td>
+					<td>
+						<div style="padding-left: 10px; margin-top: -4px;">
+							<span style="color: #404040; font-size: 16px;"><%=name%></span>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<div style="padding-left: 10px;">
+							 <% for(var tag in starList) { %>
+           						<div style="float: left; padding-left: 1px; margin-top: -1px;">
+									<img src="img1/n2sel.png" width="14.7" height="14" align="absmiddle" />
+								</div>	
+       						<% } %>
+							<span style="padding-left: 5px; font-size: 14px; color: #909090;" ><%= comment %></span>
+							<div style="clear: both;"></div>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<div style="padding-left: 10px; color: #909090; font-size: 14px;"><%= feature3 %></div>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2" valign="bottom">
+						<div style="padding-left: 10px;">
+							<div style="float: left; padding-top: 10px; width: 68%;"><span style="font-size: 14px; color: #909090;">创始人:</span><span style="color: #fd6e7f; font-size: 14px;" ><%= owner %></span> </div>
+							<div><img src="<%=avatar%>" width="40px" height="40px" align="absmiddle" style="border-radius: 100%; float: right;" /></div>
+						</div>
+						<div style="clear: both;"></div>
+					</td>
+				</tr>
+				<tr>
+				</tr>
+			</table>
+		</div>
+	</script>
+
 	<script type="text/javascript" src="qrcode_done.js"></script>
 
 </html>

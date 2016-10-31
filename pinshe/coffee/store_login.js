@@ -1,6 +1,8 @@
 var app = angular.module("coffee", []);
 app.controller("store_login", function($scope, $http) {
 
+	$scope.getui = GetQueryString("getui");
+	
 	$scope.loginMember = function() {
 		var phone = document.getElementById("tel").value;
 		var password = document.getElementById("password").value;
@@ -27,6 +29,10 @@ app.controller("store_login", function($scope, $http) {
 		$http.get(getHeadUrl() + "merchant_login.a?phone=" + phone + "&password=" + password).success(function(response) {
 			if(response.body.guid != undefined && response.body.guid > 0) {
 				$scope.member = response.body;
+				if ($scope.getui.length > 0) {
+					$http.get(getHeadUrl() + "merchant_modify.a?id=" + $scope.member.guid + "&getui=" + $scope.getui).success(function(response) {});	
+				}
+				
 				localStorage.setItem("store_tel", $scope.member.phone);
 				$scope.checkStore();
 
@@ -55,7 +61,7 @@ app.controller("store_login", function($scope, $http) {
 			if(response.body.array != undefined && response.body.array.length > 0) {
 				$scope.storeMember = response.body.array[0];
 				localStorage.setItem("store_guid", $scope.storeMember.store_guid);
-				location.href = "store_cashrecord.html";
+				location.href = "store_cashrecord.html?getui=" + $scope.getui;
 			} else {
 				layer.msg("你还未加入品社咖啡馆！如果你是咖啡馆长，请联系品社客服；如果你是店员，请联系你的馆长。", {
 					time: 0,
@@ -69,7 +75,7 @@ app.controller("store_login", function($scope, $http) {
 	}
 
 	$scope.forgetPw = function() {
-		location.href = "store_modifypw.html";
+		location.href = "store_modifypw.html?getui=" + $scope.getui;
 	}
 
 });

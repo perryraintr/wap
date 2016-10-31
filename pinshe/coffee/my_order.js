@@ -24,31 +24,22 @@ app.controller("my_order", function($scope, $http) {
 				$scope.myOrderList = response.body.array;
 				for(var i = 0; i < $scope.myOrderList.length; i++) {
 					$scope.myOrder = $scope.myOrderList[i];
-
-					switch($scope.myOrder.status) {
-						case 0:
-							$scope.myOrder.status_str = "订单未付款";
-							break;
-						case 1:
-							$scope.myOrder.status_str = "订单已付款";
-							break;
-						case 2:
-							$scope.myOrder.status_str = "订单已发货";
-							break;
-						case 3:
-							$scope.myOrder.status_str = "订单已完成";
-							break;
-						case 4:
-							$scope.myOrder.status_str = "订单已取消";
-							break;
-						default:
-							break;
-					}
-
 					if($scope.myOrder.details[0].commodity_guid == 111 || $scope.myOrder.details[0].commodity_guid == 112 || $scope.myOrder.details[0].commodity_guid == 113 || $scope.myOrder.details[0].commodity_guid == 114 || $scope.myOrder.details[0].commodity_guid == 126) { //会员订单
 						$scope.myOrder.isMemberOrder = true;
 					} else {
 						$scope.myOrder.isMemberOrder = false;
+					}
+					
+					if ($scope.myOrder.status == 0) {
+						$scope.myOrder.status_str = "订单未付款";
+					} else if ($scope.myOrder.status == 1) {
+						$scope.myOrder.status_str = "订单已付款";
+					} else if ($scope.myOrder.status == 2) {
+						$scope.myOrder.status_str = "订单已发货";
+					} else if ($scope.myOrder.status == 3) {
+						$scope.myOrder.status_str = "订单已完成";
+					} else if ($scope.myOrder.status == 4) {
+						$scope.myOrder.status_str = "订单已取消";
 					}
 				}
 			}

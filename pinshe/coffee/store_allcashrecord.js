@@ -26,15 +26,10 @@ app.controller("store_allcashrecord", function($scope, $http) {
 				for(var i = 0; i < response.body.array.length; i++) {
 					$scope.cash = response.body.array[i];
 					if($scope.cash.type == -1) {
-						switch($scope.cash.status) {
-							case 0:
-								$scope.cash.status_str = "提现中";
-								break;
-							case 1:
-								$scope.cash.status_str = "提现完成";
-								break;
-							default:
-								break;
+						if ($scope.cash.status == 0) {
+							$scope.cash.status_str = "提现中";
+						} else if ($scope.cash.status == 1) {
+							$scope.cash.status_str = "提现完成";
 						}
 					}
 					$scope.cashList.push($scope.cash);

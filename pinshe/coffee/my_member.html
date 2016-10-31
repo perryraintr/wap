@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html ng-app="coffee" ng-controller="my_member">
+<html>
+
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,119 +9,114 @@
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<meta name="format-detection" content="telephone=no">
 		<link rel="shortcut icon" href="">
-		<link href="css/mui.min.css" rel="stylesheet" type="text/css" />
-		<link href="css/default.css" rel="stylesheet" type="text/css" />
-		<script type="text/javascript" src="js/helper.js"></script>
-		<script type="text/javascript" src="js/angular.min.js"></script>
-		<script type="text/javascript" src="js/jquery-3.0.0.min.js"></script>
-		<script type="text/javascript" src="js/underscore-min.js"></script>
-		<script type="text/javascript" src="js/layer.js"></script>
 		<meta name="description" content="最有温度的品质生活社区。" />
 		<title>我的会员</title>
 		<link href="css/swiper-3.3.1.min.css" rel="stylesheet" type="text/css" />
+		<link href="js/zeptoalert/zepto.alert.css" rel="stylesheet" type="text/css" />
 		<link href="my_member.css" rel="stylesheet" type="text/css" />
 	</head>
+
 	<body style="background-color: #1b1b1f; font-family: helvetica;">
-		<div ng-show="!isMember && isFinished" ng-cloak>
+
+		<div id="swiperSlideId" class="swiper-container" style="display: none;">
+			<div class="swiper-wrapper" id="swiperwrapper">
+			</div>
+		</div>
+
+		<div id="addTelphoneId" style="text-align: center; display: none;">
+			<div style="padding-top: 10px;">
+				<div style="padding-bottom: 10px; font-size: 20px;">请输入手机号</div>
+				<input type="text" id="phone" name="phone" placeholder="请输入中国11位手机号" style="background-color: #fafafa; line-height: 34px; font-size: 18px; outline: none; -webkit-tap-highlight-color: rgba(0,0,0,0);"/>
+			</div>
+		</div>
+
+	</body>
+	<script type="text/template" id="isMemberTemplate">
+		<div class="swiper-slide" id="isMemberId">
+			<div style="position: absolute; top: 0%; left: 0%; right: 0%; bottom: 10%; text-align: center;">
+				<div style="padding-top: 20%; text-align: center;"><img src="img/my1.png" width="33.49%" /></div>
+				<div style="padding-top: 10%;">
+					<% if (avatar.length == 0) { %>
+					<img style="width: 80px; height: 80px; border-radius: 100%; z-index: 3; background-color: #757575; border: 2px solid; border-color: white;" />
+					<% } else { %>
+					<img src="<%= avatar %>" style="width: 80px; height: 80px; border-radius: 100%; z-index: 3; background-color: #757575; border: 2px solid; border-color: white;" />
+					<% } %>
+				</div>
+				<div style="padding-top: 8%;">
+					<span style="font-size: 18px; color: white;">－ <%= name %> －</span>
+				</div>
+				<div style="padding-top: 2%;">
+					<span style="font-size: 14px; color: white;"><%= phone %>&nbsp;&nbsp;&nbsp;<a href="my_modifyphone.html?id=<%= guid %>&phone=<%= phone %>"><img src="img/my2.png" align="absmiddle" width="13px" height="13px" /></a> </span>
+				</div>
+				<div style="margin-left: 15%; margin-top: 20px; padding-top: 10px; padding-bottom: 10px; text-align: center; background-color: white; width: 70%; border-radius: 10px;">
+					<div style="text-align: center;">
+						<span style="color: #1b1b1f; font-size: 15px;">会员余额:</span>
+						<span style="color: #b9961c; font-size: 18px;">￥<%= current %></span>
+					</div>
+				</div>
+				<div style="padding-top: 25%;" onclick="nextButton()">
+					<img src="img/my3.png" width="39.37%" />	
+				</div>
+			</div>
+		</div>
+	</script>
+	<script type="text/template" id="isMemberChooseTemplate">
+		<div class="swiper-slide" id="isMemberChooseId">
+			<div style="position: absolute; top: 0%; left: 0%; right: 0%; bottom: 10%; text-align: center;">
+				<div style="text-align: center; padding-top: 5%;"><img src="img/my4.png" width="34.86%" /> </div>
+				<div style="text-align: center; padding-top: 1%; color: white; font-size: 14px;">请选择你的充值金额</div>
+				<% for (var index in obj) { %>
+				<div style="text-align: center; padding-top: 4%;">
+					<% if (obj[index].isChoose) { %>
+					<div onclick="chooseMember(<%= index %>)" style="background-color: #ebebeb; padding-top: 8px; padding-bottom: 8px; margin-left: 15%; width: 70%; border-width: 2px; border-style: solid; border-color: #ce1736; border-radius: 12px;">
+						<div style="font-size: 15px; color: #404040;">
+							<%= obj[index].title %>
+						</div>
+						<div style="font-size: 13px; color: #b9961c;">
+							<%= obj[index].desc %>
+						</div>
+					</div>
+					<% } else { %>
+					<div onclick="chooseMember(<%= index %>)" style="background-color: #ebebeb; padding-top: 8px; padding-bottom: 8px;  margin-left: 15%; width: 70%; border-width: 2px; border-style: solid; border-color: #ebebeb; border-radius: 12px;">
+						<% if (obj[index].cid == 126) { %>
+						<div style="font-size: 15px; color: #404040;">
+							<%= obj[index].title %>
+						</div>
+						<% } else { %>
+						<div style="font-size: 15px; color: #404040;">
+							<%= obj[index].title %>
+						</div>
+						<% } %>
+						<div style="font-size: 13px; color: #b9961c;">
+							<%= obj[index].desc %>
+						</div>
+					</div>
+					<% } %>
+				</div>
+				<% } %>
+				<div style="text-align: center; padding-top: 3%; color: white; font-size: 14px;">各类红包优惠适用</div>
+				<div style="text-align: center; padding-top: 3%; padding-bottom: 15%;"><img src="img/m19.png" width="40%" onclick="pay()" /> </div>
+			</div>
+		</div>
+	</script>
+	<script type="text/template" id="notMemberTemplate">
+		<div class="swiper-slide">
 			<div style="text-align: center; padding-top: 25%;"><img src="img/m1.png" width="50.5%"/> </div>
 			<div style="text-align: center; padding-top: 8%;"><img src="img/m2.png" width="52.8%"/> </div>
 			<div style="text-align: center; padding-top: 10%;"><img src="img/m3.png" width="59%"/> </div>
-			<div style="text-align: center; padding-top: 13%; padding-bottom: 30%;"><a href="#memberDetail"><img src="img/m4.png" width="35%"/></a></div>
-			<a name="memberDetail"></a><div style="text-align: center; padding-top: 20%;"><img src="img/m5.png" width="33.9%"/> </div>
+			<div style="text-align: center; padding-top: 13%; padding-bottom: 30%;" onclick="nextButton()"><img src="img/m4.png" width="35%"/></div>
+		</div>
+		<div class="swiper-slide">
+			<div style="text-align: center; padding-top: 20%;"><img src="img/m5.png" width="33.9%"/> </div>
 			<div style="text-align: center; padding-top: 8%;"><img src="img/m6.png" width="100%"/> </div>
 			<div style="text-align: center; padding-top: 4%;"><img src="img/m7.png" width="74.5%"/> </div>
-			<div style="text-align: center; padding-top: 10%; padding-bottom: 30%;"><a href="#kafeiDingXiao"><img src="img/m8.png" width="34.94%"/></a></div>
-			<a name="kafeiDingXiao"></a><div style="text-align: center; padding-top: 10%;"><img src="img/m9.png" width="34.54%"/> </div>
-			<div style="text-align: center; padding-top: 3%;"><img src="img/m10.png" width="73.83%"/> </div>
-			
-			<div style="padding-top: 3%;" class="swiper-container swiper-container-horizontal">
-				<div class="swiper-wrapper">
-					<li class="swiper-slide">
-						<img style="vertical-align:top;" src="img/m11.jpg" width="100%" ng-click="jiYuClicked()">
-					</li>
-					<li class="swiper-slide">
-						<img style="vertical-align:top;" src="img/m12.jpg" width="100%" ng-click="weiFengClicked()">
-					</li>
-				</div>
-				<div style="padding-top: 1%; text-align: center;">
-					<span style="color: white; font-size: 12px;">点击上图查看系列介绍</span>
-				</div>
-			</div>
-		
-			<div style="text-align: center; padding-top: 6%; padding-bottom: 30%;"><a href="#addMember"><img src="img/m13.png" width="34.86%"/></a></div>
-			<a name="addMember"></a><div style="text-align: center; padding-top: 5%;"><img src="img/m14.png" width="33.97%"/> </div>
-			<div style="padding-top: 1%; text-align: center;">
-				<span style="color: white; font-size: 12px;">请选择您的充值金额</span>
-			</div>
-			<div style="text-align: center; padding-top: 4%;" ng-repeat="row in chooseList">
-				<div ng-show="row.isChoose" ng-click="chooseMember(row)" style="background-color: #ebebeb; padding-top: 10px; margin-left: 15%; width: 70%; height: 60px; border-width: 2px; border-style: solid; border-color: #ce1736; border-radius: 12px;">
-					<div ng-show="row.cid != 126" style="font-size: 15px; color: #404040;" ng-bind="row.title"></div>
-					<div ng-show="row.cid == 126" style="padding-top: 6px; font-size: 15px; color: #404040;" ng-bind="row.title"></div>
-					<div style="font-size: 13px; color: #b9961c;" ng-bind="row.desc"></div>
-				</div>
-				<div ng-show="!row.isChoose" ng-click="chooseMember(row)" style="background-color: #ebebeb; padding-top: 10px; margin-left: 15%; width: 70%; height: 60px; border-width: 2px; border-style: solid; border-color: #ebebeb; border-radius: 12px;">
-					<div ng-show="row.cid != 126" style="font-size: 15px; color: #404040;" ng-bind="row.title"></div>
-					<div ng-show="row.cid == 126" style="padding-top:6px; font-size: 15px; color: #404040;" ng-bind="row.title"></div>
-					<div style="font-size: 13px; color: #b9961c;" ng-bind="row.desc"></div>
-				</div>
-			</div>
-			<div style="text-align: center; padding-top: 5%; color: white; font-size: 14px;">各类红包优惠适用</div>
-			<div style="text-align: center; padding-top: 5%; padding-bottom: 15%;"><img src="img/m19.png" width="33.4%" ng-click="pay()" /> </div>
-		
+			<div style="text-align: center; padding-top: 10%; padding-bottom: 30%;" onclick="nextButton()"><img src="img/m8.png" width="34.94%"/></div>
 		</div>
-		
-		<div ng-show="isMember && isFinished" style="text-align: center;" ng-cloak>
-			<div style="text-align: center; padding-top: 20%;"><img src="img/my1.png" width="33.49%"/></div>
-			<div style="padding-top: 10%;">
-				<img ng-show="member.avatar.length == 0" style="width: 80px; height: 80px; border-radius: 100%; z-index: 3; background-color: #757575; border: 2px solid; border-color: white;" />
-				<img ng-show="member.avatar.length > 0" ng-src="{{member.avatar}}" style="width: 80px; height: 80px; border-radius: 100%; z-index: 3; background-color: #757575; border: 2px solid; border-color: white;" />
-			</div>
-			<div style="padding-top: 8%;">
-				<span style="font-size: 18px; color: white;">－ {{member.name}} －</span>
-			</div>
-			<div style="padding-top: 2%;">
-				<span style="font-size: 14px; color: white;">{{member.phone}}&nbsp;&nbsp;&nbsp;<a href="my_modifyphone.html?id={{member.guid}}&phone={{member.phone}}"><img src="img/my2.png" align="absmiddle" width="13px" height="13px" /></a> </span>
-			</div>
-			<div style="margin-left: 15%; margin-top: 20px; padding-top: 15px; text-align: center; background-color: white; width: 70%; border-radius: 10px; height: 50px;">
-				 <div style="text-align: center;">
-				 	<span style="color: #1b1b1f; font-size: 15px;">会员余额:</span>
-				 	<span style="color: #b9961c; font-size: 18px;">￥{{member.current}}</span>
-				 </div> 
-			</div>
-			<a ng-show="isSubScription" href="my_subscription.html" ng-cloak><div style="color: white; font-size: 15px; padding-top: 4%;">立即免费开启品社订享</div></a>
-			<div style="text-align: center; padding-top: 25%; padding-bottom: 40%;"><a href="#memberpay"><img src="img/my3.png" width="39.37%"/></a></div>
-			
-			<a name="memberpay"></a><div style="text-align: center; padding-top: 5%;"><img src="img/my4.png" width="34.86%"/> </div>
-			<div style="text-align: center; padding-top: 1%; color: white; font-size: 14px;">请选择你的充值金额</div>
-			
-			<div style="text-align: center; padding-top: 4%;" ng-repeat="row in chooseList">
-				<div ng-show="row.isChoose" ng-click="chooseMember(row)" style="background-color: #ebebeb; padding-top: 10px; margin-left: 15%; width: 70%; height: 60px; border-width: 2px; border-style: solid; border-color: #ce1736; border-radius: 12px;">
-					<div ng-show="row.cid != 126" style="font-size: 15px; color: #404040;" ng-bind="row.title"></div>
-					<div ng-show="row.cid == 126" style="padding-top: 6px; font-size: 15px; color: #404040;" ng-bind="row.title"></div>
-					<div style="font-size: 13px; color: #b9961c;" ng-bind="row.desc"></div>
-				</div>
-				<div ng-show="!row.isChoose" ng-click="chooseMember(row)" style="background-color: #ebebeb; padding-top: 10px; margin-left: 15%; width: 70%; height: 60px; border-width: 2px; border-style: solid; border-color: #ebebeb; border-radius: 12px;">
-					<div ng-show="row.cid != 126" style="font-size: 15px; color: #404040;" ng-bind="row.title"></div>
-					<div ng-show="row.cid == 126" style="padding-top:6px; font-size: 15px; color: #404040;" ng-bind="row.title"></div>
-					<div style="font-size: 13px; color: #b9961c;" ng-bind="row.desc"></div>
-				</div>
-			</div>
-			<div style="text-align: center; padding-top: 5%; color: white; font-size: 14px;">各类红包优惠适用</div>
-			<div style="text-align: center; padding-top: 5%; padding-bottom: 15%;"><img src="img/m19.png" width="40%" ng-click="pay()" /> </div>
-		</div>
-
-		<div ng-show="jiYuLayer" style="position: fixed; top: 0px; bottom: 0px; left: 0px; right: 0px; background-color: #000000; opacity: 0.8; z-index: 2;" ng-click="jiYuLayerClicked()" ng-cloak>
-			<div style="color: white; vertical-align: middle; padding: 65% 17% 0 19%;">润物细无声的林间霁雨，让人心神宁静。由Blue Bottle今年的顶级SOE哥伦比亚雪峰，和丸山健次郎先生亲调的紫罗兰花拼配领衔的这个系列定会让你回味无穷。</div>
-		</div>
-		<div ng-show="weiFeingLayer" style="position: fixed; top: 0px; bottom: 0px; left: 0px; right: 0px; background-color: #000000; opacity: 0.8; z-index: 2;" ng-click="weiFeingLayerClicked()" ng-cloak>
-			<div style="color: white; vertical-align: middle; padding: 65% 17% 0 19%;">跟随风的足迹，阅尽热带的山水人情。由Blue Bottle的传奇拼配Bella Donovan领衔的这个系列，口感清爽，回味悠长。夏末秋初的时光伴侣。</div>
-		</div>
-		
-	</body>
-
-	<script type="text/javascript" src="js/mui.min.js"></script>
+	</script>
 	<script type="text/javascript" src="js/swiper-3.3.1.min.js"></script>
-	<script type="text/javascript" src="js/global.js" ></script>
+	<script type="text/javascript" src="js/zepto.min.js"></script>
+	<script type="text/javascript" src="js/zepto.alert.js" ></script>
+	<script type="text/javascript" src="js/underscore-min-1.2.2.js"></script>
 	<script type="text/javascript" src="my_member.js"></script>
 
 </html>

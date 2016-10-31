@@ -2,8 +2,8 @@ var app = angular.module("coffee", []);
 app.controller("store_setting", function($scope, $http) {
 	$scope.wcid = getwcid();
 	$scope.sid = GetQueryString("sid");
-	$scope.sid = 83;
-	//	$scope.wcid = "o1D_JwHikK5LBt_Y__Ukr9p4tKsY";
+//	$scope.sid = 88;
+//		$scope.wcid = "o1D_JwHikK5LBt_Y__Ukr9p4tKsY";
 
 	if($scope.wcid.length == 0) {
 		location.href = "go.html?url=" + location.href;
@@ -123,19 +123,27 @@ app.controller("store_setting", function($scope, $http) {
 			layer.msg("请用一句话描述你的咖啡馆");
 			return;
 		}
-//		alert($scope.store.slogan.length);
-//		if($scope.store.slogan.length >= 30) {
-//			layer.msg("描述字数不得超过30字");
-//			return;
-//		}
 
 		if($scope.store.date.length == 0) {
 			layer.msg("请填写营业时间");
 			return;
 		}
 
-		if($scope.store.phone.length == 0 || $scope.store.phone.length != 11) {
+		if($scope.store.phone.length == 0) {
 			layer.msg("请填写联系电话");
+			return;
+		}
+		
+		if($scope.store.slogan.length > 100) {
+			layer.msg("描述字数不得超过100字");
+			return;
+		}
+		if($scope.store.date.length > 100) {
+			layer.msg("营业时间不得超过100字");
+			return;
+		}
+		if($scope.store.phone.length > 100) {
+			layer.msg("联系电话不得超过100字");
 			return;
 		}
 		
@@ -166,21 +174,30 @@ app.controller("store_setting", function($scope, $http) {
 			layer.msg("请用一句话描述你的咖啡馆");
 			return;
 		}
-//		if($scope.store.slogan.length >= 30) {
-//			layer.msg("描述字数不得超过30字");
-//			return;
-//		}
 
 		if($scope.store.date.length == 0) {
 			layer.msg("请填写营业时间");
 			return;
 		}
 
-		if($scope.store.phone.length == 0 || $scope.store.phone.length != 11) {
+		if($scope.store.phone.length == 0) {
 			layer.msg("请填写联系电话");
 			return;
 		}
 
+		if($scope.store.slogan.length > 100) {
+			layer.msg("描述字数不得超过100字");
+			return;
+		}
+		if($scope.store.date.length > 100) {
+			layer.msg("营业时间不得超过100字");
+			return;
+		}
+		if($scope.store.phone.length > 100) {
+			layer.msg("联系电话不得超过100字");
+			return;
+		}
+		
 		$http({
 			method: 'POST',
 			url: getHeadUrl() + "store_modify.a",

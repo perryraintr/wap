@@ -5,14 +5,18 @@ app.controller("nearby_cafemap", function($scope, $http) {
 	$scope.longitude = GetQueryString("longitude");
 	$scope.latitude = GetQueryString("latitude");
 	
-	$scope.wcid = "o1D_JwHikK5LBt_Y__Ukr9p4tKsY";
+//	$scope.wcid = "o1D_JwHikK5LBt_Y__Ukr9p4tKsY";
 	if($scope.wcid.length == 0) {
 		location.href = "go.html?url=" + location.href;
 		return;
 	}
+	
+//	$scope.longitude = 116.445509;
+//	$scope.latitude = 39.959676;
 
-	$scope.longitude = 116.40384;
-	$scope.latitude = 39.938986;
+//	$scope.longitude = 116.4393;
+//	$scope.latitude = 39.9583;
+	
 	
 	$scope.peopleLongitude = $scope.longitude;
 	$scope.peopleLatitude = $scope.latitude;

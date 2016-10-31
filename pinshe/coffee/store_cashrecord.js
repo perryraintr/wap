@@ -8,14 +8,14 @@ app.controller("store_cashrecord", function($scope, $http) {
 	$scope.sid = getStoreGuid();
 	$scope.cashList = [];
 	$scope.isMyOpen = false;
-
+	$scope.getui = GetQueryString("getui");
 	//	$scope.storeTel = "13661060130";
 	//	$scope.storeTel = "13241991175";
-		$scope.storeTel = "13524556007";
+//		$scope.storeTel = "13524556007";
 //		$scope.sid = 59;
 
 	if($scope.storeTel.length == 0) {
-		location.href = "store_login.html";
+		location.href = "store_login.html?getui=" + $scope.getui;
 		return;
 	}
 	
@@ -74,7 +74,7 @@ app.controller("store_cashrecord", function($scope, $http) {
 						layer.close(index);
 						localStorage.setItem("store_tel", "");
 						localStorage.setItem("store_guid", "");
-						location.href = "store_login.html";
+						location.href = "store_login.html?getui=" + $scope.getui;
 					}
 				});
 			}
@@ -91,15 +91,10 @@ app.controller("store_cashrecord", function($scope, $http) {
 				for(var i = 0; i < response.body.array.length; i++) {
 					$scope.cash = response.body.array[i];
 					if($scope.cash.type == -1) {
-						switch($scope.cash.status) {
-							case 0:
-								$scope.cash.status_str = "提现中";
-								break;
-							case 1:
-								$scope.cash.status_str = "提现完成";
-								break;
-							default:
-								break;
+						if ($scope.cash.status == 0) {
+							$scope.cash.status_str = "提现中";
+						} else if ($scope.cash.status == 1) {
+							$scope.cash.status_str = "提现完成";
 						}
 					}
 					$scope.cashList.push($scope.cash);
@@ -117,7 +112,7 @@ app.controller("store_cashrecord", function($scope, $http) {
 				layer.close(index);
 				localStorage.setItem("store_tel", "");
 				localStorage.setItem("store_guid", "");
-				location.href = "store_login.html";
+				location.href = "store_login.html?getui=" + $scope.getui;
 			}
 		});
 	}

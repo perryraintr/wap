@@ -1,6 +1,6 @@
 
 function getwcid() {
-	return "o1D_JwHikK5LBt_Y__Ukr9p4tKsY";
+//	return "o1D_JwHikK5LBt_Y__Ukr9p4tKsY";
 	
 	if (GetQueryString("wcid").length > 0) {
 		return GetQueryString("wcid");

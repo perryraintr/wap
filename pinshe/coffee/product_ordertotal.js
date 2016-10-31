@@ -9,12 +9,7 @@ app.controller("product_ordertotal", function($scope, $http) {
 	//	$scope.wcid = "o1D_JwGKMNWZmBYLxghYYw0GIlUg";
 
 	$scope.guid = GetQueryString("id");
-//		$scope.guid = 709;
-
-	if($scope.guid.length == 0){
-		location.href = "my_member.html";
-		return;
-	}
+//		$scope.guid = 5628;
 
 	if($scope.wcid.length == 0) {
 		location.href = "go.html?url=" + location.href;
@@ -32,6 +27,7 @@ app.controller("product_ordertotal", function($scope, $http) {
 		"amount": 0
 	};
 	$scope.payActionSecond = false;
+	$scope.requestOrderEnd = false;
 	
 	$http.get(getHeadUrl() + "member.a?wcid=" + $scope.wcid).success(function(response) {
 		$scope.member = response.body;
@@ -58,6 +54,7 @@ app.controller("product_ordertotal", function($scope, $http) {
 			if($scope.memberCid == 111 || $scope.memberCid == 112 || $scope.memberCid == 113 || $scope.memberCid == 114 || $scope.memberCid == 126) { //会员订单
 				$scope.isMemberOrder = true;
 			}
+			$scope.requestOrderEnd = true;
 			if($scope.orderDetail.status != 0) {
 				$scope.isFinished = true;
 			}
@@ -167,7 +164,7 @@ app.controller("product_ordertotal", function($scope, $http) {
 	// 会员支付
 	$scope.memberpay = function() {
 		if(!$scope.hasConsignee) {
-			layer.msg("请填写你的收获地址");
+			layer.msg("请填写你的收货地址");
 			return;
 		}
 
@@ -229,15 +226,16 @@ app.controller("product_ordertotal", function($scope, $http) {
 		if (	$scope.payActionSecond) {
 			return;
 		}
-		$scope.payActionSecond = true;
 		
 		if(!$scope.hasConsignee) {
-			layer.msg("请填写你的收获地址");
+			console.log("asd");
+			$scope.hasConsignee = false;
+			layer.msg("请填写你的收货地址");
 			return;
 		}
-
+		$scope.payActionSecond = true;
 		$scope.isFinished = true;
-		if($scope.wcid == "o1D_JwHikK5LBt_Y__Ukr9p4tKsY" || $scope.wcid == "o1D_JwGKMNWZmBYLxghYYw0GIlUg" || $scope.wcid == "o1D_JwGTL0ZN81hpxJSxflvtXQj8") {
+		if($scope.wcid == "o1D_JwHikK5LBt_Y__Ukr9p4tKsY" || $scope.wcid == "o1D_JwGiLMukMtRIo6HU5M0ngxPs" || $scope.wcid == "o1D_JwGKMNWZmBYLxghYYw0GIlUg" || $scope.wcid == "o1D_JwGTL0ZN81hpxJSxflvtXQj8") {
 			$scope.orderDetail.payamount = 0.01;
 		}
 		if($scope.isMemberOrder) {

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html ng-app="coffee" ng-controller="nearby_cafehouse">
+<html>
 
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -9,39 +9,31 @@
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<meta name="format-detection" content="telephone=no">
 		<link rel="shortcut icon" href="">
-		<link href="css/mui.min.css" rel="stylesheet" type="text/css" />
-		<link href="css/default.css" rel="stylesheet" type="text/css" />
-		<script type="text/javascript" src="js/helper.js"></script>
-		<script type="text/javascript" src="js/angular.min.js"></script>
-		<script type="text/javascript" src="js/jquery-3.0.0.min.js"></script>
-		<script type="text/javascript" src="js/underscore-min.js"></script>
-		<script type="text/javascript" src="js/layer.js"></script>
 		<meta name="description" content="最有温度的品质生活社区。" />
 		<link href="css/swiper-3.3.1.min.css" rel="stylesheet" type="text/css" />
 		<link href="nearby_cafehouse.css" rel="stylesheet" type="text/css" />
-		<title>附近好咖啡馆</title>
-		<script type="text/javascript" src="js/jweixin-1.0.0.js"></script>
-		<script type="text/javascript" src="js/jweixins-1.0.0.js"></script>
+		<link rel="stylesheet" href="js/zeptoalert/zepto.alert.css" />
+		<title>附近好店</title>
 	</head>
 
-	<body style="font-family: helvetica;">
-		<div style="background-color: #1b1b1f; color: white; position: fixed; height: 38px; width: 100%; z-index: 999;">
-			<div ng-show="isMember && requestEnd">
-				<a href="product_highgrade.html" style="color: white;">
-					<img width="24" height="24" src="img/icon.png" style="margin: 7px 0px 0px 5px;">
-					<span style="font-size: 13px; color: white; vertical-align: top; line-height: 38px;" ng-cloak>品社会员</span>
+	<body>
+		<div style="background-color: #1b1b1f; color: white; position: fixed; top: 0; left: 0; right: 0; height: 38px; width: 100%; z-index: 999;">
+			<div id="isMemberId" style="display: none;">
+				<a href="product_highgrade.html" style="color: white; text-decoration:none;">
+					<img src="img/icon.png" style="margin: 7px 0px 0px 5px; width: 24px; height: 24px;">
+					<span style="font-size: 13px; color: white; vertical-align: top; line-height: 38px;">品社会员</span>
 				</a>
-				<span ng-show="isMember" style="float: right; font-size: 13px; vertical-align: top; line-height: 38px; padding-right: 8px;" ng-cloak>余额：{{member.current}}元</span>
+				<span style="float: right; font-size: 13px; vertical-align: top; line-height: 38px; padding-right: 8px;">余额: <span id="memberCurrentId"></span> 元</span>
 			</div>
-			<div ng-show="!isMember && requestEnd">
-				<a href="nearby_cafemore.html" style="color: white;">
-					<img width="24" height="24" src="img/icon.png" style="margin: 7px 0px 0px 5px;">
-					<span style="font-size: 13px; color: white; vertical-align: top; line-height: 38px;" ng-cloak>了解更多咖啡馆的故事</span>
+			<div id="isNotMemberId" style="display: none;">
+				<a href="nearby_cafemore.html" style="color: white; text-decoration:none;">
+					<img src="img/icon.png" style="margin: 7px 0px 0px 5px; width: 24px; height: 24px;">
+					<span style="font-size: 13px; color: white; vertical-align: top; line-height: 38px;">了解更多咖啡馆的故事</span>
 				</a>
 			</div>
 			<div style="clear: both;"></div>
 		</div>
-		
+
 		<div style="padding-top: 38px;" class="swiper-container swiper-container-horizontal">
 			<div class="swiper-wrapper">
 				<li class="swiper-slide">
@@ -54,60 +46,79 @@
 			<div style="text-align:center" class="swiper-pagination"></div>
 		</div>
 
-		<div ng-show="storeList.length == 0" style="padding-top: 110px; text-align: center;">
-			<img src="img/loading.gif" width="30px" height="30px"/>
+		<div id="storeListLoadingId" style="padding-top: 110px; text-align: center;">
+			<img src="img/loading.gif" width="30px" height="30px" />
 		</div>
 
-		<div ng-show="storeList.length > 0" style="background-color:white; padding-top: 5px; margin-bottom: 65px;">
-			<div style="text-align: center;padding:20px;font-size:18px;">距你最近的精品咖啡馆</div>
-			<div ng-repeat="row in storeList track by $index" style="padding: 0px 4% 4% 4%;">
-				<a href="nearby_cafedetail.html?id={{row.guid}}"><div style="position:relative;">
+		<div id="storeListShowId" style="background-color:white; padding-top: 5px; margin-bottom: 65px; display: none;">
+			<div style="text-align: center;padding:20px;font-size:18px;">距您最近</div>
+			<div id="storeListId"></div>
+			<div style="background-color: white; padding:0 4% 6% 4%; text-align: center; font-size: 16px;" onclick="moreClickedId()">
+				加载更多咖啡店
+			</div>
+		</div>
+		
+		<div style="text-align: center; position: fixed; bottom: 0; width: 100%; z-index: 102;" onclick="pushMap()">
+			<img src="img1/n3.png" width="100%" align="absbottom" />
+		</div>
+
+	</body>
+	<script type="text/template" id="storeListTemplate">
+		<% for(var index in obj) { %>
+		<div style="padding: 0px 4% 4% 4%;">
+			<a href="nearby_cafedetail.html?id=<%= obj[index].guid %>">
+				<div style="position:relative;">
 					<div style="position:relative;">
 						<div class='background-overlay'></div>
 						<div style="position: absolute; z-index: 101; text-align: center; top: 43%; left: 10%; right: 10%;">
-							<font style="color:white; font-size: 20px; line-height: 150%;" ng-cloak>{{row.slogan}}</font>
+							<font style="color:white; font-size: 20px; line-height: 150%;">
+								<%= obj[index].slogan %>
+							</font>
 						</div>
-						<div style="width: 100%;"><img ng-src="{{row.image}}" style="vertical-align:top;" width="100%" /></div>
+						<div style="width: 100%;"><img src="<%= obj[index].image %>" style="vertical-align:top;" width="100%" /></div>
 					</div>
 					<div style="padding: 3% 0 5% 0;">
 						<div style="width: 100%;">
 							<div style="float: left; padding-top: 5px; width: 78%;">
-								<div style="color: #404040; font-size: 18px;" ng-cloak>{{row.name}}<span style="font-size: 14px; padding-left: 5px; color: #909090;" ng-cloak>{{row.distanceStr}}km</span> </div>
+								<div style="color: #404040; font-size: 18px;">
+									<%= obj[index].name %><span style="font-size: 14px; padding-left: 5px; color: #909090;"><%= obj[index].distanceStr %>km</span> </div>
 								<div>
 									<div style="float: left; padding-top: 5px;"><img src="img1/n1.png" align="absmiddle" width="10" height="12" /></div>
-									<div style="float: left; padding-left: 5px; padding-top: 8px; width: 90%;"><span style="font-size: 14px; color: #909090;" ng-cloak>{{row.address}}</span></div>
+									<div style="float: left; padding-left: 5px; padding-top: 8px; width: 90%;"><span style="font-size: 14px; color: #909090;"><%= obj[index].address %></span></div>
 									<div style="clear: both;"></div>
 								</div>
 							</div>
 							<div style="float: right; width: 63px;">
-								<a href="avatar.html?url={{row.avatar}}" target="_blank"><img ng-src="{{row.avatar}}" style="width: 63px; height: 63px; border-radius: 100%; margin-top: 5px;" align="absmiddle" /></a>
+								<a href="avatar.html?url=<%= obj[index].avatar %>" target="_blank"><img src="<%= obj[index].avatar %>" style="width: 63px; height: 63px; border-radius: 100%; margin-top: 5px;" align="absmiddle" /></a>
 							</div>
 							<div style="clear: both;"></div>
 						</div>
 						<div style="padding-top: 5px">
-							<div style="float: left; padding-left: 1px; margin-top: -2px;" ng-repeat="s in row.starList">
+							<% for(var s in obj[index].starList) { %>
+							<div style="float: left; padding-left: 1px; margin-top: -2px;">
 								<img src="img1/n2sel.png" width="16.7" height="16" align="absmiddle" />
 							</div>
-							<span style="padding-left: 5px; font-size: 14px; color: #909090;" ng-cloak> {{row.comment}} · {{row.feature3}}</span>
-							<div style="float: right; color: #fd6e7f; font-size: 16px;" ng-cloak>{{row.owner}}</div>
+							<% } %>
+							<span style="padding-left: 5px; font-size: 14px; color: #909090;"> <%= obj[index].comment %> · <%= obj[index].feature3 %></span>
+							<div style="float: right; color: #fd6e7f; font-size: 16px;">
+								<%= obj[index].owner %>
+							</div>
 							<div style="clear: both;"></div>
 						</div>
 					</div>
-				</div></a>
-				<div style="height:1px;padding:0px auto;margin:0px 2% 2% 2%;background-color:#D5D5D5;overflow:hidden;" ng-show="$index != bestsellerItems.length - 1"></div>
-				<div style="padding: 5px 0px 0px 0px;"></div>
-			</div>
-			<div style="background-color: white; padding:0 4% 6% 4%; text-align: center;">
-				<div><input type="button" ng-click="moreClicked()" style="border-style: none;" value="加载更多咖啡店" /> </div>
-			</div>
+				</div>
+			</a>
+			<div style="height:1px;padding:0px auto;margin:0px;background-color:#D5D5D5;overflow:hidden;"></div>
+			<div style="padding: 5px 0px 0px 0px;"></div>
 		</div>
-		
-		<div style="text-align: center; position: fixed; bottom: 0; width: 100%; z-index: 102;"><a href="nearby_cafemap.html?longitude={{locationModel.longitude}}&latitude={{locationModel.latitude}}"><img src="img1/n3.png" width="100%" align="absbottom"/></a></div>
+		<% } %>
 
-	</body>
-	<script type="text/javascript" src="js/mui.min.js"></script>
+	</script>
 	<script type="text/javascript" src="js/swiper-3.3.1.min.js"></script>
-	<script type="text/javascript" src="js/global.js"></script> 
+	<script type="text/javascript" src="js/zepto.min.js"></script>
+	<script type="text/javascript" src="js/zepto.alert.js"></script>
+	<script type="text/javascript" src="js/underscore-min-1.2.2.js"></script>
+	<script type="text/javascript" src="js/jweixin-1.0.0.js"></script>
+	<script type="text/javascript" src="js/jweixins-1.0.0.js"></script>
 	<script type="text/javascript" src="nearby_cafehouse.js"></script>
-
 </html>

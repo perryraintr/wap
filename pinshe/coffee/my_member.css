@@ -1,4 +1,14 @@
-.swiper-slide {
+html,
+body {
+	height: 100%;
+}
+
+.swiper-container {
+	width: 100%;
+	height: 100%;
+}
+
+/*.swiper-slide {
     text-align: center;
     font-size: 18px;
     display: -webkit-box;
@@ -30,4 +40,4 @@
  margin:0px;
  Height:26px;
  Width:60px;
-}
+}*/
