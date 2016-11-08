@@ -1,7 +1,6 @@
 var wcid = "";
 var memberModel = "";
 var choosePay = "";
-
 //wcid = "o1D_JwHikK5LBt_Y__Ukr9p4tKsY";
 
 var sd = localStorage.getItem("wid");
@@ -58,7 +57,7 @@ var chooseList = [{
 	"amount": ""
 }];
 
-$.getJSON("http://interface.pinshe.org/v1/member.a?wcid=" + wcid, function(response) {
+$.getJSON(getHeadUrl() + "member.a?wcid=" + wcid, function(response) {
 	memberModel = response.body;
 	
 	if(memberModel.phone.length == 0) {
@@ -76,7 +75,7 @@ $.getJSON("http://interface.pinshe.org/v1/member.a?wcid=" + wcid, function(respo
 					});
 					return false;
 				} else {
-					$.getJSON("http://interface.pinshe.org/v1/login.a?wcid=" + wcid + "&phone=" + phone, function(response) {
+					$.getJSON(getHeadUrl() + "login.a?wcid=" + wcid + "&phone=" + phone, function(response) {
 						localStorage.setItem("wid", response.body.wechat_id);
 						localStorage.setItem("tel", response.body.phone);
 						memberModel = response.body;
@@ -92,7 +91,6 @@ $.getJSON("http://interface.pinshe.org/v1/member.a?wcid=" + wcid, function(respo
 });
 
 function freshSwiper() {
-	$("#swiperSlideId").show();
 	if(memberModel.amount > 0) {
 		swiper.appendSlide(_.template($("#isMemberTemplate").html(), memberModel));
 		swiper.appendSlide(_.template($("#isMemberChooseTemplate").html(), chooseList));
@@ -137,7 +135,7 @@ function pay() {
 			"amounts": choosePay.amount + ","
 		};
 
-		$.post("http://interface.pinshe.org/v1/order_add.a", orderAddParamData, function(response) {
+		$.post(getHeadUrl() + "order_add.a", orderAddParamData, function(response) {
 			if(response.body.guid != undefined && response.body.guid > 0) {
 				location.href = "product_ordertotal.html?id=" + response.body.guid;
 			}

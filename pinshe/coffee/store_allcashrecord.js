@@ -61,4 +61,20 @@ app.controller("store_allcashrecord", function($scope, $http) {
 		});
 	}
 	
+	$scope.removeStoreMember = function(row) {
+		layer.msg("确定删除店铺成员", {
+			time: 0,
+			btn: ['确定', '取消'],
+			yes: function(index) {
+				layer.close(index);
+				$http.get(getHeadUrl() + "store_member_remove.a?id=" + row.guid).success(function(response) {
+					if(response.body.guid != undefined && response.body.guid > 0) {
+						layer.msg("删除成功");
+						location.reload();
+					}
+				});
+			}
+		});
+	}
+	
 });

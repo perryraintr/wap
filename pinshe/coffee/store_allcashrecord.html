@@ -22,7 +22,7 @@
 
 	<body>
 		<div>
-			<div ng-show="memberList.length > 0" ng-repeat="row in memberList">
+			<div ng-show="memberList.length > 0" ng-repeat="row in memberList" ng-click="removeStoreMember(row)">
 				<div style="padding-top: 10px;">
 					<div style="padding: 10px; background-color: white;">
 						<img ng-show="row.member_avatar.length > 0" ng-src="{{row.member_avatar}}" style="float: left; border-radius: 100%; width: 40px; height: 40px; margin-right: 10px;" />

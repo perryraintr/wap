@@ -3,9 +3,9 @@ app.controller("nearby_cafedetail", function($scope, $http) {
 	$scope.wcid = getwcid();
 	$scope.id = GetQueryInt("id");
 	
-//	$scope.wcid = "o1D_JwHikK5LBt_Y__Ukr9p4tKsY";
+	$scope.wcid = "o1D_JwHikK5LBt_Y__Ukr9p4tKsY";
 	//	$scope.wcid = "o1D_JwGiLMukMtRIo6HU5M0ngxPs";
-//	$scope.id = 83;
+	$scope.id = 59;
 	
 	if($scope.wcid.length == 0) {
 		location.href = "go.html?url=" + location.href;
@@ -60,7 +60,8 @@ app.controller("nearby_cafedetail", function($scope, $http) {
 				var end = start + 4;
 				$scope.resultFeature1.push($scope.store.feature1.slice(start, end));
 			}
-
+			console.log($scope.resultFeature1);
+			
 			$scope.store.feature2 = $scope.store.feature2.split(",");
 			$scope.resultFeature2 = [];
 			for(var x = 0; x < Math.ceil($scope.store.feature2.length / 4); x++) {

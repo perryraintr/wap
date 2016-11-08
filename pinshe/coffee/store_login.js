@@ -30,7 +30,7 @@ app.controller("store_login", function($scope, $http) {
 			if(response.body.guid != undefined && response.body.guid > 0) {
 				$scope.member = response.body;
 				if ($scope.getui.length > 0) {
-					$http.get(getHeadUrl() + "merchant_modify.a?id=" + $scope.member.guid + "&getui=" + $scope.getui).success(function(response) {});	
+					$http.get(getHeadUrl() + "merchant_modify.a?id=" + $scope.member.guid + "&getui=" + $scope.getui + "&device=1").success(function(response) {});	
 				}
 				
 				localStorage.setItem("store_tel", $scope.member.phone);
@@ -47,7 +47,7 @@ app.controller("store_login", function($scope, $http) {
 			if(response.body.array != undefined && response.body.array.length > 0) {
 				// 该人是店长
 				$scope.hasStore = true;
-				location.href = "store_managelist.html";
+				location.href = "store_managelist.html?getui=" + $scope.getui;
 			} else {
 				$scope.hasStore = false;
 				// 查询是否是店员

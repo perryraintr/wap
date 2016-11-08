@@ -23,7 +23,7 @@ if(wcid.length == 0) {
 		location.href = "go_base.html?url=" + location.href;
 	}
 } else {
-	$.getJSON("http://interface.pinshe.org/v1/member.a?wcid=" + wcid, function(response) {
+	$.getJSON(getHeadUrl() + "member.a?wcid=" + wcid, function(response) {
 		memberModel = response.body;
 		if(memberModel.amount > 0) {
 			$("#isMemberId").show();
@@ -36,7 +36,7 @@ if(wcid.length == 0) {
 	});
 }
 
-$.getJSON("http://interface.pinshe.org/v1/store.a?id=" + sid, function(response) {
+$.getJSON(getHeadUrl() + "store.a?id=" + sid, function(response) {
 	document.getElementById("storeName").innerHTML = response.body.name;
 });
 
@@ -83,7 +83,7 @@ $('#memberActionId').click(function() {
 		title: 'ok',
 		background: 'white',
 		ok: function() {
-			$.getJSON("http://interface.pinshe.org/v1/member.a?wcid=" + wcid, function(response) {
+			$.getJSON(getHeadUrl() + "member.a?wcid=" + wcid, function(response) {
 				memberModel = response.body;
 				if(memberModel.current >= money) {
 					var memberCurrent = memberModel.current - money;
@@ -97,11 +97,11 @@ $('#memberActionId').click(function() {
 						"amounts": money + ","
 					};
 
-					$.post('http://interface.pinshe.org/v1/order_add.a', orderAddParamData, function(response) {
+					$.post(getHeadUrl() + 'order_add.a', orderAddParamData, function(response) {
 						var order = response.body;
-						$.getJSON("http://interface.pinshe.org/v1/member_modify.a?id=" + memberModel.guid + "&current=" + memberCurrent, function(response) {
-							$.getJSON("http://interface.pinshe.org/v1/order_modify.a?type=1&status=3&id=" + order.guid, function(response) {
-								$.getJSON("http://interface.pinshe.org/v1/store_cash_add.a?sid=" + sid + "&memberid=" + memberModel.guid + "&oid=" + order.guid + "&amount=" + order.amount + "&type=1&status=1", function(response) {
+						$.getJSON(getHeadUrl() + "member_modify.a?id=" + memberModel.guid + "&current=" + memberCurrent, function(response) {
+							$.getJSON(getHeadUrl() + "order_modify.a?type=1&status=3&id=" + order.guid, function(response) {
+								$.getJSON(getHeadUrl() + "store_cash_add.a?sid=" + sid + "&memberid=" + memberModel.guid + "&oid=" + order.guid + "&amount=" + order.amount + "&type=1&status=1", function(response) {
 									location.href = "qrcode_done.html?orderno=" + order.order_no + "&id=" + sid;
 								});
 							});
@@ -162,10 +162,10 @@ $('#wxpayActionId').click(function() {
 		"amounts": money + ","
 	};
 
-	$.post('http://interface.pinshe.org/v1/order_add.a', orderAddParamData, function(response) {
+	$.post(getHeadUrl() + 'order_add.a', orderAddParamData, function(response) {
 		var order = response.body;
-		$.getJSON("http://interface.pinshe.org/v1/order_modify.a?type=2&id=" + order.guid, function(response) {
-			location.href = "http://interface.pinshe.org/v1/pay/wechat_pay.a?type=1&wcid=" + wcid + "&order_no=" + order.order_no + "-3-" + sid + "&amount=" + order.amount * 100;
+		$.getJSON(getHeadUrl() + "order_modify.a?type=2&id=" + order.guid, function(response) {
+			location.href = getHeadUrl() + "pay/wechat_pay.a?type=1&wcid=" + wcid + "&order_no=" + order.order_no + "-3-" + sid + "&amount=" + order.amount * 100;
 		});
 	});
 

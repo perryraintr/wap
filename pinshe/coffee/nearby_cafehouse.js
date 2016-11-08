@@ -31,7 +31,7 @@ if(wcid.length == 0) {
 		location.href = "go_base.html?url=" + location.href;
 	}
 } else {
-	$.getJSON("http://interface.pinshe.org/v1/wechat_sign.a?url=" + encodeURIComponent(location.href), function(response) {
+	$.getJSON(getHeadUrl() + "wechat_sign.a?url=" + encodeURIComponent(location.href), function(response) {
 		var wecharSign = response;
 		wx.config({
 			debug: false,
@@ -82,7 +82,7 @@ if(wcid.length == 0) {
 		loop: true
 	});
 
-	$.getJSON("http://interface.pinshe.org/v1/member.a?wcid=" + wcid, function(response) {
+	$.getJSON(getHeadUrl() + "member.a?wcid=" + wcid, function(response) {
 		memberModel = response.body;
 		if(memberModel.amount > 0) {
 			$("#isMemberId").show();
@@ -97,7 +97,7 @@ if(wcid.length == 0) {
 }
 
 function getList() {
-	$.getJSON("http://interface.pinshe.org/v1/store.a?longitude=" + longitude + "&latitude=" + latitude + "&distance=" + distance + "&page=" + page, function(response) {
+	$.getJSON(getHeadUrl() + "store.a?longitude=" + longitude + "&latitude=" + latitude + "&distance=" + distance + "&page=" + page + "&by=1", function(response) {
 		if(response.body.array != undefined && response.body.array.length > 0) {
 			var storeModelList = response.body.array;
 			for(var i = 0; i < response.body.array.length; i++) {

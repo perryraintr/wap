@@ -1,14 +1,7 @@
 var app = angular.module("coffee", []);
 app.controller("store_setting", function($scope, $http) {
-	$scope.wcid = getwcid();
 	$scope.sid = GetQueryString("sid");
 //	$scope.sid = 88;
-//		$scope.wcid = "o1D_JwHikK5LBt_Y__Ukr9p4tKsY";
-
-	if($scope.wcid.length == 0) {
-		location.href = "go.html?url=" + location.href;
-		return;
-	}
 
 	$scope.isExpand = false;
 	$scope.description = "";
@@ -25,72 +18,64 @@ app.controller("store_setting", function($scope, $http) {
 		loop: true
 	});
 
+	$http.get(getHeadUrl() + "store.a?id=" + $scope.sid).success(function(response) {
+		$scope.store = response.body;
 
-	$http.get(getHeadUrl() + "member.a?wcid=" + $scope.wcid).success(function(response) {
-		$scope.member = response.body;
-		$scope.getStoreDetail();
+		$scope.store.posterUrl = "";
+		if($scope.store.video.length > 0) {
+			$("#videoId").show();
+			$scope.store.posterUrl = $scope.store.video.replace(".mp4", ".jpg");
+		}
+
+		$("#swiperwrapper").html("");
+		for(var i = 0; i < $scope.store.images.length; i++) {
+			swiper.appendSlide(_.template($('#templateSwiper').html())($scope.store.images[i]));
+		}
+
+		var itemimgs = document.getElementById("swiperwrapper").getElementsByClassName("picture");
+		for(var i = 0; i < itemimgs.length; i++) {
+			itemimgs[i].height = $(window).width() * 900 / 1242.0;
+		}
+
+		$scope.store.feature1 = $scope.store.feature1.split(",");
+		$scope.resultFeature1 = [];
+		for(var x = 0; x < Math.ceil($scope.store.feature1.length / 4); x++) {
+			var start = x * 4;
+			var end = start + 4;
+			$scope.resultFeature1.push($scope.store.feature1.slice(start, end));
+		}
+
+		$scope.store.feature2 = $scope.store.feature2.split(",");
+		$scope.resultFeature2 = [];
+		for(var x = 0; x < Math.ceil($scope.store.feature2.length / 4); x++) {
+			var start = x * 4;
+			var end = start + 4;
+			$scope.resultFeature2.push($scope.store.feature2.slice(start, end));
+		}
+
+		$scope.store.description = $scope.store.description.replace(/\n/g, "<br/>");
+		$scope.description = $scope.store.description;
+
+		if($scope.store.description.length > 150) {
+			$scope.store.description = $scope.store.description.toTrim(150, "...");
+		}
+		$("#descriptionId").html($scope.store.description);
+
+		$scope.store.date = $scope.store.date.replace(/\n/g, "<br/>");
+		$("#dateId").html($scope.store.date);
+
+		$scope.store.phone = $scope.store.phone.replace(/\n/g, "<br/>");
+		$("#phoneId").html($scope.store.phone);
+
+		var starNum = $scope.store.star / $scope.store.comment;
+		$scope.store.starList = [];
+		for(var j = 0; j < starNum; j++) {
+			$scope.store.starList.push(j);
+		}
+
+		$scope.getCommentList();
 	});
 
-	$scope.getStoreDetail = function() {
-		$http.get(getHeadUrl() + "store.a?id=" + $scope.sid).success(function(response) {
-			$scope.store = response.body;
-			
-			$scope.store.posterUrl = "";
-			if($scope.store.video.length > 0) {
-				$("#videoId").show();
-				$scope.store.posterUrl = $scope.store.video.replace(".mp4", ".jpg");
-			}
-
-			$("#swiperwrapper").html("");
-			for(var i = 0; i < $scope.store.images.length; i++) {
-				swiper.appendSlide(_.template($('#templateSwiper').html())($scope.store.images[i]));
-			}
-
-			var itemimgs = document.getElementById("swiperwrapper").getElementsByClassName("picture");
-			for(var i = 0; i < itemimgs.length; i++) {
-				itemimgs[i].height = $(window).width() * 900 / 1242.0;
-			}
-
-			$scope.store.feature1 = $scope.store.feature1.split(",");
-			$scope.resultFeature1 = [];
-			for(var x = 0; x < Math.ceil($scope.store.feature1.length / 4); x++) {
-				var start = x * 4;
-				var end = start + 4;
-				$scope.resultFeature1.push($scope.store.feature1.slice(start, end));
-			}
-
-			$scope.store.feature2 = $scope.store.feature2.split(",");
-			$scope.resultFeature2 = [];
-			for(var x = 0; x < Math.ceil($scope.store.feature2.length / 4); x++) {
-				var start = x * 4;
-				var end = start + 4;
-				$scope.resultFeature2.push($scope.store.feature2.slice(start, end));
-			}
-
-			$scope.store.description = $scope.store.description.replace(/\n/g, "<br/>");
-			$scope.description = $scope.store.description;
-
-			if($scope.store.description.length > 150) {
-				$scope.store.description = $scope.store.description.toTrim(150, "...");
-			}
-			$("#descriptionId").html($scope.store.description);
-
-			$scope.store.date = $scope.store.date.replace(/\n/g, "<br/>");
-			$("#dateId").html($scope.store.date);
-
-			$scope.store.phone = $scope.store.phone.replace(/\n/g, "<br/>");
-			$("#phoneId").html($scope.store.phone);
-
-			var starNum = $scope.store.star / $scope.store.comment;
-			$scope.store.starList = [];
-			for(var j = 0; j < starNum; j++) {
-				$scope.store.starList.push(j);
-			}
-			
-			$scope.getCommentList();
-		});
-	}
-	
 	$scope.getCommentList = function() {
 		$http.get(getHeadUrl() + "store_comment.a?sid=" + $scope.sid + "&page=" + $scope.page).success(function(response) {
 			if(response.body.array != undefined && response.body.array.length > 0) {
@@ -106,7 +91,7 @@ app.controller("store_setting", function($scope, $http) {
 			}
 		});
 	}
-	
+
 	$scope.readDescription = function() {
 		$scope.isExpand = true;
 		$scope.store.description = $scope.description;
@@ -133,7 +118,7 @@ app.controller("store_setting", function($scope, $http) {
 			layer.msg("请填写联系电话");
 			return;
 		}
-		
+
 		if($scope.store.slogan.length > 100) {
 			layer.msg("描述字数不得超过100字");
 			return;
@@ -146,13 +131,13 @@ app.controller("store_setting", function($scope, $http) {
 			layer.msg("联系电话不得超过100字");
 			return;
 		}
-		
+
 		$scope.store.date = $scope.store.date.replace(/\n/g, "<br/>");
 		$("#dateId").html($scope.store.date);
 
 		$scope.store.phone = $scope.store.phone.replace(/\n/g, "<br/>");
 		$("#phoneId").html($scope.store.phone);
-		
+
 		//iframe层
 		layer.open({
 			type: 1,
@@ -161,7 +146,7 @@ app.controller("store_setting", function($scope, $http) {
 			shadeClose: false,
 			shade: 0.8,
 			area: ["100%", '100%'],
-			content:  $("#cafeDetailId")
+			content: $("#cafeDetailId")
 		});
 
 	}
@@ -197,7 +182,7 @@ app.controller("store_setting", function($scope, $http) {
 			layer.msg("联系电话不得超过100字");
 			return;
 		}
-		
+
 		$http({
 			method: 'POST',
 			url: getHeadUrl() + "store_modify.a",

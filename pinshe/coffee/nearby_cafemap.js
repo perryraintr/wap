@@ -35,25 +35,25 @@ app.controller("nearby_cafemap", function($scope, $http) {
 	});
 	mapObject.setCenter(marker.getPosition());
 
-	AMap.event.addListener(mapObject, 'dragend', function() {
-		$scope.resetMapMarker(mapObject.getCenter());
-	});
-
-	$scope.resetMapMarker = function(center) {
-		$scope.longitude = center.lng;
-		$scope.latitude = center.lat;
-		$scope.getList();
-	}
-
-	AMap.plugin('AMap.Geocoder', function() {
-		mapObject.on('click', function(e) {
-			$scope.resetMapMarker(e.lnglat);
-		})
-	});
+//	AMap.event.addListener(mapObject, 'dragend', function() {
+//		$scope.resetMapMarker(mapObject.getCenter());
+//	});
+//
+//	$scope.resetMapMarker = function(center) {
+//		$scope.longitude = center.lng;
+//		$scope.latitude = center.lat;
+//		$scope.getList();
+//	}
+//
+//	AMap.plugin('AMap.Geocoder', function() {
+//		mapObject.on('click', function(e) {
+//			$scope.resetMapMarker(e.lnglat);
+//		})
+//	});
 
 	$scope.getList = function() {
 		var distance = 9007199254740993;
-		$http.get(getHeadUrl() + "store.a?longitude=" + $scope.longitude + "&latitude=" + $scope.latitude + "&real_longitude=" + $scope.peopleLongitude + "&real_latitude=" + $scope.peopleLatitude + "&distance=" + distance + "&page=1&by=1").success(function(response) {
+		$http.get(getHeadUrl() + "store.a?longitude=" + $scope.longitude + "&latitude=" + $scope.latitude + "&real_longitude=" + $scope.peopleLongitude + "&real_latitude=" + $scope.peopleLatitude + "&distance=" + distance + "&page=1&by=1&all=1").success(function(response) {
 			if (response.body.array != undefined && response.body.array.length > 0) {
 				for (var i = 0; i < response.body.array.length; i++) {
 					$scope.newStore = response.body.array[i];
@@ -126,7 +126,7 @@ app.controller("nearby_cafemap", function($scope, $http) {
 		for(var j = 0; j < $scope.makerList.length; j++) {
 			$scope.marke = $scope.makerList[j];
 			console.log($scope.marke);
-			if($scope.marke.Af.title == e.target.Af.title) {
+			if($scope.marke.H.title == e.target.H.title) {
 				$scope.marke.setIcon("http://www.pinshe.org/html/v1/coffee/img1/n11.png");
 				$scope.marke.setzIndex(101);
 			} else {
@@ -144,7 +144,7 @@ app.controller("nearby_cafemap", function($scope, $http) {
 				$scope.store.starList.push(j);
 			}
 
-			if($scope.store.name == e.target.Af.title) {
+			if($scope.store.name == e.target.H.title) {
 				$("#currenStoreId").html(_.template($('#templateId').html())($scope.store));
 			}
 

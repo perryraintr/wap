@@ -1,10 +1,14 @@
 var app = angular.module("coffee", []);
 app.controller("store_register", function($scope, $http, $interval) {
+	$scope.getui = GetQueryString("getui");
 	$scope.wcid = getwcid();
 //	$scope.wcid = "o1D_JwHikK5LBt_Y__Ukr9p4tKsY";
 	if($scope.wcid.length == 0) {
-		location.href = "go.html?url=" + location.href;
-		return;
+		if ($scope.getui.length > 0) {
+		} else {
+			location.href = "go.html?url=" + location.href;
+			return;	
+		}	
 	}
 	
 	if (GetQueryString("isBoss") == "true") {
@@ -123,7 +127,7 @@ app.controller("store_register", function($scope, $http, $interval) {
 					$http.get(getHeadUrl() + "wechat_send.a?wcid=o1D_JwFbCrjU1rPJdO6-ljRQC5qE&m=" + $scope.isBossStr + "： 手机号为：" + phone + " 用户id为：" + response.body.guid).success(function(response) {}).finally(function() {
 						$http.get(getHeadUrl() + "wechat_send.a?wcid=o1D_JwHikK5LBt_Y__Ukr9p4tKsY&m=" + $scope.isBossStr + "： 手机号为：" + phone + " 用户id为：" + response.body.guid).success(function(response) {}).finally(function() {
 							$http.get(getHeadUrl() + "wechat_send.a?wcid=o1D_JwGKMNWZmBYLxghYYw0GIlUg&m=" + $scope.isBossStr + "： 手机号为：" + phone + " 用户id为：" + response.body.guid).success(function(response) {}).finally(function() {
-								location.href = "store_login.html";
+								location.href = "store_login.html?getui=" + $scope.getui;
 							});
 						});
 					});
