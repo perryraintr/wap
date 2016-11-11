@@ -3,9 +3,9 @@ app.controller("nearby_cafedetail", function($scope, $http) {
 	$scope.wcid = getwcid();
 	$scope.id = GetQueryInt("id");
 	
-	$scope.wcid = "o1D_JwHikK5LBt_Y__Ukr9p4tKsY";
-	//	$scope.wcid = "o1D_JwGiLMukMtRIo6HU5M0ngxPs";
-	$scope.id = 59;
+//	$scope.wcid = "o1D_JwHikK5LBt_Y__Ukr9p4tKsY";
+//		$scope.wcid = "o1D_JwGiLMukMtRIo6HU5M0ngxPs";
+//	$scope.id = 59;
 	
 	if($scope.wcid.length == 0) {
 		location.href = "go.html?url=" + location.href;
@@ -53,21 +53,19 @@ app.controller("nearby_cafedetail", function($scope, $http) {
 				itemimgs[i].height = $(window).width() * 900 / 1242.0;
 			}
 
-			$scope.store.feature1 = $scope.store.feature1.split(",");
 			$scope.resultFeature1 = [];
-			for(var x = 0; x < Math.ceil($scope.store.feature1.length / 4); x++) {
+			for(var x = 0; x < Math.ceil($scope.store.feature1s.length / 4); x++) {
 				var start = x * 4;
 				var end = start + 4;
-				$scope.resultFeature1.push($scope.store.feature1.slice(start, end));
+				$scope.resultFeature1.push($scope.store.feature1s.slice(start, end));
 			}
 			console.log($scope.resultFeature1);
 			
-			$scope.store.feature2 = $scope.store.feature2.split(",");
 			$scope.resultFeature2 = [];
-			for(var x = 0; x < Math.ceil($scope.store.feature2.length / 4); x++) {
+			for(var x = 0; x < Math.ceil($scope.store.feature2s.length / 4); x++) {
 				var start = x * 4;
 				var end = start + 4;
-				$scope.resultFeature2.push($scope.store.feature2.slice(start, end));
+				$scope.resultFeature2.push($scope.store.feature2s.slice(start, end));
 			}
 
 			$scope.store.description = $scope.store.description.replace(/\n/g, "<br/>");

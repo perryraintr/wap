@@ -70,16 +70,16 @@
 				<div ng-repeat="row in resultFeature2">
 					<div ng-repeat="number in row">
 						<div ng-show="row.length == 1" style="text-align: center;" ng-cloak>
-							<img ng-src="img1/nf2{{number}}.png" width="25%" />
+							<img ng-src="{{number.url}}" width="25%" />
 						</div>
 						<div ng-show="row.length == 2" style="float: left; width: 50%; text-align: center;" ng-cloak>
-							<img ng-src="img1/nf2{{number}}.png" width="50%" />
+							<img ng-src="{{number.url}}" width="50%" />
 						</div>
 						<div ng-show="row.length == 3" style="float: left; width: 32%; text-align: center;" ng-cloak>
-							<img ng-src="img1/nf2{{number}}.png" width="78.125%" />
+							<img ng-src="{{number.url}}" width="78.125%" />
 						</div>
 						<div ng-show="row.length == 4" style="float: left; width: 25%; text-align: center;" ng-cloak>
-							<img ng-src="img1/nf2{{number}}.png" width="100%" />
+							<img ng-src="{{number.url}}" width="100%" />
 						</div>
 					</div>
 				</div>
@@ -160,16 +160,16 @@
 				<div ng-repeat="row in resultFeature1">
 					<div ng-repeat="number in row">
 						<div ng-show="row.length == 1" style="text-align: center; padding-top: 10px;" ng-cloak>
-							<img ng-src="img1/nf1{{number}}.png" width="20%" />
+							<img ng-src="{{number.url}}" width="20%" />
 						</div>
 						<div ng-show="row.length == 2" style="float: left; width: 50%; text-align: center; padding-top: 10px;" ng-cloak>
-							<img ng-src="img1/nf1{{number}}.png" width="40%" />
+							<img ng-src="{{number.url}}" width="40%" />
 						</div>
 						<div ng-show="row.length == 3" style="float: left; width: 32%; text-align: center; padding-top: 10px;" ng-cloak>
-							<img ng-src="img1/nf1{{number}}.png" width="62.5%" />
+							<img ng-src="{{number.url}}" width="62.5%" />
 						</div>
 						<div ng-show="row.length == 4" style="float: left; width: 25%; text-align: center; padding-top: 10px;" ng-cloak>
-							<img ng-src="img1/nf1{{number}}.png" width="80%" />
+							<img ng-src="{{number.url}}" width="80%" />
 						</div>
 					</div>
 				</div>

@@ -1,7 +1,7 @@
 var app = angular.module("coffee", []);
 app.controller("store_setting", function($scope, $http) {
 	$scope.sid = GetQueryString("sid");
-//	$scope.sid = 88;
+//	$scope.sid = 59;
 
 	$scope.isExpand = false;
 	$scope.description = "";
@@ -183,10 +183,17 @@ app.controller("store_setting", function($scope, $http) {
 			return;
 		}
 
+		var storeModifyData = {
+			"id": $scope.sid,
+			"slogan": $scope.store.slogan,
+			"date": $scope.store.date,
+			"phone": $scope.store.phone
+		};
+
 		$http({
 			method: 'POST',
 			url: getHeadUrl() + "store_modify.a",
-			data: "id=" + $scope.sid + "&slogan=" + $scope.store.slogan + "&date=" + $scope.store.date + "&phone=" + $scope.store.phone,
+			data: $.param(storeModifyData),
 			headers: {
 				'Content-Type': 'application/x-www-form-urlencoded'
 			}
